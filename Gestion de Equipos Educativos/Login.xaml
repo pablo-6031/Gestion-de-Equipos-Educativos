@@ -1,0 +1,30 @@
+﻿<Window x:Class="Gestion_de_Equipos_Educativos.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="260*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="{StaticResource ButtonColor}" Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFondo}" StrokeThickness=" 5"/>
+        <Ellipse x:Name="Foto" Margin="35" Stroke="{StaticResource colorFondo}" StrokeThickness="5" >
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Imagenes/user.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <StackPanel Grid.Row="1">
+            <TextBox Name="txtLoginName" Text="Usuario" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxTextos}" GotKeyboardFocus="txtLoginName_GotKeyboardFocus" LostKeyboardFocus="txtLoginName_LostKeyboardFocus"/>
+
+            <PasswordBox x:Name="txtPassword" Password="Contraseña" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource PasswordBoxTextos}" LostKeyboardFocus="txtPassword_LostKeyboardFocus" GotKeyboardFocus="txtPassword_GotKeyboardFocus" ></PasswordBox>
+        </StackPanel>
+        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Width="100" Height="40" Template="{StaticResource ButtonPlay}" Click="btnIngresar_Click"/>
+        <Button x:Name="btnCerrar" Content="X" Grid.Row="0" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10"  Click="btnCerrar_Click"/>
+
+    </Grid>
+</Window>
