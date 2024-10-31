@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EquipoController.cs" />
     <Compile Include="UsuarioController.cs" />
   </ItemGroup>
   <ItemGroup>

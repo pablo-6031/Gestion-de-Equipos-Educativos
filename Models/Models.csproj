@@ -157,6 +157,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="ConnectionToSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EquipoDao.cs" />
     <Compile Include="UsuarioDao.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,6 @@ namespace Entities
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Dni { get; set; }
-        public string Legajo { get; set; }
         public string Rol { get; set; }
         public string Correo { get; set; }
         public string Direccion { get; set; }

@@ -5,9 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-        
+        Title="MainWindow" Height="900" Width="1500" WindowStyle="None">
+    <Grid MouseLeftButtonDown="mover" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="37*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="53*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="Black"  Grid.ColumnSpan="2" RadiusY="4.671" RadiusX="4.671" Grid.RowSpan="3"/>
+        <StackPanel Margin="0,15,0,0" Grid.Row="2">
+            <Button x:Name="btnUsuarios" Content="Usuarios" Width="100" Height="40" Click="btnUsuarios_Click" Background="#FFAB3A3A"/>
+            <Button x:Name="btnInventario" Content="Inventario" Width="100" Height="40"  Click="btnInventario_Click" Background="#FFB32020"/>
+        </StackPanel>
+        <Ellipse Grid.Row="0" x:Name="FotoUsuario"  Stroke="{StaticResource colorFondo}" StrokeThickness="5" Margin="10,0,10,8" >
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Imagenes/user.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" Margin="0,172,0,0" Grid.RowSpan="2" Width="70" >
+            <Label Name="txtUsuario" Content="Usuario" Foreground="White" FontSize="18"/>
+            <Label Name="txtRol" Content="Rol" Foreground="White" />
+        </StackPanel>
+        <Frame x:Name="FramePrincipal" Grid.Column="1" Grid.Row="1"  Grid.RowSpan="2"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,2,0,0" NavigationUIVisibility="Hidden" Source="Paginas/Usuarios.xaml" Height="700" Width="1300"/>
+
+
     </Grid>
 </Window>

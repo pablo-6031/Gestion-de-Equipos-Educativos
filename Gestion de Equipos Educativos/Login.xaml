@@ -5,26 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
+        Title="Login" Height="450" Width="300" Foreground="#FF140B0B" >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="81*"/>
+            <ColumnDefinition Width="19*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="260*"/>
             <RowDefinition Height="90*"/>
             <RowDefinition Height="90*"/>
         </Grid.RowDefinitions>
-        <Rectangle Fill="{StaticResource ButtonColor}" Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFondo}" StrokeThickness=" 5"/>
-        <Ellipse x:Name="Foto" Margin="35" Stroke="{StaticResource colorFondo}" StrokeThickness="5" >
+        <Rectangle Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFondo}" StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="2"/>
+        <Ellipse x:Name="Foto" Margin="35,40,38,39" Stroke="{StaticResource colorFondo}" StrokeThickness="5" Grid.ColumnSpan="2" >
             <Ellipse.Fill>
                 <ImageBrush ImageSource="Imagenes/user.jpg"/>
             </Ellipse.Fill>
         </Ellipse>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.ColumnSpan="2" Margin="0,256,0,0" Grid.RowSpan="2">
             <TextBox Name="txtLoginName" Text="Usuario" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxTextos}" GotKeyboardFocus="txtLoginName_GotKeyboardFocus" LostKeyboardFocus="txtLoginName_LostKeyboardFocus"/>
 
             <PasswordBox x:Name="txtPassword" Password="Contraseña" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource PasswordBoxTextos}" LostKeyboardFocus="txtPassword_LostKeyboardFocus" GotKeyboardFocus="txtPassword_GotKeyboardFocus" ></PasswordBox>
         </StackPanel>
-        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Width="100" Height="40" Template="{StaticResource ButtonPlay}" Click="btnIngresar_Click"/>
-        <Button x:Name="btnCerrar" Content="X" Grid.Row="0" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10"  Click="btnCerrar_Click"/>
+        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Width="100" Height="40" Click="btnIngresar_Click" Background="#FFDA5F1F" Margin="100,25,43,24"/>
+        <Button x:Name="btnCerrar" Content="X" Grid.Row="0" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0"  Click="btnCerrar_Click" Grid.Column="1"/>
 
     </Grid>
 </Window>

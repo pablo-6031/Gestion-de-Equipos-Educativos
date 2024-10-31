@@ -32,6 +32,40 @@
         <GradientStop Color="#FF76670B" Offset="0.5"/>
         <GradientStop Color="#FFC3E436" Offset="1"/>
     </LinearGradientBrush>
+
+    
+
+    <Style x:Key="ListViewItemNormalDataGrid" TargetType="{x:Type DataGridRow}" >
+        <Setter Property="Height" Value="55" />
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#5EF4E057" />
+        <Setter Property="Foreground" Value="#FF07026A"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFFC704" Offset="0.986"/>
+                            <GradientStop Color="#FFF4E057" Offset="0.5"/>
+                            <GradientStop Color="#FFF4E057" Offset="0.51"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <DropShadowEffect x:Key="ButtonPressed" ShadowDepth="0" Color="Yellow" BlurRadius="15"/>
+
+    <SolidColorBrush x:Key="VerdeTransparente" Color="#80FF00FF"/>
+    <!-- Ajusta el color y la opacidad según tus necesidades -->
+
+    <DataTemplate x:Key="GreenHeaderTransparente">
+        <!--Este template espara la colorear el header de la lista de Estudiantes -->
+        <StackPanel Orientation="Horizontal" Margin="-5,-5,-5,-5" Width="450" Background="{DynamicResource VerdeTransparente}">
+            <TextBlock Margin="8,6,8,6" Text="{Binding}" HorizontalAlignment="Center" FontSize="12" VerticalAlignment="Center" Foreground="Black"/>
+        </StackPanel>
+    </DataTemplate>
+
     <!--#EndRegion COLORES-->
 
     <!--#Region PLANTILLAS-->
@@ -73,7 +107,8 @@
     <!--#EndRegion PLANTILLAS-->
 
     <!--#Region ESTILOS-->
-    <DropShadowEffect x:Key="ButtonPressed" ShadowDepth="0" Color="Yellow" BlurRadius="15"/>
+
+    
 
     <Style x:Key="TextBoxTextos" TargetType="{x:Type TextBox}">
         <Setter Property="Background" Value="{x:Null}"/>
