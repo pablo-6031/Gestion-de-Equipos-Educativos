@@ -43,7 +43,6 @@ namespace Models
                     command.Parameters.AddWithValue("@password", usuario.Password);
                     command.Parameters.AddWithValue("@nombre", usuario.Nombre);
                     command.Parameters.AddWithValue("@apellido", usuario.Apellido);
-                    command.Parameters.AddWithValue("@legajo", usuario.Legajo);
                     command.Parameters.AddWithValue("@rol", usuario.Rol);
                     command.Parameters.AddWithValue("@correo", usuario.Correo);
                     command.Parameters.AddWithValue("@direccion", usuario.Direccion);
@@ -73,7 +72,6 @@ namespace Models
                     command.Parameters.AddWithValue("@apellido", usu.Apellido);
                     command.Parameters.AddWithValue("@dni", usu.Dni);
                     command.Parameters.AddWithValue("@rol", usu.Rol);
-                    command.Parameters.AddWithValue("@legajo", usu.Legajo);
                     command.Parameters.AddWithValue("@correo", usu.Correo);
                     command.Parameters.AddWithValue("@direccion", usu.Direccion);
                     command.Parameters.AddWithValue("@foto", usu.Foto);
@@ -170,7 +168,6 @@ namespace Models
                             UsuarioCache.Nombre = reader.GetString(3);
                             UsuarioCache.Apellido = reader.GetString(4);
                             UsuarioCache.Dni = reader.GetString(5);
-                            UsuarioCache.Legajo = reader.GetString(6);
                             UsuarioCache.Rol = reader.GetString(7);
                             UsuarioCache.Correo = reader.GetString(8);
                             UsuarioCache.Direccion = reader.GetString(9);
