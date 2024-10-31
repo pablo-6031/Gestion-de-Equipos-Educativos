@@ -90,7 +90,7 @@
                        HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="110" Margin="91,19,0,0"/>
             <TextBlock Text="DNI:" Grid.Row="0" Grid.Column="3"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,0,45" Grid.RowSpan="2" Width="35">
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="30" Margin="0,0,0,60" Grid.RowSpan="2" Width="35">
             </TextBlock>
             <TextBlock Text="APELLIDO:" Grid.Row="1" Grid.Column="3"
                        VerticalAlignment="Bottom"
@@ -99,20 +99,19 @@
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95">
             </TextBlock>
-            <TextBlock Text="ROL:" Grid.Row="3" Grid.Column="3"
+            <TextBlock Text="ROL:" Grid.Row="4" Grid.Column="3"
            VerticalAlignment="Bottom"
-           HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="48" Margin="0,0,0,1">
-            </TextBlock>
+           HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="26" Width="48" Margin="0,0,0,36" RenderTransformOrigin="0.542,2.35"/>
             <TextBox x:Name="txtIdUsuario" 
                      Grid.Column="2" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtNOMBRE" 
+            <TextBox x:Name="txtNombre" 
                      Grid.Row="1" 
                      Grid.Column="2" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtMAIL" 
+            <TextBox x:Name="txtCorreo" 
                      Grid.Row="2" 
                      Grid.Column="2" 
                      Style="{StaticResource TextBoxTextos}"
@@ -122,22 +121,22 @@
                      Grid.Column="2" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtDNI" 
+            <TextBox x:Name="txtDni" 
                      Grid.Column="4" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtAPELLIDO" 
+            <TextBox x:Name="txtApellido" 
                      Grid.Row="1" 
                      Grid.Column="4" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtDIRECCION" 
+            <TextBox x:Name="txtDireccion" 
                      Grid.Row="2" 
                      Grid.Column="4" 
                      Style="{StaticResource TextBoxTextos}"
                      Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
 
-            <ComboBox x:Name="cmbRol" Grid.Column="4" Grid.Row="3" Margin="10,16,55,0">
+            <ComboBox x:Name="cmbRol" Grid.Column="4" Grid.Row="4" Margin="10,20,55,20">
                 <ComboBoxItem Content="Administrador"/>
                 <ComboBoxItem Content="Docente"/>
                 <ComboBoxItem Content="Preceptor"/>
@@ -166,12 +165,20 @@
 
 
             </StackPanel>
+            <TextBlock Text="PASSWORD:" Grid.Row="3" Grid.Column="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="110" Margin="103,20,0,0" RenderTransformOrigin="0.591,0.547" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtPassword" 
+                Grid.Row="3" 
+                Grid.Column="4" 
+                Style="{StaticResource TextBoxTextos}"
+                Margin="10,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="1.374,0.494"/>
 
 
 
         </Grid>
         <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGEstudiantes" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">
+            <DataGrid Name="DGUsuarios" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>

@@ -21,7 +21,7 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "sp_ListarUsuarios";
+                    command.CommandText = "listarUsuarios";
                     command.CommandType = CommandType.StoredProcedure;
                     reader = command.ExecuteReader();
                     listaUsuarios.Load(reader);
@@ -39,16 +39,16 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@loginName", usuario.LoginName);
-                    command.Parameters.AddWithValue("@password", usuario.Password);
-                    command.Parameters.AddWithValue("@nombre", usuario.Nombre);
-                    command.Parameters.AddWithValue("@apellido", usuario.Apellido);
-                    command.Parameters.AddWithValue("@rol", usuario.Rol);
-                    command.Parameters.AddWithValue("@correo", usuario.Correo);
+                    command.Parameters.AddWithValue("@pLoginName", usuario.LoginName);
+                    command.Parameters.AddWithValue("@pPassword", usuario.Password);
+                    command.Parameters.AddWithValue("@pNombres", usuario.Nombre);
+                    command.Parameters.AddWithValue("@pApellidos", usuario.Apellido);
+                    command.Parameters.AddWithValue("@pIdRol", usuario.Rol);
+                    command.Parameters.AddWithValue("@pCorreo", usuario.Correo);
                     command.Parameters.AddWithValue("@direccion", usuario.Direccion);
-                    command.Parameters.AddWithValue("@dni", usuario.Dni);
-                    command.Parameters.AddWithValue("@foto", usuario.Foto);
-                    command.CommandText = "sp_AgregarUsuario";
+                    command.Parameters.AddWithValue("@pDNI", usuario.Dni);
+                    command.Parameters.AddWithValue("@pFoto", usuario.Foto);
+                    command.CommandText = "agregarUsuario";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
@@ -57,7 +57,7 @@ namespace Models
             }
         }
 
-        public void EditarUsuario(Usuario usu)
+        public void EditarUsuario(Usuario usuario)
         {
             using (var connection = GetConnection())
             {
@@ -65,17 +65,16 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@idUsuario", usu.IdUsuario);
-                    command.Parameters.AddWithValue("@loginName", usu.LoginName);
-                    command.Parameters.AddWithValue("@password", usu.Password);
-                    command.Parameters.AddWithValue("@nombre", usu.Nombre);
-                    command.Parameters.AddWithValue("@apellido", usu.Apellido);
-                    command.Parameters.AddWithValue("@dni", usu.Dni);
-                    command.Parameters.AddWithValue("@rol", usu.Rol);
-                    command.Parameters.AddWithValue("@correo", usu.Correo);
-                    command.Parameters.AddWithValue("@direccion", usu.Direccion);
-                    command.Parameters.AddWithValue("@foto", usu.Foto);
-                    command.CommandText = "sp_EditarUsuario";
+                    command.Parameters.AddWithValue("@pLoginName", usuario.LoginName);
+                    command.Parameters.AddWithValue("@pPassword", usuario.Password);
+                    command.Parameters.AddWithValue("@pNombres", usuario.Nombre);
+                    command.Parameters.AddWithValue("@pApellidos", usuario.Apellido);
+                    command.Parameters.AddWithValue("@pIdRol", usuario.Rol);
+                    command.Parameters.AddWithValue("@pCorreo", usuario.Correo);
+                    command.Parameters.AddWithValue("@direccion", usuario.Direccion);
+                    command.Parameters.AddWithValue("@pDNI", usuario.Dni);
+                    command.Parameters.AddWithValue("@pFoto", usuario.Foto);
+                    command.CommandText = "editarUsuario";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
@@ -92,8 +91,8 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@idUsuario", IdUsuario);
-                    command.CommandText = "sp_EliminarUsuario";
+                    command.Parameters.AddWithValue("@pIdUsuario", IdUsuario);
+                    command.CommandText = "eliminarUsuario";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
                 }
@@ -102,24 +101,24 @@ namespace Models
 
         public DataTable ListarUsuarioFiltrado(string sp, string param)
         {
-            string storProc = "sp_ListarUsuariosXApellido";
+            string storProc = "listarUsuariosXApellido";
             string parametro = "@apellido";
 
             if (sp == "xLoginName")
             {
-                storProc = "sp_ListarUsuariosXLoginName";
+                storProc = "listarUsuariosXLoginName";
                 parametro = "@loginName";
             }
             else
             {
                 if (sp == "xApellido")
                 {
-                    storProc = "sp_ListarUsuariosXApellido";
+                    storProc = "listarUsuariosXApellido";
                     parametro = "@apellido";
                 }
                 else
                 {
-                    storProc = "sp_ListarUsuariosXLegajo";
+                    storProc = "listarUsuariosXLegajo";
                     parametro = "@legajo";
                 }
             }
@@ -153,9 +152,9 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@loginName", loginName);
-                    command.Parameters.AddWithValue("@password", password);
-                    command.CommandText = "select * from  USUARIOS where LoginName = @loginName and Password = @password";
+                    command.Parameters.AddWithValue("@pLoginName", loginName);
+                    command.Parameters.AddWithValue("@pPassword", password);
+                    command.CommandText = "select * from  USUARIOS where LoginName = @pLoginName and Password = @pPassword";
                     command.CommandType = CommandType.Text;
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
@@ -163,14 +162,14 @@ namespace Models
                         while (reader.Read())
                         {
                             UsuarioCache.IdUsuario = reader.GetInt32(0);
-                            UsuarioCache.LoginName = reader.GetString(1);
-                            UsuarioCache.Password = reader.GetString(2);
-                            UsuarioCache.Nombre = reader.GetString(3);
-                            UsuarioCache.Apellido = reader.GetString(4);
-                            UsuarioCache.Dni = reader.GetString(5);
+                            UsuarioCache.LoginName = reader.GetString(5);
+                            UsuarioCache.Password = reader.GetString(8);
+                            UsuarioCache.Nombre = reader.GetString(2);
+                            UsuarioCache.Apellido = reader.GetString(1);
+                            UsuarioCache.Dni = reader.GetString(3);
                             UsuarioCache.Rol = reader.GetString(7);
-                            UsuarioCache.Correo = reader.GetString(8);
-                            UsuarioCache.Direccion = reader.GetString(9);
+                            UsuarioCache.Correo = reader.GetString(4);
+                            UsuarioCache.Direccion = reader.GetString(6);
                             byte[] fotoDB = reader[10] != DBNull.Value ? (byte[])reader[10] : null;
                             UsuarioCache.Foto = fotoDB;
                         }
@@ -194,8 +193,8 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "select Foto from USUARIOS where IdUsuario = @idUsuario";
-                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    command.CommandText = "select Foto from USUARIOS where IdUsuario = @pIdUsuario";
+                    command.Parameters.AddWithValue("@pIdUsuario", idUsuario);
                     command.CommandType = CommandType.Text;
                     leerfilas = command.ExecuteReader();
                     if (leerfilas.Read())

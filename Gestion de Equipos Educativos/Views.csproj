@@ -242,6 +242,10 @@
       <Project>{6d7e227c-92fd-4c58-ab92-834cfcab9395}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{ae0e4759-a4ac-4eb6-92f4-e30095889511}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\user.jpg" />
