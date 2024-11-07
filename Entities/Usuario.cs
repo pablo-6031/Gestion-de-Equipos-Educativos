@@ -11,12 +11,11 @@ namespace Entities
         public int IdUsuario { get; set; }
         public string LoginName { get; set; }
         public string Password { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Dni { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
+        public string Cuil { get; set; }
         public string Rol { get; set; }
         public string Correo { get; set; }
-        public string Direccion { get; set; }
         public byte[] Foto { get; set; }
     }
 }

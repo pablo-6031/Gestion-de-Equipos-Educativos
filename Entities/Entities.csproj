@@ -154,9 +154,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acta.cs" />
+    <Compile Include="AdMovil.cs" />
+    <Compile Include="Alumno.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="DetalleAdmEquipo.cs" />
+    <Compile Include="DetalleAlumnoEquipo.cs" />
+    <Compile Include="DetalleEquipoActa.cs" />
     <Compile Include="Equipo.cs" />
+    <Compile Include="Institucion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs" />
+    <Compile Include="Remito.cs" />
+    <Compile Include="ServicioTecnico.cs" />
+    <Compile Include="TipoEquipos.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UsuarioCache.cs" />
   </ItemGroup>
