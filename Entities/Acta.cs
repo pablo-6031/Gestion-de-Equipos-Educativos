@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entities
+{
+    internal class Acta
+    {
+        public int IdActa { get; set; }
+        public string NumeroActa { get; set; }
+        public string NumeroExpediente { get; set; }
+        public DateTime FechaEntrega { get; set; }
+        public string Responsable { get; set; }
+        public int IdUnidad { get; set; }
+        public byte[] Foto { get; set; }
+        public int IdProveedor { get; set; }
+        public int IdInstitucion { get; set; }
+    }
+}

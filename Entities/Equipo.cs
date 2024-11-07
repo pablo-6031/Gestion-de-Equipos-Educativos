@@ -9,10 +9,12 @@ namespace Entities
     public class Equipo
     {
         public int IdEquipo { get; set; }
-        public string Tipo { get; set; }
         public string NumSerie { get; set; }
-        public string Proveedor { get; set; }
-        public string Detalle { get; set; }
-        public byte[] Foto { get; set; }
+        public string Matricula { get; set; }
+        public string Estado { get; set; }
+        public string Observacion { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string Destino { get; set; }
+        public int IdUnidad { get; set; }
     }
 }
