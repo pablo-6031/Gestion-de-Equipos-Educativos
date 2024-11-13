@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace Entities
         public static string Correo { get; set; }
         public static string Direccion { get; set; }
         public static byte[] Foto { get; set; }
+        public static int IdInstitucion { get; set; }
     }
 }

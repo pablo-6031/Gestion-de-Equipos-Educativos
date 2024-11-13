@@ -192,14 +192,14 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Width="30"  Header="ID"  Binding="{Binding IdUsuario}"/>
-                    <DataGridTextColumn Width="100"  Header="DNI"  Binding="{Binding Dni}"/>
-                    <DataGridTextColumn Width="150"  Header="Nombre" Binding="{Binding Nombre}"/>
-                    <DataGridTextColumn Width="150"  Header="Apellido"  Binding="{Binding Apellido}"/>
+                    <DataGridTextColumn Width="100"  Header="Cuil"  Binding="{Binding Cuil}"/>
+                    <DataGridTextColumn Width="150"  Header="Nombres" Binding="{Binding Nombres}"/>
+                    <DataGridTextColumn Width="150"  Header="Apellidos"  Binding="{Binding Apellidos}"/>
                     <DataGridTextColumn Width="100"  Header="LoginName"  Binding="{Binding LoginName}"/>
                     <DataGridTextColumn Width="100"  Header="Password"  Binding="{Binding Password}"/>
                     <DataGridTextColumn Width="150"  Header="Correo" Binding="{Binding Correo}"/>
                     <DataGridTextColumn Width="120"  Header="Rol"  Binding="{Binding Rol}"/>
-                    <DataGridTextColumn Width="200"  Header="Direccion"  Binding="{Binding Direccion}"/>
+                    
                     <DataGridTemplateColumn Width="80" Header="ACCION" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

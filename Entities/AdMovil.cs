@@ -14,5 +14,6 @@ namespace Entities
         public string Matricula { get; set; }
         public string Descripcion { get; set; }
         public byte[] Foto { get; set; }
+        public int IdActa { get; set; }
     }
 }

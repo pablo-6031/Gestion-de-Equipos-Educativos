@@ -56,11 +56,10 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                             select new Usuario()
                             {
                                 IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
-                                Apellido = dr["Apellidos"].ToString(),
-                                Nombre = dr["Nombres"].ToString(),
+                                Apellidos = dr["Apellidos"].ToString(),
+                                Nombres = dr["Nombres"].ToString(),
                                 Correo = dr["Correo"].ToString(),
-                                Direccion = dr["Direccion"].ToString(),
-                                Dni = dr["Dni"].ToString(),
+                                Cuil = dr["Cuil"].ToString(),
                                 Password = dr["Password"].ToString(),
                                 Rol = dr["Rol"].ToString(),
                                 LoginName = dr["LoginName"].ToString(),

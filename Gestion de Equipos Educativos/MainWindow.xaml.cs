@@ -39,5 +39,37 @@ namespace Gestion_de_Equipos_Educativos
         {
             FramePrincipal.Navigate(new Inventario());
         }
+
+ 
+
+        private void btnTipoEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new TipoEquipos());
+        }
+
+        private void btnInstitucion_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new Instituciones());
+        }
+
+        private void btnAlumnos_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new Alumnos());
+        }
+
+        private void btnProveedor_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new Proveedores());
+        }
+
+        private void btnActa_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new Actas());
+        }
+
+        private void btnServicioTecnico_Click(object sender, RoutedEventArgs e)
+        {
+            FramePrincipal.Navigate(new ServicioTecnico());
+        }
     }
 }

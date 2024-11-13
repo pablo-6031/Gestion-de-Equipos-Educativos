@@ -16,7 +16,7 @@
             <RowDefinition Height="134*"/>
             <RowDefinition Height="93*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFodo}" StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="2"/>
+        <Rectangle Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFondo}" StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="2"/>
         <Ellipse x:Name="Foto" Margin="78,85,59,34" Stroke="{StaticResource colorFondo}" StrokeThickness="5" >
             <Ellipse.Fill>
                 <ImageBrush ImageSource="Imagenes/user.jpg"/>

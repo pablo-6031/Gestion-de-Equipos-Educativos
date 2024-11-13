@@ -11,8 +11,9 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="85*"/>
-            <RowDefinition Height="247*"/>
-            <RowDefinition Height="368*"/>
+            <RowDefinition Height="277*"/>
+            <RowDefinition Height="338*"/>
+
         </Grid.RowDefinitions>
         <Rectangle Grid.RowSpan="3" 
 	   RadiusY="18" 
@@ -31,9 +32,9 @@
                 </LinearGradientBrush>
             </Rectangle.Stroke>
         </Rectangle>
-        <Label Content="INVENTARIO"
+        <Label Content="INSTITUCIONES"
    HorizontalAlignment="Center"
-   VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="188" RenderTransformOrigin="0.5,0.5">
+   VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="229" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -52,80 +53,74 @@
         </Label>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="53*"/>
-                <RowDefinition Height="57*"/>
-                <RowDefinition Height="88*"/>
+                <RowDefinition Height="63*"/>
+                <RowDefinition Height="52*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="59*"/>
+                <RowDefinition Height="44*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130*"/>
-                <ColumnDefinition Width="104*"/>
-                <ColumnDefinition Width="156*"/>
-                <ColumnDefinition Width="104*"/>
-                <ColumnDefinition Width="113*"/>
-                <ColumnDefinition Width="17*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="23*"/>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="218*"/>
+                <ColumnDefinition Width="148*"/>
+                <ColumnDefinition Width="341*"/>
+                <ColumnDefinition Width="232*"/>
+                <ColumnDefinition Width="322*"/>
+
             </Grid.ColumnDefinitions>
-            <Button Name="btnCargarImagen" 
-	Content="Cargar Imagen" 
-	HorizontalAlignment="Center" 
-	Height="30" 
-	VerticalAlignment="Center" 
-	Width="116"
-               Click="btnCargarImagen_Click"/>
-            <Ellipse Name="eFoto"
-               HorizontalAlignment="Center"
-               Height="138"
-               StrokeThickness="5"
-               VerticalAlignment="Center"
-               Width="140" Grid.Row="1" Grid.RowSpan="13">
+            <Ellipse Name="eFoto" HorizontalAlignment="Center" Height="138" StrokeThickness="5" VerticalAlignment="Center" Width="140" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBlock Grid.Row="0" Grid.Column="1"
-                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,2" Text="IDEQUIPO:" Width="103" RenderTransformOrigin="-1.623,0.538"/>
-            <TextBlock Text="TIPO:" Grid.Row="1" Grid.Column="1"
+            <TextBlock Grid.Row="0" Grid.Column="2"
+                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,2" Text="IDINVENTARIO:" Width="124" RenderTransformOrigin="-1.623,0.538"/>
+            <TextBlock Text="NIVEL:" Grid.Row="1" Grid.Column="2"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Margin="116,0,0,0" Height="24" Width="85"/>
-            <TextBlock Text="NUM_SERIE:" Grid.Row="0" Grid.Column="3"
+                 HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="86"/>
+            <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="4"
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,0,2" Width="104"/>
-            <TextBlock Text="PROVEEDOR:" Grid.Row="1" Grid.Column="3"
+                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,20,2" Width="104"/>
+            <TextBlock Text="MATRICULA:" Grid.Row="1" Grid.Column="4"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="88,0,0,0" Width="120"/>
-            <TextBlock Text="DETALLE:" Grid.Row="2" Grid.Column="1"
+            <TextBlock Text="ESTADO:" Grid.Row="2" Grid.Column="2"
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,0,8"/>
-            <TextBox x:Name="txtIdEquipo" 
-               Grid.Column="2" 
+                 HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,0,3"/>
+            <TextBlock Text="FECHA:" Grid.Row="2" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
+            <TextBlock Text="DESTINO:" Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,0,3"/>
+            <TextBlock Text="OBSERVACION:" Grid.Row="3" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
+            <TextBox x:Name="txtIdInventario" 
+               Grid.Column="3" 
                Style="{StaticResource TextBoxTextos}"
-               Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtTipo" 
-               Grid.Row="1" 
-               Grid.Column="2" 
-               Style="{StaticResource TextBoxTextos}"
-               Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
+               Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.493,0.495"/>
+            <ComboBox x:Name="cmbTipo" Grid.Column="3" Grid.Row="1" Margin="10,10,55,10"  Foreground="Black"></ComboBox>
             <TextBox x:Name="txtNumSerie" 
-               Grid.Column="4" 
-               Style="{StaticResource TextBoxTextos}"
-               Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtProveedor" 
-               Grid.Row="1" 
-               Grid.Column="4" 
-               Style="{StaticResource TextBoxTextos}"
-               Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
-            <TextBox x:Name="txtDetalle" 
+               Grid.Column="5" 
+               Style="{StaticResource TextBoxTextos}" Width="188" Height="40"/>
+            <TextBox x:Name="txtObservacion" 
+               Grid.Row="3" 
+               Grid.Column="5" 
+               Style="{StaticResource TextBoxTextos}" Width="188" Height="40"/>
+            <TextBox x:Name="txtEstado" 
                Grid.Row="2" 
-               Grid.Column="2" 
+               Grid.Column="3" 
                Style="{StaticResource TextBoxTextos}"
                Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
 
-            <StackPanel Grid.Row="3" Grid.ColumnSpan="3"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top"
-                  Orientation="Horizontal" Height="42" Width="294" Margin="0,44,0,0">
+            <DatePicker x:Name="dtpFechaIngreso" Grid.Column="5" Grid.Row="2" Margin="10,0,10,0"  />
+            <ComboBox x:Name="cmbDestino" Grid.Column="3" Grid.Row="3" Margin="10,10,55,10">
+                <ComboBoxItem Content="Administrador"/>
+                <ComboBoxItem Content="Docente"/>
+                <ComboBoxItem Content="Preceptor"/>
+                <ComboBoxItem Content="Directivo"/>
+                <ComboBoxItem Content="Alumno"/>
+            </ComboBox>
+            <TextBox x:Name="txtMatricula" Grid.Row="1"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="188" Height="40"/>
+            <StackPanel Grid.Row="4"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  Orientation="Horizontal" Height="42" Width="294" Grid.Column="2" Margin="15,0,0,0" Grid.ColumnSpan="2">
                 <Button x:Name="btnAgregar" Content="Agregar" 
                   Width="86" 
                   
@@ -144,9 +139,10 @@
 
 
 
+
         </Grid>
         <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,28" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGEstudiantes" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5">
+            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>

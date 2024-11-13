@@ -39,11 +39,14 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@numSerie", equipo.NumSerie);
-                    command.Parameters.AddWithValue("@tipo", equipo.Tipo);
-                    command.Parameters.AddWithValue("@proveedor", equipo.Proveedor);
-                    command.Parameters.AddWithValue("@detalle", equipo.Detalle);
-                    command.Parameters.AddWithValue("@foto", equipo.Foto);
+                    command.Parameters.AddWithValue("@num_Serie", equipo.NumSerie);
+                    command.Parameters.AddWithValue("@matricula", equipo.Matricula);
+                    command.Parameters.AddWithValue("@estado", equipo.Estado);
+                    command.Parameters.AddWithValue("@observacion", equipo.Observacion);
+                    command.Parameters.AddWithValue("@fecha_Ingreso", equipo.FechaIngreso);
+                    command.Parameters.AddWithValue("@destino", equipo.Destino);
+                    command.Parameters.AddWithValue("@id_Tipo_Equipo", equipo.IdTipoEquipo);
+                    command.Parameters.AddWithValue("@id_Acta", equipo.IdActa);
                     command.CommandText = "sp_AgregarEquipo";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
@@ -61,11 +64,15 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
+                    command.Parameters.AddWithValue("@idEquipo", equipo.IdEquipo);
                     command.Parameters.AddWithValue("@numSerie", equipo.NumSerie);
-                    command.Parameters.AddWithValue("@tipo", equipo.Tipo);
-                    command.Parameters.AddWithValue("@proveedor", equipo.Proveedor);
-                    command.Parameters.AddWithValue("@detalle", equipo.Detalle);
-                    command.Parameters.AddWithValue("@foto", equipo.Foto);
+                    command.Parameters.AddWithValue("@matricula", equipo.Matricula);
+                    command.Parameters.AddWithValue("@estado", equipo.Estado);
+                    command.Parameters.AddWithValue("@observacion", equipo.Observacion);
+                    command.Parameters.AddWithValue("@fechaIngreso", equipo.FechaIngreso);
+                    command.Parameters.AddWithValue("@destino", equipo.Destino);
+                    command.Parameters.AddWithValue("@idTipoEquipo", equipo.IdTipoEquipo);
+                    command.Parameters.AddWithValue("@idActa", equipo.IdActa);
                     command.CommandText = "sp_EditarEquipo";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
