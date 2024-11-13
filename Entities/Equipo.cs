@@ -15,6 +15,7 @@ namespace Entities
         public string Observacion { get; set; }
         public DateTime FechaIngreso { get; set; }
         public string Destino { get; set; }
-        public int IdUnidad { get; set; }
+        public int IdTipoEquipo { get; set; }
+        public int IdActa { get; set; }
     }
 }

@@ -17,5 +17,6 @@ namespace Entities
         public string Rol { get; set; }
         public string Correo { get; set; }
         public byte[] Foto { get; set; }
+        public int IdInstitucion { get; set; }
     }
 }

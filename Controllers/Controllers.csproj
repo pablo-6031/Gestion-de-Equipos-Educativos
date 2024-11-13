@@ -154,9 +154,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActaController.cs" />
+    <Compile Include="AdMovilController.cs" />
+    <Compile Include="AlumnoController.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="InstitucionController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EquipoController.cs" />
+    <Compile Include="ProveedorController.cs" />
+    <Compile Include="ServicioTecnicoController.cs" />
+    <Compile Include="TipoEquipoController.cs" />
     <Compile Include="UsuarioController.cs" />
   </ItemGroup>
   <ItemGroup>

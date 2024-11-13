@@ -154,10 +154,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ActaDao.cs" />
+    <Compile Include="AdMovilDao.cs" />
+    <Compile Include="AlumnoDao.cs" />
     <Compile Include="ConnectionToSql.cs" />
+    <Compile Include="InstitucionDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EquipoDao.cs" />
+    <Compile Include="ProveedorDao.cs" />
+    <Compile Include="ServicioTecnicoDao.cs" />
+    <Compile Include="TipoEquipoDao.cs" />
     <Compile Include="UsuarioDao.cs" />
   </ItemGroup>
   <ItemGroup>

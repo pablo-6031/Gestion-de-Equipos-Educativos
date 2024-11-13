@@ -1,0 +1,136 @@
+﻿<Page x:Class="Gestion_de_Equipos_Educativos.Paginas.Proveedores"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas"
+      mc:Ignorable="d"
+      Title="Proveedores" Width="1300" Height="700">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="256*"/>
+            <RowDefinition Height="271*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.RowSpan="3" 
+                   RadiusY="18" 
+                   RadiusX="18" StrokeThickness="5" Margin="-22,4,0,10" HorizontalAlignment="Left" Width="1322">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#CC2C1414" Offset="0"/>
+                    <GradientStop Color="#CCF12C2C" Offset="1"/>
+                    <GradientStop Color="#CCCB4343" Offset="0.458"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+            <Rectangle.Stroke>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8A1212" Offset="0"/>
+                    <GradientStop Color="#FF111010" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Stroke>
+        </Rectangle>
+
+        <Label Content="PROVEEDORES"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="180">
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="#FFFF3838" Offset="0.107"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48*"/>
+                <RowDefinition Height="48*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="39*"/>
+                <RowDefinition Height="57*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="64*"/>
+                <ColumnDefinition Width="96*"/>
+                <ColumnDefinition Width="64*"/>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Campos de texto -->
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,55" Text="ID PROVEEDOR:" Width="150" Grid.RowSpan="2"/>
+            <TextBlock Text="NOMBRE:" Grid.Row="1" Grid.Column="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,2"/>
+            <TextBlock Text="TELÉFONO:" Grid.Row="2" Grid.Column="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,10" Height="37"/>
+            <TextBlock Text="CORREO:" Grid.Column="3"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,211,56" Grid.ColumnSpan="2" Height="33" Grid.RowSpan="2" Width="90"/>
+            <TextBlock Text="DIRECCIÓN:" Grid.Row="1" Grid.Column="3"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,0,3"/>
+
+            <!-- Campos de entrada -->
+            <TextBox x:Name="txtIdProveedor" 
+                     Grid.Column="2" 
+                     Style="{StaticResource TextBoxTextos}"
+                     Margin="5,0,0,0" Width="187" Height="40"/>
+            <TextBox x:Name="txtNombre" 
+                     Grid.Row="1" 
+                     Grid.Column="2" 
+                     Style="{StaticResource TextBoxTextos}"
+                     Margin="5,0,0,0" Width="187" Height="40"/>
+            <TextBox x:Name="txtTelefono" 
+                     Grid.Row="2" 
+                     Grid.Column="2" 
+                     Style="{StaticResource TextBoxTextos}"
+                     Margin="5,0,0,0" Width="187" Height="40"/>
+            <TextBox x:Name="txtCorreo" 
+                     Grid.Column="4" 
+                     Style="{StaticResource TextBoxTextos}"
+                     Margin="5,0,0,0" Width="187" Height="40"/>
+            <TextBox x:Name="txtDireccion" 
+                     Grid.Row="1" 
+                     Grid.Column="4" 
+                     Style="{StaticResource TextBoxTextos}"
+                     Margin="5,0,0,0" Width="187" Height="40"/>
+
+            <!-- Botones -->
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal" Height="26" Width="300">
+                <Button Name="btnAgregar" Content="Agregar"
+                        HorizontalAlignment="Left" 
+                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnAgregar_Click"/>
+                <Button Name="btnEliminar" Content="Eliminar"
+                        HorizontalAlignment="Left" 
+                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEliminar_Click"/>
+                <Button Name="btnEditar" Content="Editar"
+                        HorizontalAlignment="Left" 
+                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEditar_Click"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
+            <DataGrid Name="DGProveedores" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" MouseDoubleClick="DGProveedores_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="30" Header="ID" Binding="{Binding IdProveedor}"/>
+                    <DataGridTextColumn Width="150" Header="Nombre" Binding="{Binding Nombre}"/>
+                    <DataGridTextColumn Width="100" Header="Teléfono" Binding="{Binding Telefono}"/>
+                    <DataGridTextColumn Width="200" Header="Correo" Binding="{Binding Correo}"/>
+                    <DataGridTextColumn Width="250" Header="Dirección" Binding="{Binding Direccion}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

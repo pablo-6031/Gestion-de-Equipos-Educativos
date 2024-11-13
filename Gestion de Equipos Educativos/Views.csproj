@@ -191,7 +191,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\Actas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\AdMoviles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\Alumnos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\Instituciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\Inventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\Proveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\ServicioTecnico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\TipoEquipos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,8 +229,29 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Paginas\Actas.xaml.cs">
+      <DependentUpon>Actas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\AdMoviles.xaml.cs">
+      <DependentUpon>AdMoviles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Alumnos.xaml.cs">
+      <DependentUpon>Alumnos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Instituciones.xaml.cs">
+      <DependentUpon>Instituciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\Inventario.xaml.cs">
       <DependentUpon>Inventario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Proveedores.xaml.cs">
+      <DependentUpon>Proveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\ServicioTecnico.xaml.cs">
+      <DependentUpon>ServicioTecnico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\TipoEquipos.xaml.cs">
+      <DependentUpon>TipoEquipos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Usuarios.xaml.cs">
       <DependentUpon>Usuarios.xaml</DependentUpon>
