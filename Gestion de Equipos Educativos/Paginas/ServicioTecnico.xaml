@@ -9,9 +9,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="256*"/>
-            <RowDefinition Height="271*"/>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="553*"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.RowSpan="3" 
                    RadiusY="18" 
@@ -43,85 +43,10 @@
             </Label.Foreground>
         </Label>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="48*"/>
-                <RowDefinition Height="48*"/>
-                <RowDefinition Height="47*"/>
-                <RowDefinition Height="39*"/>
-                <RowDefinition Height="57*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80*"/>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="96*"/>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="76*"/>
+        <Button Name="btnNuevo" Content="Nuevo"
+        HorizontalAlignment="Left" Grid.Row="1"
+        Width="80" Margin="10,0" Height="25" VerticalAlignment="Bottom" Click="btnNuevo_Click" />
 
-
-            </Grid.ColumnDefinitions>
-
-            <!-- Foto -->
-            <Button Name="btnCargarImagen" Content="Cargar Imagen" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="116" Click="btnCargarImagen_Click"/>
-            <Ellipse Name="eFoto"
-         HorizontalAlignment="Center"
-         Height="138"
-         Grid.RowSpan="4"
-         StrokeThickness="5"
-         VerticalAlignment="Top"
-         Width="140" Margin="0,44,0,0">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="../Imagenes/user.jpg"/>
-                </Ellipse.Fill>
-            </Ellipse>
-
-            <!-- Campos de texto -->
-            <TextBlock Grid.Row="0" Grid.Column="1"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,55" Text="ID SERVICIO:" Width="150" Grid.RowSpan="2"/>
-            <TextBlock Text="FALLA:" Grid.Row="1" Grid.Column="1"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,2"/>
-            <TextBlock Text="FECHA ENVÍO:" Grid.Row="2" Grid.Column="1"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,10" Height="37"/>
-            <TextBlock Text="EQUIPO:" Grid.Column="3"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18"   Height="33"  Width="90"/>
-
-            <!-- Campos de entrada -->
-            <TextBox x:Name="txtIdServicioTecnico" 
-                     Grid.Column="2" 
-                     Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
-            <TextBox x:Name="txtFalla" 
-                     Grid.Row="1" 
-                     Grid.Column="2" 
-                     Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
-            <DatePicker x:Name="dpFechaEnvio" 
-                        Grid.Row="2" 
-                        Grid.Column="2" 
-                        Margin="5,0,0,0" Width="187" Height="40"/>
-            <ComboBox x:Name="cmbEquipo" Grid.Column="4" Grid.Row="0" Margin="5,0,0,0" Width="187" Height="40">
-            </ComboBox>
-
-            <!-- Botones -->
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="3"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal" Height="26" Width="300">
-                <Button Name="btnAgregar" Content="Agregar"
-                        HorizontalAlignment="Left" 
-                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnAgregar_Click"/>
-                <Button Name="btnEliminar" Content="Eliminar"
-                        HorizontalAlignment="Left" 
-                        Width="80" Margin="10,0,10,1" Height="25" VerticalAlignment="Bottom" Click="btnEliminar_Click"/>
-                <Button Name="btnEditar" Content="Editar"
-                        HorizontalAlignment="Left" 
-                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEditar_Click"/>
-            </StackPanel>
-
-        </Grid>
 
         <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
             <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">

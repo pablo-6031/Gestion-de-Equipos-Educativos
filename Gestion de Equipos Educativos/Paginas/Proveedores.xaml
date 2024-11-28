@@ -122,7 +122,8 @@
         </Grid>
 
         <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGProveedores" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" MouseDoubleClick="DGProveedores_MouseDoubleClick">
+            <DataGrid Name="DGProveedores" AutoGenerateColumns="True" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" MouseDoubleClick="DGProveedores_MouseDoubleClick">
+               <!--
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="30" Header="ID" Binding="{Binding IdProveedor}"/>
                     <DataGridTextColumn Width="150" Header="Nombre" Binding="{Binding Nombre}"/>
@@ -130,6 +131,7 @@
                     <DataGridTextColumn Width="200" Header="Correo" Binding="{Binding Correo}"/>
                     <DataGridTextColumn Width="250" Header="Dirección" Binding="{Binding Direccion}"/>
                 </DataGrid.Columns>
+                -->
             </DataGrid>
         </Border>
     </Grid>

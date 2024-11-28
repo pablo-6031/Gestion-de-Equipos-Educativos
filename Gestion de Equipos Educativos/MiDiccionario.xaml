@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--#Region COLORES-->
     <LinearGradientBrush x:Key="colorFondo"  EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#CC2C1414" Offset="0"/>
+        <GradientStop Color="#003366" Offset="0"/>
         <GradientStop Color="#CCF12C2C" Offset="1"/>
-        <GradientStop Color="#CCCB4343" Offset="0.458"/>
+        <GradientStop Color="#D62828" Offset="0.458"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ButtonColor" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -68,6 +68,33 @@
 
     <!--#EndRegion COLORES-->
 
+    <ControlTemplate x:Key="ButtonEnter" TargetType="{x:Type Button}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="BgRectangulo" Grid.RowSpan="3" Grid.ColumnSpan="3" Fill="{StaticResource ButtonColor}" RadiusY="5" RadiusX="5"/>
+            <Rectangle x:Name="BrilloRectangulo"  Grid.Column="1" Grid.Row="1" Fill="{StaticResource ButtonBrillo}" RadiusY="7" RadiusX="3"/>
+            <ContentPresenter Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="auto" Grid.RowSpan="3" VerticalAlignment="Center" Width="auto" RecognizesAccessKey="True"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="BgRectangulo" Property="Fill" Value="{StaticResource ButtonMouseOver}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="BrilloRectangulo" Property="Opacity" Value="0.35"/>
+                <Setter TargetName="BgRectangulo" Property="Effect" Value="{StaticResource ButtonPressed}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
     <!--#Region PLANTILLAS-->
     <ControlTemplate x:Key="ButtonCerrar" TargetType="{x:Type Button}">
         <Grid>

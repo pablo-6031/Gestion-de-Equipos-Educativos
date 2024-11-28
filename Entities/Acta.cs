@@ -10,10 +10,9 @@ namespace Entities
     {
         public int IdActa { get; set; }
         public string NumeroActa { get; set; }
-        public string NumeroExpediente { get; set; }
+        public string Estado { get; set; }
         public DateTime FechaEntrega { get; set; }
         public string Responsable { get; set; }
-        public int IdUnidad { get; set; }
         public byte[] Foto { get; set; }
         public int IdProveedor { get; set; }
         public int IdInstitucion { get; set; }

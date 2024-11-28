@@ -18,20 +18,38 @@ namespace Controllers
             return equipoDao.ListarEquipos();
         }
 
+        public DataTable listarEquiposPorActa(int idActa)
+        {
+            return equipoDao.ListarEquiposPorActa(idActa);
+        }
+
+        public DataTable ListarEquiposporNumSerie(string valor)
+        {
+            return equipoDao.ListarEquiposporNumSerie(valor);
+        }
+
         public void agregarEquipo(Equipo equipo)
         {
             equipoDao.AgregarEquipo(equipo);
         }
 
+        public void agregarListaEquipo(List<Equipo> listEquipo, int idActa)
+        {
+            equipoDao.AgregarListaEquipo(listEquipo, idActa);
+        }
+
+
         public void editarEquipo(Equipo equipo)
         {
             equipoDao.EditarEquipo(equipo);
         }
-
+        /*
         public void eliminarEquipo(int id)
         {
             equipoDao.EliminarEquipo(id);
         }
+        */
+        public string eliminarEquipo(int idEquipo) => equipoDao.EliminarEquipo(idEquipo);
 
         public byte[] obtenerFoto(int id)
         {

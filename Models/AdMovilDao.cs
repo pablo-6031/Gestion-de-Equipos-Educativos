@@ -35,12 +35,12 @@ namespace Models
                 using (var command = new SqlCommand("sp_AgregarAdMovil", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@tipo", adMovil.Tipo);
-                    command.Parameters.AddWithValue("@nombre", adMovil.Nombre);
                     command.Parameters.AddWithValue("@matricula", adMovil.Matricula);
-                    command.Parameters.AddWithValue("@descripcion", adMovil.Descripcion);
-                    command.Parameters.AddWithValue("@foto", adMovil.Foto);
+                    command.Parameters.AddWithValue("@num_serie", adMovil.NumSerie);
+                    command.Parameters.AddWithValue("@estado", adMovil.Estado);
+                    command.Parameters.AddWithValue("@observacion", adMovil.Observacion);
                     command.Parameters.AddWithValue("@id_acta", adMovil.IdActa);
+                    //command.Parameters.AddWithValue("@id_acta", adMovil.IdActa ?? (object)DBNull.Value);
                     command.ExecuteNonQuery();
                 }
             }
@@ -56,12 +56,12 @@ namespace Models
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id_admovil", adMovil.IdAdMovil);
-                    command.Parameters.AddWithValue("@tipo", adMovil.Tipo);
-                    command.Parameters.AddWithValue("@nombre", adMovil.Nombre);
                     command.Parameters.AddWithValue("@matricula", adMovil.Matricula);
-                    command.Parameters.AddWithValue("@descripcion", adMovil.Descripcion);
-                    command.Parameters.AddWithValue("@foto", adMovil.Foto);
+                    command.Parameters.AddWithValue("@num_serie", adMovil.NumSerie);
+                    command.Parameters.AddWithValue("@estado", adMovil.Estado);
+                    command.Parameters.AddWithValue("@observacion", adMovil.Observacion);
                     command.Parameters.AddWithValue("@id_acta", adMovil.IdActa);
+                    //command.Parameters.AddWithValue("@id_acta", adMovil.IdActa ?? (object)DBNull.Value);
                     command.ExecuteNonQuery();
                 }
             }

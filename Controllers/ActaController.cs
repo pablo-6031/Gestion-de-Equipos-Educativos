@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Models;
 using Entities;
+using System.Collections.Generic;
 
 namespace Controllers
 {
@@ -16,6 +17,11 @@ namespace Controllers
         public void AgregarActa(Acta acta)
         {
             actaDao.AgregarActa(acta);
+        }
+
+        public void agregarActaConEquipos(Acta acta, List<Equipo> equipos)
+        {
+            actaDao.AgregarActaConEquipos(acta, equipos);
         }
 
         public void EditarActa(Acta acta)

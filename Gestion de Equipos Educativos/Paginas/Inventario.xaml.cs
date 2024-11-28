@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Entities;
+using Gestion_de_Equipos_Educativos.Ventanas;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -34,34 +36,12 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         public Inventario()
         {
             InitializeComponent();
-            LlenarComboBox();
+
             ListarEquipos();
         }
         private Dictionary<int, string> tiposEquipos = new Dictionary<int, string>();
 
-        private void LlenarComboBox()
-        {
-            DataTable dataTable = tipoEquipoController.ListaTipoEquipos();
-
-            if (dataTable.Rows.Count > 0)
-            {
-
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    int id = Convert.ToInt32(row["Id_Tipo_Equipo"]);
-                    string tipo = row["tipo"].ToString();
-                    tiposEquipos[id] = tipo;
-                }
-
-                cmbTipo.ItemsSource = tiposEquipos;
-                cmbTipo.DisplayMemberPath = "Value";    // Muestra el valor (tipo)
-                cmbTipo.SelectedValuePath = "Key";      // Usa el ID (IdTipoEquipo) como valor seleccionado
-            }
-            else
-            {
-
-            }
-        }
+        
 
 
         private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
@@ -75,37 +55,19 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         {
             try
             {
-                // Verifica que los campos requeridos no estén vacíos
-                if (this.txtNumSerie.Text != "" && this.txtMatricula.Text != "")
+                mostrarVentana();
+                if (EquipoCache.NumSerie != "")
                 {
-                    // Crea un nuevo objeto de tipo Equipo y asigna valores a sus propiedades
                     Equipo equipo = new Equipo();
-                    equipo.NumSerie = this.txtNumSerie.Text;
-                    equipo.Matricula = this.txtMatricula.Text;
-                    equipo.Estado = this.txtEstado.Text;
-                    equipo.Observacion = this.txtObservacion.Text;
-                    equipo.FechaIngreso = this.dtpFechaIngreso.SelectedDate.HasValue ? this.dtpFechaIngreso.SelectedDate.Value : DateTime.Now;
-                    equipo.Destino = this.cmbDestino.Text;
+                    equipo.NumSerie = EquipoCache.NumSerie;
+                    equipo.Matricula = EquipoCache.Matricula;
+                    equipo.Estado = EquipoCache.Estado;
+                    equipo.Observacion = EquipoCache.Observacion;
+                    equipo.Destino = EquipoCache.Destino;
+                    equipo.IdTipoEquipo = EquipoCache.IdTipoEquipo;
+                    equipo.IdActa = 1;
 
-                    // Convertimos los valores de IdTipoEquipo e IdActa a enteros, si existen
-                    equipo.IdTipoEquipo = (int)cmbTipo.SelectedValue;
-                    // equipo.IdActa = int.TryParse(this.txtIdActa.Text, out int idActa) ? idActa : 0;
-                    equipo.IdActa = 0;
-
-                    try
-                    {
-                        // Guarda el equipo en la base de datos
-                        equipoController.agregarEquipo(equipo);
-                        System.Windows.MessageBox.Show("Agregar", "Equipo " + equipo.NumSerie + " agregado con éxito");
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show("Error", "Error al guardar equipo");
-                    }
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Complete los campos obligatorios", "Advertencia");
+                    equipoController.agregarEquipo(equipo);
                 }
             }
             catch (Exception ex)
@@ -115,32 +77,11 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
             // Actualiza la lista de equipos y limpia los campos
             ListarEquipos();
-            LimpiarCampos();
+  
 
 
         }
-        private void LimpiarCampos()
-        {
-            // Limpia los TextBox
-            txtNumSerie.Text = "";
-            txtMatricula.Text = "";
-            txtObservacion.Text = "";
-            txtEstado.Text = "";
-
-
-            // Limpia ComboBox
-
-            cmbDestino.SelectedIndex = -1;
-            cmbTipo.SelectedIndex = -1;
-
-            // Limpia DatePicker
-            dtpFechaIngreso.SelectedDate = null;
-
-            // Limpia cualquier imagen o referencia adicional
-            this.eFoto = null;
-            this.imageSource = null;
-
-        }
+        
 
         private void ListarEquipos()
         {
@@ -168,6 +109,75 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void mostrarVentana()
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            NuevosEquipos nuevosEquipos = new NuevosEquipos
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            nuevosEquipos.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void mostrarVentanaCargada(Equipo equipo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            NuevosEquipos nuevosEquipos = new NuevosEquipos
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            nuevosEquipos.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void DGEquipos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!this.DGEquipos.Items.IsEmpty)
+            {
+                Equipo equipo = (Equipo)this.DGEquipos.CurrentItem;
+                mostrarVentanaCargada(equipo);
+
+            }
         }
     }
 }

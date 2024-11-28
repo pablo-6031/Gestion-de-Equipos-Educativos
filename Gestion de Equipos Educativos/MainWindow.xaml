@@ -6,22 +6,49 @@
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1500" WindowStyle="None">
-    <Grid MouseLeftButtonDown="mover" >
+    <Grid MouseLeftButtonDown="mover" x:Name="Principal" >
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="37*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="111*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="703*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Fill="Black"  Grid.ColumnSpan="2" RadiusY="4.671" RadiusX="4.671" Grid.RowSpan="3"/>
+
+        <DockPanel  Grid.Column="1" HorizontalAlignment="Right"  Width="75"  >
+            <Button Name="btnMinimizar" Content="__" Grid.Row="0" 
+                Height="25" Margin="0,4,0,0" 
+                VerticalAlignment="Top" Width="25" 
+                RenderTransformOrigin="-10.033,0.417" 
+                 
+                Foreground="White" FontSize="18"
+                FontWeight="Bold" Click="btnMinimizar_Click"  />
+            <Button Name="btnMaximizar" Content="[]" Grid.Row="0" 
+                Height="25" Margin="0,4,0,0" 
+                VerticalAlignment="Top" Width="25" 
+                RenderTransformOrigin="-10.033,0.417" 
+                 
+                Foreground="White" FontSize="18"
+                FontWeight="Bold" Click="btnMaximizar_Click"  />
+            <Button Name="btnCerrar" Content="X" Grid.Row="0" 
+                HorizontalAlignment="Right" 
+                Height="25" Margin="0,4,0,0" 
+                VerticalAlignment="Top" Width="25" 
+                RenderTransformOrigin="-10.033,0.417" 
+                  
+                Foreground="White" FontSize="18"
+                FontWeight="Bold" Click="btnCerrar_Click" />
+        </DockPanel>
+
+
         <StackPanel Margin="0,15,0,0" Grid.Row="2">
             <Button x:Name="btnInstitucion" Content="Institucion" Width="100" Height="40"  Click="btnInstitucion_Click" Background="#FFB32020"/>
             <Button x:Name="btnAlumnos" Content="Alumnos" Width="100" Height="40" Click="btnAlumnos_Click" Background="#FFAB3A3A"/>
             <Button x:Name="btnUsuarios" Content="Usuarios" Width="100" Height="40" Click="btnUsuarios_Click" Background="#FFAB3A3A"/>
-            <Button x:Name="btnInventario" Content="Inventario" Width="100" Height="40"  Click="btnInventario_Click" Background="#FFB32020"/>
+            <Button x:Name="btnInventario" Content="Equipos" Width="100" Height="40"  Click="btnInventario_Click" Background="#FFB32020"/>
             <Button x:Name="btnTipoEquipo" Content="Tipo Equipo" Width="100" Height="40"  Click="btnTipoEquipo_Click" Background="#FFB32020"/>
             <Button x:Name="btnProveedor" Content="Proveedores" Width="100" Height="40"  Click="btnProveedor_Click" Background="#FFB32020"/>
             <Button x:Name="btnActa" Content="Actas" Width="100" Height="40"  Click="btnActa_Click" Background="#FFB32020"/>
@@ -32,7 +59,7 @@
                 <ImageBrush ImageSource="Imagenes/user.jpg"/>
             </Ellipse.Fill>
         </Ellipse>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" Margin="0,172,0,0" Grid.RowSpan="2" Width="70" >
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="70" Grid.Row="1" >
             <Label Name="txtUsuario" Content="Usuario" Foreground="White" FontSize="18"/>
             <Label Name="txtRol" Content="Rol" Foreground="White" />
         </StackPanel>
