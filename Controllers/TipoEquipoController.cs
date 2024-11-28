@@ -18,6 +18,12 @@ namespace Controllers
             return tipoEquipoDao.ListarTipoEquipos();
         }
 
+        public TipoEquipo TraerTipoEquipos(int id)
+        {
+            return tipoEquipoDao.TraerTipoEquipos(id);
+        }
+
+
         public void AgregarTipoEquipo(TipoEquipo tipoEquipo)
         {
             tipoEquipoDao.AgregarTipoEquipo(tipoEquipo);

@@ -31,7 +31,7 @@
             </Rectangle.Stroke>
         </Rectangle>
 
-        <Label Content="ANUNCIOS MÓVILES"
+        <Label Content="ADM"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="280">
             <Label.Foreground>
@@ -134,8 +134,11 @@
                         HorizontalAlignment="Left" 
                         Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEditar_Click"/>
             </StackPanel>
+            <Button Name="btnAgregarEquipo" Grid.Column="5" Content="Agregar Equipo"
+                        HorizontalAlignment="Left" 
+                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnAgregarEquipo_Click"/>
 
-            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}"  GridLinesVisibility="Vertical" Margin="5,5,57,54"  Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="5">
+            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}"  GridLinesVisibility="Vertical"   Grid.Column="5" Grid.RowSpan="4" Grid.Row="1" Height="216" VerticalAlignment="Top" Margin="0,0,26,0">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -180,8 +183,8 @@
                     <DataGridTextColumn Width="120" Header="Acta" Binding="{Binding IdActa}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
-            
+
+
         </Border>
     </Grid>
 </Page>

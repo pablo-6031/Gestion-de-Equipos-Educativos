@@ -44,5 +44,10 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         {
 
         }
+
+        private void btnAgregarEquipo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

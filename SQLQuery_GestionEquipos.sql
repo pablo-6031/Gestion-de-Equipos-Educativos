@@ -53,16 +53,13 @@ CREATE TABLE Usuarios (
 
 CREATE TABLE ADMoviles (
     id_admovil INT IDENTITY(1,1) PRIMARY KEY,
-    tipo NVARCHAR(50) NOT NULL,
-    nombre NVARCHAR(100) NOT NULL,
-    descripcion NVARCHAR(200),
+estado NVARCHAR(50),
+num_serie NVARCHAR(50) UNIQUE NOT NULL,
     matricula NVARCHAR(20) UNIQUE,
-    foto VARBINARY(MAX)
 );
 
 CREATE TABLE Equipos (
     id_equipo INT IDENTITY(1,1) PRIMARY KEY,
-    fecha_ingreso DATE NOT NULL,
     num_serie NVARCHAR(50) UNIQUE NOT NULL,
     matricula NVARCHAR(20),
     estado NVARCHAR(100),
@@ -84,7 +81,7 @@ CREATE TABLE Actas (
     num_acta NVARCHAR(50) UNIQUE NOT NULL,
     fecha_entrega DATE NOT NULL,
     responsable NVARCHAR(100) NOT NULL,
-    num_expediente NVARCHAR(50),
+    estado NVARCHAR(50) NOT NULL,
     foto VARBINARY(MAX)
 );
 
@@ -189,6 +186,13 @@ ADD CONSTRAINT fk_acta_admoviles
 FOREIGN KEY (id_acta) REFERENCES Actas(id_acta)
 ON DELETE CASCADE;
 
+ALTER TABLE ADMoviles
+ADD id_tipo_equipo INT;
+
+ALTER TABLE ADMoviles
+ADD CONSTRAINT fk_tipoequipo_admoviles
+FOREIGN KEY (id_tipo_equipo) REFERENCES tipo_equipo(id_tipo_equipo)
+ON DELETE CASCADE;
 
 
 ALTER TABLE Actas 
@@ -234,56 +238,84 @@ ON DELETE CASCADE;
 GO
 
 INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
-('Netbook Conectar Igualdad G1', 'Exo', 'X352', 
+('Netbook', 'Exo', 'Conectar Igualdad G1', 
  'Procesador Intel Atom N450, 1.66 GHz, RAM DDR2 1 GB, almacenamiento SATA 160 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows XP y Linux, refrigeración activa, conectores VGA, 3 USB 2.0, LAN RJ-45, lector SD, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad G2', 'Exo', 'X355', 
+('Netbook', 'Exo', 'Conectar Igualdad G2', 
  'Procesador Intel Atom N455, 1.66 GHz, RAM DDR3 1 GB, almacenamiento SATA 160-250 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows XP y Linux, refrigeración activa, conectores VGA, 3 USB 2.0, LAN RJ-45, lector SD opcional, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad G3', 'Exo', 'X355', 
+('Netbook', 'Exo', 'Conectar Igualdad G3', 
  'Procesador Intel Atom N455, 1.66 GHz, RAM DDR3 1 GB, almacenamiento SATA 160-250 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows XP y Linux, refrigeración activa, conectores VGA, 3 USB 2.0, LAN RJ-45, lector SD opcional, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad Samsung NP100', 'Samsung', 'NP100', 
+('Netbook', 'Samsung', 'Conectar Igualdad NP100', 
  'Procesador Intel Atom N2600, 1.6 GHz, RAM DDR3 2 GB, almacenamiento SATA 250-320 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows 7 y Linux, refrigeración activa, conectores VGA y HDMI, 3 USB 2.0, LAN RJ-45, lector SD, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad Samsung N150', 'Samsung', 'N150', 
+('Netbook', 'Samsung', 'Conectar Igualdad N150', 
  'Procesador Intel Atom N450/N455, 1.66 GHz, RAM DDR3 1 GB, almacenamiento SATA 160 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows 7 Starter y Linux, refrigeración activa, conector VGA, 3 USB 2.0, LAN RJ-45, lector SD.'),
 
-('Netbook Conectar Igualdad G4', 'Exo', 'NT1010E', 
+('Netbook', 'Exo', 'Conectar Igualdad G4', 
  'Procesador Intel Atom N2600, 1.6 GHz, RAM DDR3 2 GB, almacenamiento SATA 320 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows 7 SP1 y Linux, refrigeración activa, conectores VGA y HDMI, 2 USB 2.0, LAN RJ-45, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad G5', 'Exo', 'NT1010E', 
+('Netbook', 'Exo', 'Conectar Igualdad G5', 
  'Procesador Intel Celeron N2806/N2807, 1.6 GHz (2 GHz turbo), RAM DDR3L 2-4 GB, almacenamiento SATA 320 GB, pantalla LED 10.1" Slim HD 1366 x 768, sistema operativo Windows 8.1 y Linux, refrigeración pasiva, conector HDMI, 1 USB 3.0, 1 USB 2.0, LAN RJ-45.'),
 
-('Netbook Conectar Igualdad G6', 'Positivo BGH', 'G6', 
+('Netbook', 'Positivo BGH', 'Conectar Igualdad G6', 
  'Procesador Intel Celeron N2808, 1.58 GHz (2.25 GHz turbo), RAM DDR3L 2-4 GB, almacenamiento SATA 500 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows 8.1 y Linux, refrigeración pasiva, conector HDMI, 2 USB, LAN RJ-45, expansión PCIe Mini Card.'),
 
-('Netbook Conectar Igualdad G7', 'Positivo BGH', 'G7', 
+('Netbook', 'Positivo BGH', 'Conectar Igualdad G7', 
  'Procesador Intel Celeron N3060, 1.6 GHz (2.48 GHz turbo), RAM DDR3L 4 GB, almacenamiento eMMC 128 GB, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 10, refrigeración pasiva, conector HDMI, 1 USB 2.0, 1 USB 3.0, lector MicroSD.'),
 
-('Netbook Conectar Igualdad G8', 'Positivo BGH', 'G8', 
+('Netbook', 'Positivo BGH', 'Conectar Igualdad G8', 
  'Procesador Intel Celeron N3060, 1.6 GHz (2.48 GHz turbo), RAM DDR3L 4 GB, almacenamiento M.2 Foresee 128 GB, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 10, refrigeración pasiva, conector HDMI, 1 USB 2.0, 1 USB 3.0, lector MicroSD.'),
 
-('Netbook Conectar Igualdad G9', 'Positivo BGH', 'G9', 
+('Netbook', 'Positivo BGH', 'Conectar Igualdad G9', 
  'Procesador Intel Celeron N3060, 1.6 GHz (2.48 GHz turbo), RAM DDR3L 4 GB, almacenamiento eMMC 128 GB, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 10, refrigeración pasiva, conector HDMI, 1 USB 2.0, 1 USB 3.0, lector MicroSD.'),
 
-('Netbook Conectar Igualdad G10', 'Positivo BGH', 'G10', 
+('Netbook', 'Positivo BGH', 'Conectar Igualdad G10', 
  'Procesador Intel Celeron N3350, 1.1 GHz (2.4 GHz turbo), RAM DDR3L 4 GB, almacenamiento eMMC 128 GB, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 10, refrigeración pasiva, conector HDMI, 1 USB 2.0, 1 USB 3.0, lector MicroSD.'),
 
-('Netbook Conectar Igualdad SF20GM7', 'Bangho', 'SF20GM7', 
+('Netbook', 'Bangho', 'Conectar Igualdad SF20GM7', 
  'Procesador Intel Celeron N4020, 1.1 GHz (2.8 GHz turbo), RAM DDR4 4 GB, almacenamiento M.2 240-256 GB, pantalla LED 11.6" HD 1366 x 768, sistema operativo Linux Huayra 5, refrigeración pasiva, conectores HDMI, 2 USB 3.0, USB Tipo C, lector MicroSD.'),
 
-('Notebook Aprender Conectados', 'HP', '240 G6', 
+('Notebook', 'HP', 'Aprender Conectados 240 G6', 
  'Procesador Intel i3-7020U, 2.3 GHz, RAM DDR4 4 GB (expandible a 16 GB), almacenamiento SATA o M.2, pantalla LED 14" HD 1366 x 768, sistema operativo Windows 10 Pro Education, refrigeración activa, conectores VGA y HDMI, 3 puertos USB.'),
 
-('Notebook Plan S@rmiento BA', 'EXO', 'NG180', 
- 'Procesador desconocido, RAM no expandible, almacenamiento SATA 2.5" estándar, pantalla LED 11.6" Slim, sistema operativo Windows 10, refrigeración pasiva, conector HDMI, 1 USB 2.0, 1 USB 3.0, lector MicroSD, LAN RJ-45.'),
+('Netbook ', 'Dell', 'Conectar Igualdad Latitude', 
+ 'Procesador Celeron N5100, 1.1 GHz (2.8 GHz turbo), RAM DDR4 4 GB no expandible, almacenamiento NAND Flash 128 GB NVMe M.2, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 11 Pro Education, refrigeración pasiva, conector HDMI, 2 USB 3.2, USB Tipo-C.'),
 
-('Netbook Conectar Igualdad Dell Latitude', 'Dell', '3120 P32T', 
- 'Procesador Celeron N5100, 1.1 GHz (2.8 GHz turbo), RAM DDR4 4 GB no expandible, almacenamiento NAND Flash 128 GB NVMe M.2, pantalla LED 11.6" HD 1366 x 768, sistema operativo Windows 11 Pro Education, refrigeración pasiva, conector HDMI, 2 USB 3.2, USB Tipo-C.');
 
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('GABINETE MOVIL', 'Exo', 'ADM_v5', 
+ 'Contiene 5 notebooks para alumnos, 1 Notebook para el do- cente, 1 Proyector, 1 Pizarra digital, 1 Punto de acceso y 1 Carro de carga y transporte.'),
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('GABINETE MOVIL', 'Exo', 'ADM_v10', 
+ 'Contiene 10 notebooks para alumnos, 1 Notebook para el do- cente, 1 Proyector, 1 Pizarra digital, 1 Punto de acceso y 1 Carro de carga y transporte.'),
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('GABINETE MOVIL', 'Exo', 'ADM_v20', 
+ 'Contiene 20 notebooks para alumnos, 1 Notebook para el do- cente, 1 Proyector, 1 Pizarra digital, 1 Punto de acceso y 1 Carro de carga y transporte.'),
+
+
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('Proyector', 'Benq', 'MX825STH', 
+ 'Brillo: 3.500 ANSI lúmenes, Relación de contraste: 2.0000:1, Resolución: XGA -XGA (1024 x 768) (nativo) / 1920 x 1200, 2 x entrada VGA / video componente - HD D-Sub de 15 clavijas (HD-15).'),
+
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('Pointwriter', 'Benq', 'PW03', 
+ 'Contiene PointWrite sensor de pizarra interactiva, Cable mini USB, Dos lápices PointWrite, Puntas de lápiz adicionales, Pilas de tipo AAA, Tornillos.'),
+
+
+INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
+('AP DUAL CONFIG 50U', 'EXOnet', 'GWF4', 
+ 'Soporta dual banda 2.4 GHz y 5.8 GHz simultánea, Soporte seguridad inalámbrica 64/128- bit DMZ, SPI, WPA,WPA2, WPS, WPA3, Alta tasa de transferencia de datos de hasta 600 Mbps.');
 
  
+
+
  CREATE PROCEDURE sp_ListarTipoEquipos
 AS
 BEGIN
@@ -294,6 +326,20 @@ BEGIN
         Tipo_equipos;
 END;
 
+ CREATE PROCEDURE sp_TraerTipoEquipo
+@id_tipo_equipo INT
+AS
+BEGIN
+    SELECT *
+    FROM 
+        tipo_equipos
+WHERE 
+        id_tipo_equipo = @id_tipo_equipo;
+END;
+
+
+
+
 CREATE PROCEDURE sp_ListarEquipos
 AS
 BEGIN
@@ -303,22 +349,60 @@ BEGIN
         Matricula,
         Estado,
         Observacion,
-        fecha_ingreso,
         Destino,
         Id_Tipo_Equipo,
         Id_Acta
     FROM 
         Equipos
-    ORDER BY 
-        Fecha_Ingreso DESC; 
 END;
+
+
+
+CREATE PROCEDURE sp_ListarEquiposporNumSerie
+    @var NVARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        e.Id_equipo,
+        e.Num_serie,
+        e.Matricula,
+        e.Estado,
+        e.Observacion,
+        e.Destino,
+        t.Tipo AS Tipo_Equipo, 
+        e.Id_Acta
+    FROM 
+        Equipos e
+    INNER JOIN 
+        Tipo_Equipos t ON e.Id_Tipo_Equipo = t.Id_Tipo_Equipo 
+    WHERE 
+        (e.Estado IN ('Entregado', 'En Deposito', 'Recibida en Migracion', 'En Prestamo', 'Rechazada x Soporte Tecnico')) 
+        AND 
+        (e.Num_serie LIKE '%' + @var + '%' OR e.Matricula LIKE '%' + @var + '%') 
+END;
+
+
+CREATE PROCEDURE sp_ListarEquiposPorActa
+    @id_acta INT
+AS
+BEGIN
+
+    SELECT *
+    FROM 
+        Equipos e
+    INNER JOIN 
+        Actas a ON e.id_acta = a.id_acta
+    WHERE 
+        e.id_acta = @id_acta;
+END;
+
+
 
 CREATE PROCEDURE sp_AgregarEquipo
     @Num_serie NVARCHAR(50),
     @Matricula NVARCHAR(50),
     @Estado NVARCHAR(50),
     @Observacion NVARCHAR(255),
-    @Fecha_ingreso DATETIME,
     @Destino NVARCHAR(100),
     @Id_Tipo_Equipo INT,
     @Id_Acta INT
@@ -330,7 +414,6 @@ BEGIN
         Matricula,
         Estado,
         Observacion,
-        Fecha_ingreso,
         Destino,
         Id_Tipo_Equipo,
         Id_Acta
@@ -340,12 +423,30 @@ BEGIN
         @Matricula,
         @Estado,
         @Observacion,
-        @Fecha_ingreso,
         @Destino,
         @Id_Tipo_Equipo,
         @Id_Acta
     );
 END;
+
+CREATE PROCEDURE sp_EliminarEquipo
+    @id_equipo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Equipos WHERE id_equipo = @id_equipo)
+    BEGIN
+        DELETE FROM Equipos WHERE id_equipo = @id_equipo;
+        PRINT 'Equipo eliminado correctamente';
+    END
+    ELSE
+    BEGIN
+        PRINT 'No se encontró el equipo con el ID especificado';
+    END
+END;
+
+
 
 CREATE PROCEDURE sp_ListarInstituciones
 AS
@@ -552,7 +653,7 @@ BEGIN
         num_acta, 
         fecha_entrega, 
         responsable, 
-        num_expediente, 
+        estado, 
         foto, 
         id_proveedor, 
         id_institucion
@@ -564,14 +665,17 @@ CREATE PROCEDURE sp_AgregarActa
     @num_acta NVARCHAR(50),
     @fecha_entrega DATE,
     @responsable NVARCHAR(100),
-    @num_expediente NVARCHAR(50),
+    @estado NVARCHAR(50),
     @foto VARBINARY(MAX),
     @id_proveedor INT,
     @id_institucion INT
 AS
 BEGIN
-    INSERT INTO Actas (num_acta, fecha_entrega, responsable, num_expediente, foto, id_proveedor, id_institucion)
-    VALUES (@num_acta, @fecha_entrega, @responsable, @num_expediente, @foto, @id_proveedor, @id_institucion)
+    INSERT INTO Actas (num_acta, fecha_entrega, responsable, estado, foto, id_proveedor, id_institucion)
+    VALUES (@num_acta, @fecha_entrega, @responsable, @estado, @foto, @id_proveedor, @id_institucion)
+
+ -- Devolver el ID generado
+    SELECT SCOPE_IDENTITY()
 END
 
 
@@ -580,7 +684,7 @@ CREATE PROCEDURE sp_EditarActa
     @num_acta NVARCHAR(50),
     @fecha_entrega DATE,
     @responsable NVARCHAR(100),
-    @num_expediente NVARCHAR(50),
+    @estado NVARCHAR(50),
     @foto VARBINARY(MAX),
     @id_proveedor INT,
     @id_institucion INT
@@ -591,7 +695,7 @@ BEGIN
         num_acta = @num_acta,
         fecha_entrega = @fecha_entrega,
         responsable = @responsable,
-        num_expediente = @num_expediente,
+        estado = @estado,
         foto = @foto,
         id_proveedor = @id_proveedor,
         id_institucion = @id_institucion
@@ -610,42 +714,43 @@ END
 CREATE PROCEDURE sp_ListarAdMoviles
 AS
 BEGIN
-    SELECT id_admovil, tipo, nombre, matricula, descripcion, foto, id_acta FROM ADMoviles
+    SELECT * FROM ADMoviles
 END
 
 
 CREATE PROCEDURE sp_AgregarAdMovil
-    @tipo NVARCHAR(50),
-    @nombre NVARCHAR(100),
     @matricula NVARCHAR(20),
-    @descripcion NVARCHAR(200),
-    @foto VARBINARY(MAX),
-    @id_acta INT
+@num_serie NVARCHAR(20),
+@estado NVARCHAR(20),
+    @observacion NVARCHAR(200),
+    @id_acta INT,
+@id_tipo_equipo INT
 AS
 BEGIN
-    INSERT INTO ADMoviles (tipo, nombre, matricula, descripcion, foto, id_acta)
-    VALUES (@tipo, @nombre, @matricula, @descripcion, @foto, @id_acta)
+    INSERT INTO ADMoviles (matricula, num_serie, estado, observacion, id_acta, id_tipo_equipo)
+    VALUES (@matricula, @num_serie, @estado, @observacion, @id_acta, @id_tipo_equipo)
 END
 
 
 CREATE PROCEDURE sp_EditarAdMovil
     @id_admovil INT,
-    @tipo NVARCHAR(50),
-    @nombre NVARCHAR(100),
     @matricula NVARCHAR(20),
-    @descripcion NVARCHAR(200),
-    @foto VARBINARY(MAX),
-    @id_acta INT
+@num_serie NVARCHAR(20),
+@estado NVARCHAR(20),
+    @observacion NVARCHAR(200),
+    @id_acta INT,
+@id_tipo_equipo INT
+
 AS
 BEGIN
     UPDATE ADMoviles
     SET 
-        tipo = @tipo,
-        nombre = @nombre,
         matricula = @matricula,
-        descripcion = @descripcion,
-        foto = @foto,
-        id_acta = @id_acta
+num_serie = @num_serie,
+estado = @estado,
+        observacion = @observacion,
+        id_acta = @id_acta,
+id_tipo_equipo = @id_tipo_equipo
     WHERE 
         id_admovil = @id_admovil
 END
@@ -705,3 +810,43 @@ BEGIN
     WHERE IdServicioTecnico = @id_servicio_tecnico;
 END;
 GO
+
+
+
+
+CREATE TYPE EquipoType AS TABLE
+(
+    id_equipo INT PRIMARY KEY,
+    fecha_ingreso DATE NOT NULL,
+    num_serie NVARCHAR(50) NOT NULL,
+    matricula NVARCHAR(20),
+    estado NVARCHAR(100),
+    destino NVARCHAR(50),
+    observacion NVARCHAR(200),
+    id_acta INT,
+    id_tipo_equipo INT
+);
+GO
+
+
+
+ALTER TABLE Equipos ALTER COLUMN id_acta INT NULL;
+
+ALTER TABLE ADMoviles ALTER COLUMN id_acta INT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

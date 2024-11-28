@@ -9,11 +9,11 @@ namespace Entities
     public class AdMovil
     {
         public int IdAdMovil { get; set; }
-        public string Tipo { get; set; }
-        public string Nombre { get; set; }
         public string Matricula { get; set; }
-        public string Descripcion { get; set; }
-        public byte[] Foto { get; set; }
+        public string NumSerie { get; set; }
+        public string Observacion { get; set; }
+        public string Estado { get; set; }
         public int IdActa { get; set; }
+        public int IdTipoEquipo { get; set; }
     }
 }

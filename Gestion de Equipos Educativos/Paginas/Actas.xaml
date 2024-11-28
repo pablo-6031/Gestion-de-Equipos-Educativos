@@ -8,6 +8,11 @@
       Title="Actas" Width="1300" Height="700">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="96*"/>
+            <ColumnDefinition Width="86*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="73*"/>
             <RowDefinition Height="256*"/>
@@ -15,7 +20,7 @@
         </Grid.RowDefinitions>
         <Rectangle Grid.RowSpan="3" 
                    RadiusY="18" 
-                   RadiusX="18" StrokeThickness="5" Margin="-22,4,0,10" HorizontalAlignment="Left" Width="1322">
+                   RadiusX="18" StrokeThickness="5" Margin="-11,4,0,10" HorizontalAlignment="Left" Width="1322" Grid.ColumnSpan="3">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#CC2C1414" Offset="0"/>
@@ -31,130 +36,172 @@
             </Rectangle.Stroke>
         </Rectangle>
 
-        <Label Content="ACTAS"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="154">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                    <GradientStop Color="#FFFF3838" Offset="0.107"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
+        
 
-        <Grid Grid.Row="1">
+
+
+        <DataGrid Name="DGADM" Grid.Column="2" Grid.Row="2" Grid.RowSpan="1" AutoGenerateColumns="True" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}"  GridLinesVisibility="Vertical" Margin="5,35,11,25" >
+
+        </DataGrid>
+        <Button Name="btnAgregarEquipoADM" Content="Agregar ADM" Grid.Column="2" Grid.Row="2"
+    HorizontalAlignment="Left" 
+    Width="101" Margin="10,0,0,0" Height="25" VerticalAlignment="Top" Click="btnAgregarEquipo_Click"/>
+
+
+        <Grid Grid.Column="1" Grid.RowSpan="3">
             <Grid.RowDefinitions>
-                <RowDefinition Height="48*"/>
-                <RowDefinition Height="48*"/>
-                <RowDefinition Height="47*"/>
-                <RowDefinition Height="39*"/>
-                <RowDefinition Height="57*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="18*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="18*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="26*"/>
+                <RowDefinition Height="220*"/>
+                <RowDefinition Height="25*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80*"/>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="96*"/>
-                <ColumnDefinition Width="64*"/>
-                <ColumnDefinition Width="76*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="89*"/>
+
+
+
+
+
             </Grid.ColumnDefinitions>
 
             <!-- Foto -->
             <Button Name="btnCargarImagen" Content="Cargar Imagen" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="116" Click="btnCargarImagen_Click"/>
-            <Ellipse Name="eFoto"
-                     HorizontalAlignment="Center"
-                     Height="138"
-                     Grid.RowSpan="4"
-                     StrokeThickness="5"
-                     VerticalAlignment="Top"
-                     Width="140" Margin="0,44,0,0">
+            <Ellipse Name="eFoto" HorizontalAlignment="Center" Height="100" Grid.RowSpan="6" StrokeThickness="5" VerticalAlignment="Top" Width="100" Margin="0,14,0,0" Grid.Row="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
 
             <!-- Campos de texto -->
-            <TextBlock Grid.Row="0" Grid.Column="1"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,55" Text="ID ACTA:" Width="103" Grid.RowSpan="2"/>
-            <TextBlock Text="NÚMERO ACTA:" Grid.Row="1" Grid.Column="1"
+            <TextBlock Text="NÚMERO ACTA:" Grid.Row="0" Grid.Column="1"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,2"/>
-            <TextBlock Text="EXPEDIENTE:" Grid.Row="2" Grid.Column="1"
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="70"  />
+            <TextBlock Text="FECHA ENTREGA:" Grid.Column="1"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,10" Height="37"/>
-            <TextBlock Text="FECHA ENTREGA:" Grid.Column="3"
+                       HorizontalAlignment="Left"  Grid.Row="2" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="77" />
+            <TextBlock Text="RESPONSABLE:" Grid.Row="4" Grid.Column="1"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,211,56" Grid.ColumnSpan="2" Height="33" Grid.RowSpan="2" Width="130"/>
-            <TextBlock Text="RESPONSABLE:" Grid.Row="1" Grid.Column="3"
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="66" />
+            <TextBlock Text="PROVEEDOR:" Grid.Row="6" Grid.Column="1"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,0,3"/>
-            <TextBlock Text="PROVEEDOR:" Grid.Row="3" Grid.Column="1"
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="58"  />
+            <TextBlock Text="INSTITUCIÓN:" Grid.Row="8" Grid.Column="1"
                        VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,7,0" Height="36"/>
-            <TextBlock Text="INSTITUCIÓN:" Grid.Row="3" Grid.Column="3"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,0,229,0" Grid.ColumnSpan="2" Height="36"/>
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="61" />
 
             <!-- Campos de entrada -->
-            <TextBox x:Name="txtIdActa" 
-                     Grid.Column="2" 
-                     Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
             <TextBox x:Name="txtNumeroActa" 
                      Grid.Row="1" 
-                     Grid.Column="2" 
-                     Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
-            <TextBox x:Name="txtNumeroExpediente" 
-                     Grid.Row="2" 
-                     Grid.Column="2" 
-                     Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
+                     Grid.Column="1" Style="{StaticResource TextBoxTextos}" Height="40" Width="215"/>
+
             <DatePicker x:Name="dpFechaEntrega" 
-                        Grid.Column="4" 
-                        
-                        Margin="5,0,0,0" Width="187" Height="40"/>
+                        Grid.Column="1" 
+                        Grid.Row="3" 
+                        />
             <TextBox x:Name="txtResponsable" 
-                     Grid.Row="1" 
-                     Grid.Column="4" 
+                     Grid.Row="5" 
+                     Grid.Column="1" 
                      Style="{StaticResource TextBoxTextos}"
-                     Margin="5,0,0,0" Width="187" Height="40"/>
-            <ComboBox x:Name="cmbProveedor" Grid.Row="3" Grid.Column="2" Margin="5,0,0,0" Width="187" Height="40"/>
-            <ComboBox x:Name="cmbInstitucion" Grid.Row="3" Grid.Column="4" Margin="5,0,0,0" Width="187" Height="40"/>
+                      HorizontalAlignment="Left"  Width="215"/>
+            <ComboBox x:Name="cmbProveedor" Grid.Row="7" Grid.Column="1"  />
+            <ComboBox x:Name="cmbInstitucion" Grid.Row="9" Grid.Column="1" />
+
+            <DataGrid Name="DGEquipos" Grid.Column="0" Grid.Row="11" Grid.RowSpan="1" AutoGenerateColumns="False" Grid.ColumnSpan="2" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}"  GridLinesVisibility="Vertical"  >
+
+                <DataGrid.Columns>
+                    
+                    <DataGridTextColumn Width="30"  Header="ID" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdEquipo}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70"  Header="Tipo" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdTipoEquipo}" />
+                    <DataGridTextColumn Width="100"  Header="Numero de serie" HeaderTemplate="{StaticResource GreenHeaderTransparente}"  Binding="{Binding NumSerie}"/>
+                    <DataGridTextColumn Width="100"  Header="Matricula" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding Matricula}"/>
+                    <DataGridTextColumn Width="100"  Header="Estado" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Visibility="Hidden" Binding="{Binding Estado}"/>
+                    <DataGridTextColumn Width="100"  Header="Observacion" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding Observacion}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70"  Header="Destino" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Visibility="Hidden" Binding="{Binding Destino}" />
+                    
+                    <DataGridTextColumn Width="70"  Header="IdActa" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdActa}" Visibility="Hidden"/>
+
+                    <DataGridTemplateColumn Width="80" Header="ACCION" HeaderTemplate="{StaticResource GreenHeaderTransparente}">
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnEliminarFilaEquipo" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarFilaEquipo_Click"   ></Button>
+                                    <Button Name="btnEditarFilaEquipo" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarFilaEquipo_Click"   ></Button>
+                                </StackPanel>
+
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <Button Name="btnAgregarEquipo" Content="Agregar Equipo" Grid.Column="0" Grid.Row="10"
+    HorizontalAlignment="Left" 
+    Width="101"  Height="24" VerticalAlignment="Center" Click="btnAgregarEquipo_Click" />
 
             <!-- Botones -->
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="3"
-                        HorizontalAlignment="Center"
+            <StackPanel Grid.Row="12" Grid.Column="1" 
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Orientation="Horizontal" Height="26" Width="300">
-                <Button Name="btnAgregar" Content="Agregar"
+                        Orientation="Horizontal" Height="26" Width="200" >
+                <Button Name="btnAgregar" Content="Finalizar Acta"
                         HorizontalAlignment="Left" 
                         Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnAgregar_Click"/>
-                <Button Name="btnEliminar" Content="Eliminar"
-                        HorizontalAlignment="Left" 
-                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEliminar_Click"/>
-                <Button Name="btnEditar" Content="Editar"
-                        HorizontalAlignment="Left" 
-                        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnEditar_Click"/>
+                <Button Name="btnBorrador" Content="Guardar como Borrador"
+        HorizontalAlignment="Left" 
+        Width="80" Margin="10,0" Height="25" VerticalAlignment="Top" Click="btnBorrador_Click" />
             </StackPanel>
 
         </Grid>
 
-        <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGActas" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" MouseDoubleClick="DGActas_MouseDoubleClick">
+        <Border Grid.Row="1"  HorizontalAlignment="Center" Background="White"  Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5" Grid.RowSpan="2" Width="532">
+            <DataGrid Name="DGActas"  IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" MouseDoubleClick="DGActas_MouseDoubleClick" AutoGenerateColumns="False" SelectionChanged="DGActas_SelectionChanged" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="30" Header="ID" Binding="{Binding IdActa}"/>
-                    <DataGridTextColumn Width="150" Header="Número Acta" Binding="{Binding NumeroActa}"/>
-                    <DataGridTextColumn Width="150" Header="Expediente" Binding="{Binding NumeroExpediente}"/>
-                    <DataGridTextColumn Width="100" Header="Fecha Entrega" Binding="{Binding FechaEntrega}"/>
-                    <DataGridTextColumn Width="150" Header="Responsable" Binding="{Binding Responsable}"/>
-                    <DataGridTextColumn Width="100" Header="Unidad" Binding="{Binding IdUnidad}"/>
-                    <DataGridTextColumn Width="120" Header="Proveedor" Binding="{Binding IdProveedor}"/>
-                    <DataGridTextColumn Width="120" Header="Institución" Binding="{Binding IdInstitucion}"/>
+                    <DataGridTemplateColumn Width="60" Visibility="Hidden" HeaderTemplate="{StaticResource GreenHeaderTransparente}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="30" Width="50" Height="50">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Foto}"/>
+                                    </Border.Background>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="30"  Header="ID" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdActa}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="100"  Header="numacta" HeaderTemplate="{StaticResource GreenHeaderTransparente}"  Binding="{Binding NumeroActa}"/>
+                    <DataGridTextColumn Width="100"  Header="FechaEntrega" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding FechaEntrega , StringFormat={}{0:yyyy-MM-dd}}"/>
+                    <DataGridTextColumn Width="100"  Header="Responsable" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding Responsable}"/>
+                    <DataGridTextColumn Width="100"  Header="IdProveedor" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdProveedor}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70"  Header="Estado" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding Estado}" />
+                    <DataGridTextColumn Width="70"  Header="IdInstitucion" HeaderTemplate="{StaticResource GreenHeaderTransparente}" Binding="{Binding IdInstitucion}" Visibility="Hidden"/>
+
+                    <DataGridTemplateColumn Width="80" Header="ACCION" HeaderTemplate="{StaticResource GreenHeaderTransparente}">
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnEliminarFila" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarFila_Click" ></Button>
+                                    <Button Name="btnEditarFila" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarFila_Click"  ></Button>
+                                </StackPanel>
+
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
+
             </DataGrid>
         </Border>
     </Grid>

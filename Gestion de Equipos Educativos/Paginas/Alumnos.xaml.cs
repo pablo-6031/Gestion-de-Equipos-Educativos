@@ -225,8 +225,13 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                 ImageBrush fotoAlumno = new ImageBrush();
                 fotoAlumno.ImageSource = bitmapImage;
                 this.eFoto.Fill = fotoAlumno;
+
+                FotoAlumno = File.ReadAllBytes(openFileDialog.FileName);
             }
         }
+
+
+       
 
         private void LlenarComboBox()
         {

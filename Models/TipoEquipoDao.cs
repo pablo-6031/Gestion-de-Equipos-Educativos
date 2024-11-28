@@ -31,7 +31,48 @@ namespace Models
             }
         }
 
-        public void AgregarTipoEquipo(TipoEquipo tipoEquipo)
+        public TipoEquipo TraerTipoEquipos(int id)
+        {
+            DataTable Tabla = new DataTable();
+            TipoEquipo tipo = new TipoEquipo();
+            SqlDataReader Resultado;
+            using (var connection = GetConnection())
+            {
+                SqlDataReader leerFilas;
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.Parameters.AddWithValue("@id_tipo_equipo", id);
+                    command.CommandText = "sp_TraerTipoEquipo";
+                    command.CommandType = CommandType.StoredProcedure;
+                    Resultado = command.ExecuteReader();
+                    if (Resultado.HasRows)
+                    {
+                        while (Resultado.Read())
+                        {
+                            tipo.IdTipoEquipo = Resultado.GetInt32(0);
+                            tipo.Tipo = Resultado.GetString(1);
+                            tipo.Marca = Resultado.GetString(2);
+                            tipo.Modelo = Resultado.GetString(3);
+                            tipo.Detalle = Resultado.GetString(4);
+                            tipo.Foto = (byte[])Resultado.GetValue(5);
+
+                        }
+                    }
+
+                    Tabla.Load(Resultado);
+                    Resultado.Close();
+                    return tipo;
+
+                }
+            }
+        }
+
+
+
+
+            public void AgregarTipoEquipo(TipoEquipo tipoEquipo)
         {
             using (var connection = GetConnection())
             {
@@ -100,7 +141,7 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "SELECT Foto FROM Tipo_equipos WHERE IdTipoEquipo = @idTipoEquipo";
+                    command.CommandText = "SELECT Foto FROM Tipo_equipos WHERE id_tipo_equipo = @idTipoEquipo";
                     command.Parameters.AddWithValue("@idTipoEquipo", idTipoEquipo);
                     command.CommandType = CommandType.Text;
                     reader = command.ExecuteReader();
