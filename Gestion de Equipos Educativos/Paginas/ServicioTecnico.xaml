@@ -51,21 +51,12 @@
         <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
             <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="60" >
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="30" Width="50" Height="50">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Foto}"/>
-                                    </Border.Background>
-                                </Border>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="30" Header="ID" Binding="{Binding IdServicioTecnico}"/>
+                    <DataGridTextColumn Width="100" Header="Equipo" Binding="{Binding Tipo}"/>
+                    <DataGridTextColumn Width="100" Header="Numero de Serie" Binding="{Binding Num_serie}"/>
+                    
                     <DataGridTextColumn Width="150" Header="Falla" Binding="{Binding Falla}"/>
-                    <DataGridTextColumn Width="150" Header="Fecha Envío" Binding="{Binding FechaEnvio}"/>
-                    <DataGridTextColumn Width="100" Header="Equipo" Binding="{Binding IdEquipo}"/>
+                    <DataGridTextColumn Width="150" Header="Fecha Envío" Binding="{Binding Fecha_Envio, StringFormat={}{0:yyyy-MM-dd}}"/>
+                    
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

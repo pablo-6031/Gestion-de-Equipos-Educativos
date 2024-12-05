@@ -48,6 +48,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             InitializeComponent();
             ListarActas();
             LlenarComboBox();
+            ColumnaActa.Width = new GridLength(0);
         }
 
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
@@ -267,7 +268,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             return listaEquipos;
         }
 
-        private void CargarImagen(object foto, Ellipse destino)
+        private void CargarImagen(object foto, Rectangle destino)
         {
             ImageBrush miFoto = new ImageBrush();
 
@@ -353,9 +354,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
             
             ListarEquipos(ListaEquipoTemp);
-        }
-
-        
+        }      
 
         private void mostrarVentana()
         {
@@ -572,6 +571,12 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private void DGActas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btnAgregarActa_Click(object sender, RoutedEventArgs e)
+        {
+            // Mostrar columna (por ejemplo, restableciendo su ancho original)
+            ColumnaActa.Width = new GridLength(700, GridUnitType.Pixel);
         }
     }
 }

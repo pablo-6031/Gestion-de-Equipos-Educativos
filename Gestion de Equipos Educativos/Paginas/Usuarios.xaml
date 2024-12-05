@@ -63,9 +63,9 @@
 				Content="Cargar Imagen" 
 				HorizontalAlignment="Center" 
 				Height="30" 
-				VerticalAlignment="Center" 
+				VerticalAlignment="Top" 
 				Width="116"
-                     Click="btnCargarImagen_Click"/>
+                     Click="btnCargarImagen_Click" Margin="0,15,0,0"/>
             <Ellipse Name="eFoto"
                      HorizontalAlignment="Center"
                      Height="138"
@@ -199,7 +199,7 @@
                     <DataGridTextColumn Width="100"  Header="Password"  Binding="{Binding Password}"/>
                     <DataGridTextColumn Width="150"  Header="Correo" Binding="{Binding Correo}"/>
                     <DataGridTextColumn Width="120"  Header="Rol"  Binding="{Binding Rol}"/>
-                    
+
                     <DataGridTemplateColumn Width="80" Header="ACCION" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

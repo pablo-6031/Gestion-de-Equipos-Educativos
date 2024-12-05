@@ -15,8 +15,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="73*"/>
             <RowDefinition Height="256*"/>
-            <RowDefinition Height="271*"/>
+
         </Grid.RowDefinitions>
+        
         <Rectangle Grid.RowSpan="3" 
                    RadiusY="18" 
                    RadiusX="18" StrokeThickness="5" Margin="-22,4,0,10" HorizontalAlignment="Left" Width="1322" Grid.ColumnSpan="2">
@@ -34,6 +35,7 @@
                 </LinearGradientBrush>
             </Rectangle.Stroke>
         </Rectangle>
+        
 
         <Label Content="ALUMNOS"
                HorizontalAlignment="Left"
@@ -47,7 +49,7 @@
             </Label.Foreground>
         </Label>
 
-        <Grid Grid.ColumnSpan="2" Margin="0,85,0,316" Grid.RowSpan="3">
+        <Grid Grid.ColumnSpan="1"  Grid.Column="1" Grid.Row="1" Grid.RowSpan="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48*"/>
                 <RowDefinition Height="48*"/>
@@ -154,8 +156,8 @@
 
         </Grid>
 
-        <Border Grid.Row="2" HorizontalAlignment="Left" Background="White" Width="1260" Margin="20,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5" Grid.ColumnSpan="2">
-            <DataGrid Name="DGAlumnos" AutoGenerateColumns="True" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">
+        <Border Grid.Row="1" HorizontalAlignment="Left" Grid.Column="0" Background="White" Width="1260" Margin="20,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5" Grid.ColumnSpan="1">
+            <DataGrid Name="DGAlumnos" AutoGenerateColumns="True" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5" SelectionChanged="DGAlumnos_SelectionChanged">
                 <!--
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >

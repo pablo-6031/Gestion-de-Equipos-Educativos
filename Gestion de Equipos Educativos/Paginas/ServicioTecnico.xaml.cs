@@ -1,4 +1,5 @@
-﻿using Gestion_de_Equipos_Educativos.Ventanas;
+﻿using Controllers;
+using Gestion_de_Equipos_Educativos.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,15 @@ namespace Gestion_de_Equipos_Educativos.Paginas
     /// <summary>
     /// Lógica de interacción para ServiciosTecnicos.xaml
     /// </summary>
+    
+
     public partial class ServicioTecnico : Page
     {
+        ServicioTecnicoController servicioTecnicoController = new ServicioTecnicoController();
         public ServicioTecnico()
         {
             InitializeComponent();
+            listarEquipos();
         }
 
         private void mostrarVentana()
@@ -60,6 +65,15 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
             mostrarVentana();
+            listarEquipos();
+        }
+
+        private void listarEquipos()
+        {
+            
+            var dtServicio = servicioTecnicoController.ListarServiciosTecnicosConEquipos();
+
+            this.DGServiciosTecnicos.ItemsSource = dtServicio.DefaultView;
         }
     }
 }

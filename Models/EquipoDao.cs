@@ -59,6 +59,32 @@ namespace Models
         }
 
 
+        public DataTable ObtenerDetalleEquipo(int idEquipo)
+        {
+            DataTable equipo = new DataTable();
+
+            using (var connection = GetConnection()) // Método para obtener la conexión
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand("sp_ObtenerDetalleEquipo", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar el parámetro del procedimiento almacenado
+                    command.Parameters.AddWithValue("@IdEquipo", idEquipo);
+
+                    // Ejecutar el comando y cargar los resultados en el DataTable
+                    using (var reader = command.ExecuteReader())
+                    {
+                        equipo.Load(reader);
+                    }
+                }
+            }
+
+            return equipo;
+        }
+
         public DataTable ListarEquiposporNumSerie(string valor)
         {
             DataTable listaEquipos = new DataTable();

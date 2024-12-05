@@ -10,14 +10,18 @@
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="85*"/>
-            <RowDefinition Height="277*"/>
-            <RowDefinition Height="338*"/>
+            <RowDefinition Height="13*"/>
+
+            <RowDefinition Height="87*"/>
 
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="3" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="153*"/>
+            <ColumnDefinition Width="172*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.RowSpan="2" 
  RadiusY="18" 
- RadiusX="18" StrokeThickness="5" Margin="-32,10,0,4" HorizontalAlignment="Left" Width="1322" >
+ RadiusX="18" StrokeThickness="5" Margin="-32,10,0,4" HorizontalAlignment="Left" Width="1322" Grid.ColumnSpan="2" >
             <Rectangle.Fill>
                 <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#CC2C1414" Offset="0"/>
@@ -34,7 +38,7 @@
         </Rectangle>
         <Label Content="INSTITUCIONES"
 HorizontalAlignment="Center"
-VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="229" RenderTransformOrigin="0.5,0.5">
+VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="228" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -51,7 +55,7 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="63*"/>
                 <RowDefinition Height="52*"/>
@@ -60,12 +64,12 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
                 <RowDefinition Height="44*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="164*"/>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="176*"/>
-                <ColumnDefinition Width="277*"/>
-                <ColumnDefinition Width="245*"/>
-                <ColumnDefinition Width="199*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="102*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="151*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="109*"/>
 
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0"
@@ -73,29 +77,29 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
             <TextBlock Text="NIVEL:" Grid.Row="1" Grid.Column="0"
               VerticalAlignment="Center"
               HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Margin="90,0,0,0" Height="24" Width="85" Grid.ColumnSpan="2"/>
-            <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="2"
+            <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="1"
               VerticalAlignment="Bottom"
-              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,20,2" Width="104"/>
-            <TextBlock Text="TELEFONO:" Grid.Row="1" Grid.Column="2"
+              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,20,2" Width="104" Grid.ColumnSpan="2"/>
+            <TextBlock Text="TELEFONO:" Grid.Row="1" Grid.Column="3"
               VerticalAlignment="Center"
-              HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="67,0,0,0" Width="115" Grid.ColumnSpan="2"/>
+              HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="1,0,0,0" Width="115"/>
             <TextBlock Text="TURNO:" Grid.Row="2" Grid.Column="0"
               VerticalAlignment="Bottom"
-              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,0,3"/>
-            <TextBlock Text="DIRECTOR:" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="REGION:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,0,3"/>
-            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="PROVINCIA:" Grid.Row="4" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="LOCALIDAD:" Grid.Row="0" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="BARRIO:" Grid.Row="1" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="CALLE:" Grid.Row="2" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="NUMERO:" Grid.Row="3" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
-            <TextBlock Text="CP:" Grid.Row="4" Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3"/>
+              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,32,3"/>
+            <TextBlock Text="DIRECTOR:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="REGION:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,32,3"/>
+            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="PROVINCIA:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="LOCALIDAD:" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,111,0,0"/>
+            <TextBlock Text="BARRIO:" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,87,0,0"/>
+            <TextBlock Text="CALLE:" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,104,0,0"/>
+            <TextBlock Text="NUMERO:" Grid.Row="3" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,103,0,0"/>
+            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="CP:" Grid.Row="4" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,69,0,0"/>
             <TextBox x:Name="txtIdInstitucion" 
             Grid.Column="1" 
             Style="{StaticResource TextBoxTextos}"
-            Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.493,0.495"/>
+            Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.493,0.495" Grid.ColumnSpan="3"/>
             <ComboBox x:Name="cmbNivel" Grid.Column="1" Grid.Row="1" Margin="10,10,55,10"  Foreground="Black">
                 <ComboBoxItem Content="Primario"/>
                 <ComboBoxItem Content="Secundario"/>
@@ -106,7 +110,7 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
 Grid.Row="2" 
 Grid.Column="1" 
 Style="{StaticResource TextBoxTextos}"
-Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
+Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" Grid.ColumnSpan="3"/>
 
 
 
@@ -119,18 +123,18 @@ Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
                 <ComboBoxItem Content="VI"/>
                 <ComboBoxItem Content="VII"/>
             </ComboBox>
-            <TextBox x:Name="txtNombre" Grid.Column="3" Grid.Row="0" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381"/>
-            <TextBox x:Name="txtTelefono" Grid.Column="3" Grid.Row="1" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381"/>
-            <TextBox x:Name="txtDirector" Grid.Column="3" Grid.Row="2" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381"/>
-            <TextBox x:Name="txtCue" Grid.Column="3" Grid.Row="3" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381"/>
-            <TextBox x:Name="txtProvincia" Grid.Column="3" Grid.Row="4" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381"/>
+            <TextBox x:Name="txtNombre" Grid.Column="3" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtTelefono" Grid.Column="3" Grid.Row="1" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtDirector" Grid.Column="3" Grid.Row="2" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtCue" Grid.Column="3" Grid.Row="3" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtProvincia" Grid.Column="3" Grid.Row="4" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
             <TextBox x:Name="txtLocalidad" Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
             <TextBox x:Name="txtBarrio" Grid.Row="1"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
             <TextBox x:Name="txtCalle" Grid.Row="2"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
             <TextBox x:Name="txtNumeroCalle" Grid.Row="3" Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
             <TextBox x:Name="txtCP" Grid.Row="4"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
 
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="2"
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="4"
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Orientation="Horizontal" Height="42" Width="294" Grid.Column="0" Margin="15,0,0,0">
@@ -154,7 +158,7 @@ Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40"/>
 
 
         </Grid>
-        <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,28" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
+        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Background="White"  CornerRadius="0,0,15,15"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
             <DataGrid Name="DGInstituciones" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" MouseDoubleClick="DGInstituciones_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
