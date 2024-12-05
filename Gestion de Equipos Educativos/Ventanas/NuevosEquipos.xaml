@@ -5,40 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Ventanas"
         mc:Ignorable="d"
-        Title="NuevosEquipos" Height="500" Width="900" WindowStyle="None" Background="{x:Null}" WindowStartupLocation="CenterOwner">
-    <Grid MouseLeftButtonDown="mover">
+        Title="NuevosEquipos" Height="450" Width="800" WindowStyle="None" Background="{x:Null}" WindowStartupLocation="CenterOwner">
+    <Grid MouseLeftButtonDown="mover" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0*"/>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="16*"/>
-            <RowDefinition Height="408*"/>
-            <RowDefinition Height="29*"/>
+
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="90*"/>
+
 
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="5" 
-	   RadiusY="18" 
-	   RadiusX="18" StrokeThickness="5" HorizontalAlignment="Center" Width="900" Grid.Column="1" >
-            <Rectangle.Fill>
-                <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#CC2C1414" Offset="0"/>
-                    <GradientStop Color="#CCF12C2C" Offset="1"/>
-                    <GradientStop Color="#CCCB4343" Offset="0.458"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-            <Rectangle.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF8A1212" Offset="0"/>
-                    <GradientStop Color="#FF111010" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Stroke>
+
+        <Rectangle Grid.RowSpan="2" 
+	   RadiusY="15" 
+	   RadiusX="15" StrokeThickness="5" HorizontalAlignment="Center" Width="800" Grid.Column="1" Fill="{StaticResource colorFondo}">
         </Rectangle>
-        <Label Content="NUEVO EQUIPO"
-   HorizontalAlignment="Left"
-   VerticalAlignment="Top" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="241" RenderTransformOrigin="0.5,0.5" Margin="335,6,0,0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+        <Label Content="NUEVO EQUIPO" Grid.Row="0"  VerticalAlignment="Top" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46"   Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -55,55 +40,52 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Grid Grid.Row="3" Margin="10,0,-10,29" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Grid Grid.Row="2" Margin="10,10,10,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="53*"/>
-                <RowDefinition Height="44*"/>
-                <RowDefinition Height="44*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="26*"/>
-                <RowDefinition Height="44*"/>
-                <RowDefinition Height="44*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="37*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="47*"/>
+                <RowDefinition Height="90*"/>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
 
-                <ColumnDefinition Width="100*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="91*"/>
-                <ColumnDefinition Width="138*"/>
+                <ColumnDefinition Width="326*"/>
+                <ColumnDefinition Width="135*"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="269*"/>
 
 
 
             </Grid.ColumnDefinitions>
-            <Ellipse Name="eFoto" HorizontalAlignment="Center" Height="138" StrokeThickness="5" VerticalAlignment="Center" Width="140" Grid.RowSpan="5">
-                <Ellipse.Fill>
+            <Rectangle Name="eFoto" HorizontalAlignment="Center" Height="323" StrokeThickness="5" VerticalAlignment="Top" Width="246" Grid.RowSpan="7" Margin="0,8,0,0">
+                <Rectangle.Fill>
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
-                </Ellipse.Fill>
-            </Ellipse>
+                </Rectangle.Fill>
+            </Rectangle>
+
 
             <TextBlock Text="TIPO:" Grid.Row="0"
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="24" Width="86" Grid.ColumnSpan="2" Margin="237,0,0,44" Grid.RowSpan="2" />
-            <TextBlock Text="MODELO:" Grid.Row="0" Grid.Column="1"
-     VerticalAlignment="Bottom"
-     HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="24" Width="86" Grid.ColumnSpan="2" Margin="119,0,0,44" Grid.RowSpan="2" />
-            <TextBlock Text="NUMERO DE SERIE:" Grid.Row="2"
+                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Grid.Column="1" />
+            <TextBlock Text="MODELO:" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom"
+     HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="NÚMERO DE SERIE:" Grid.Row="2"
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Grid.ColumnSpan="2" Margin="237,0,0,0"  />
-            <TextBlock Text="MATRICULA:" Grid.Row="5"
+                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Grid.Column="1"  Height="16" Width="103"  />
+            <TextBlock Text="MATRICULA:" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Grid.Column="1" />
+            <TextBlock Text="ESTADO:" Grid.Row="0" Grid.Column="3"
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="24" Margin="237,0,0,2" Width="104" Grid.ColumnSpan="2"/>
-            <TextBlock Text="ESTADO:" Grid.Row="0" Grid.Column="2"
-                 VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Grid.ColumnSpan="2" Margin="216,0,0,44" Grid.RowSpan="2" />
+                  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
 
-            <TextBlock Text="DESTINO:" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Grid.ColumnSpan="2" Margin="216,0,0,0" />
-            <TextBlock Text="OBSERVACION:" Grid.Row="5" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="24" Width="95" Margin="216,0,0,3" Grid.ColumnSpan="2"/>
+            <TextBlock Text="DESTINO:" Grid.Row="2" Grid.Column="3" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="OBSERVACION:" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"  />
 
-            <ComboBox x:Name="cmbTipo" Grid.Row="1"  Foreground="Black" SelectionChanged="cmbTipo_SelectionChanged" Grid.ColumnSpan="2" Margin="237,0,0,43" Grid.RowSpan="2" >
+            <ComboBox x:Name="cmbTipo"   SelectionChanged="cmbTipo_SelectionChanged" Grid.Column="1"  Grid.Row="1" Margin="5,5,5,5" Style="{StaticResource colorCombobox}">
                 <ComboBoxItem Content="Netbook"/>
                 <ComboBoxItem Content="Notebook"/>
                 <ComboBoxItem Content="GABINETE MOVIL"/>
@@ -113,16 +95,16 @@
                 <ComboBoxItem Content="Impresora"/>
                 <ComboBoxItem Content="PC Escritorio"/>
             </ComboBox>
-            <ComboBox x:Name="cmbModelo" Grid.Column="1" Grid.Row="1"   Foreground="Black" SelectionChanged="cmbModelo_SelectionChanged" Grid.ColumnSpan="2" Margin="119,0,0,43" Grid.RowSpan="2"/>
-            <TextBox x:Name="txtNumSerie" Grid.Row="2"
-                Grid.ColumnSpan="3" Margin="237,43,0,44" Grid.RowSpan="4" />
+            <ComboBox x:Name="cmbModelo" Grid.Column="2"   Foreground="Black" SelectionChanged="cmbModelo_SelectionChanged" Margin="5,5,5,5" Grid.Row="1" Style="{StaticResource colorCombobox}" Background="#FF1C5B84" />
+            <TextBox x:Name="txtNumSerie" Grid.Row="3"
+                Grid.ColumnSpan="2" Margin="5,0,5,0"  Grid.Column="1" Style="{StaticResource colorTexbox}" Height="32" />
             <TextBox x:Name="txtObservacion" 
-               Grid.Row="6" 
-               Grid.Column="2" Grid.ColumnSpan="2" Margin="216,0,0,0" 
+               Grid.Row="5" 
+               Grid.Column="3"  Style="{StaticResource TexBoxDetalles}" Margin="5,5,5,5" Grid.RowSpan="2" 
                />
-            
 
-            <ComboBox x:Name="cmbEstado" Grid.Row="1" Grid.Column="3" Foreground="Black"    >
+
+            <ComboBox x:Name="cmbEstado" Grid.Column="3" Grid.Row="1" Margin="5,5,5,5"   Style="{StaticResource colorCombobox}"  >
                 <ComboBoxItem Content="Entregado"/>
                 <ComboBoxItem Content="En Deposito"/>
                 <ComboBoxItem Content="Cedida en Mgracion"/>
@@ -137,7 +119,7 @@
             </ComboBox>
 
 
-            <ComboBox x:Name="cmbDestino" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Margin="216,43,0,44" Grid.RowSpan="4" >
+            <ComboBox x:Name="cmbDestino" Grid.Column="3" Grid.Row="3" Margin="5,5,5,5" Style="{StaticResource colorCombobox}" >
                 <ComboBoxItem Content="Sin Asignar"/>
                 <ComboBoxItem Content="Administrador"/>
                 <ComboBoxItem Content="Docente"/>
@@ -145,19 +127,17 @@
                 <ComboBoxItem Content="Directivo"/>
                 <ComboBoxItem Content="Alumno"/>
             </ComboBox>
-            <TextBox x:Name="txtMatricula" Grid.Row="6"  Grid.Column="1"  Grid.ColumnSpan="2" />
-            <StackPanel Grid.Row="8"
+            <TextBox x:Name="txtMatricula" Grid.Row="5"  Grid.Column="1"  Grid.ColumnSpan="2"  Style="{StaticResource colorTexbox}"  TextChanged="txtMatricula_TextChanged" Margin="5,0,5,0" Height="33"  />
+            <StackPanel Grid.Row="7"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"
-                  Orientation="Horizontal" Height="42" Width="294" Grid.Column="2" Margin="15,0,0,0" Grid.ColumnSpan="2">
-                <Button x:Name="btnAgregar" Content="Agregar" 
-                  Width="86" 
+                  VerticalAlignment="Top"
+                  Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="3" Height="74" Width="324" Grid.RowSpan="2">
+                <Button x:Name="btnAgregar" Content="AGREGAR"   Style="{StaticResource Botones}"
+                  Width="150"  Height="50" Margin="12"
                   
-                  Click="btnAgregar_Click" Height="28"/>
-                <Button x:Name="btnCancelar" Content="Cancelar" 
-                  Width="94" 
-                  
-                  Height="28" Click="btnCancelar_Click"/>
+                  Click="btnAgregar_Click"/>
+                <Button x:Name="btnCancelar" Content="CANCELAR" Style="{StaticResource Botones}"
+                  Width="150"  Height="50" Click="btnCancelar_Click"/>
 
             </StackPanel>
 

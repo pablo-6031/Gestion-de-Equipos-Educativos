@@ -13,6 +13,11 @@ namespace Controllers
             return servicioTecnicoDao.ListarServiciosTecnicos();
         }
 
+        public DataTable ListarServiciosTecnicosConEquipos()
+        {
+            return servicioTecnicoDao.ListarServiciosTecnicosConEquipos();
+        }
+
         public void AgregarServicioTecnico(ServicioTecnico servicio)
         {
             servicioTecnicoDao.AgregarServicioTecnico(servicio);

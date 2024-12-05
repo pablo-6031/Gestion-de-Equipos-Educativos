@@ -51,12 +51,10 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Button x:Name="btnAgregar" Content="Agregar" Grid.Row="0" HorizontalAlignment="Left"
-  Width="86"   Click="btnAgregar_Click" Margin="10,20"/>
 
         <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,28" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGEquipos" AutoGenerateColumns="True" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" MouseDoubleClick="DGEquipos_MouseDoubleClick">
-                <!--
+            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" MouseDoubleClick="DGEquipos_MouseDoubleClick">
+                
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -69,21 +67,27 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="100"  Header="ID"  Binding="{Binding Idequipo}"/>
-                    <DataGridTextColumn Width="200"  Header="NumeroSerie"  Binding="{Binding Numserie}"/>
-                    <DataGridTextColumn Width="250"  Header="Tipo" Binding="{Binding Tipo}"/>
-                    <DataGridTextColumn Width="250"  Header="Proveedor"  Binding="{Binding Proveedor}"/>
-                    <DataGridTextColumn Width="300"  Header="Detalle"  Binding="{Binding Detalle}"/>
+                    <DataGridTextColumn Width="100"  Header="ID"  Binding="{Binding IdEquipo}"/>
+                    <DataGridTextColumn Width="200"  Header="NumeroSerie"  Binding="{Binding NumSerie}"/>
+                    <DataGridTextColumn Width="250"  Header="Matricula" Binding="{Binding Matricula}"/>
+                    <DataGridTextColumn Width="250"  Header="Estado"  Binding="{Binding Estado}"/>
 
-                    <DataGridTemplateColumn Width="80" Header="ACCION" >
+                    <DataGridTemplateColumn Width="300" Header="ACCION" HeaderTemplate="{StaticResource GreenHeaderTransparente}">
                         <DataGridTemplateColumn.CellTemplate>
+
                             <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnVerEquipo" Content="Ver" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnVerEquipo_Click"   ></Button>
+                                    <Button Name="btnEditarEquipo" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarEquipo_Click"   ></Button>
+                                    <Button Name="btnEliminarEquipo" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarEquipo_Click"  ></Button>
+                                </StackPanel>
+
 
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
--->
+
             </DataGrid>
         </Border>
 

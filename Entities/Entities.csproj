@@ -39,6 +39,9 @@
     <Reference Include="Azure.Identity, Version=1.11.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.11.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -160,6 +163,7 @@
     <Compile Include="Acta.cs" />
     <Compile Include="AdMovil.cs" />
     <Compile Include="Alumno.cs" />
+    <Compile Include="AlumnoCache.cs" />
     <Compile Include="DetalleAdmEquipo.cs" />
     <Compile Include="DetalleAlumnoEquipo.cs" />
     <Compile Include="DetalleEquipoActa.cs" />
@@ -170,10 +174,12 @@
     <Compile Include="Proveedor.cs" />
     <Compile Include="Remito.cs" />
     <Compile Include="ServicioTecnico.cs" />
+    <Compile Include="ServicioTecnicoCache.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="TipoEquipo.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="UsuarioCache.cs" />
+    <Compile Include="UsuarioCache2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

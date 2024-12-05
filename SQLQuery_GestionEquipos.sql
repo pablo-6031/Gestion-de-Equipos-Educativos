@@ -357,6 +357,26 @@ BEGIN
 END;
 
 
+CREATE PROCEDURE sp_ListarEquiposEnServicioTecnico
+AS
+BEGIN
+    SELECT 
+        Id_equipo,
+        Num_serie,
+        Matricula,
+        Estado,
+        Observacion,
+        Destino,
+        Id_Tipo_Equipo,
+        Id_Acta
+    FROM 
+        Equipos
+    WHERE 
+        Estado = 'En soporte Técnico'; 
+END;
+
+
+
 
 CREATE PROCEDURE sp_ListarEquiposporNumSerie
     @var NVARCHAR(50)
@@ -428,6 +448,50 @@ BEGIN
         @Id_Acta
     );
 END;
+
+
+
+CREATE PROCEDURE sp_EditarEquipo
+    @Id_Equipo INT, 
+    @Num_serie NVARCHAR(50),
+    @Matricula NVARCHAR(50),
+    @Estado NVARCHAR(50),
+    @Observacion NVARCHAR(255),
+    @Destino NVARCHAR(100),
+    @Id_Tipo_Equipo INT,
+    @Id_Acta INT
+AS
+BEGIN
+    UPDATE Equipos
+    SET
+        Num_serie = @Num_serie,
+        Matricula = @Matricula,
+        Estado = @Estado,
+        Observacion = @Observacion,
+        Destino = @Destino,
+        Id_Tipo_Equipo = @Id_Tipo_Equipo,
+        Id_Acta = @Id_Acta
+    WHERE
+        Id_Equipo = @Id_Equipo; 
+END;
+
+
+
+CREATE PROCEDURE sp_ActualizarEstadoEquipo
+    @Id_Equipo INT,       
+    @Estado NVARCHAR(50)  
+AS
+BEGIN
+
+    UPDATE Equipos
+    SET
+        Estado = @Estado
+    WHERE
+        Id_Equipo = @Id_Equipo; 
+
+END;
+
+
 
 CREATE PROCEDURE sp_EliminarEquipo
     @id_equipo INT
@@ -773,15 +837,69 @@ BEGIN
 END;
 GO
 
+
+
+CREATE PROCEDURE sp_ListarServiciosTecnicosConEquipos
+AS
+BEGIN
+    SELECT 
+        st.Id_Servicio_Tecnico,
+        st.Falla,
+        st.Fecha_Envio,
+        st.Foto,
+        e.Num_serie,
+        e.Matricula,
+        te.Tipo
+    FROM 
+        Servicio_Tecnico st
+    INNER JOIN 
+        Equipos e ON st.Id_Equipo = e.Id_Equipo
+    INNER JOIN 
+        Tipo_Equipos te ON e.Id_Tipo_Equipo = te.Id_Tipo_Equipo;
+END;
+GO
+
+
+
+
+CREATE PROCEDURE sp_ObtenerDetalleEquipo
+    @IdEquipo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        e.Id_Equipo,
+        e.Num_serie,
+        e.Matricula,
+        e.Estado,
+        e.Observacion,
+        e.Destino,
+        te.tipo AS TipoEquipo,
+	te.modelo AS ModeloEquipo,
+        a.Fecha_Entrega,
+        DATEDIFF(DAY, GETDATE(), DATEADD(YEAR, 1, a.Fecha_Entrega)) AS DiasGarantiaRestantes
+    FROM 
+        Equipos e
+    INNER JOIN 
+        Actas a ON e.Id_Acta = a.Id_Acta
+    INNER JOIN 
+        Tipo_Equipos te ON e.Id_Tipo_Equipo = te.Id_Tipo_Equipo
+    WHERE 
+        e.Id_Equipo = @IdEquipo;
+END;
+
+
 CREATE PROCEDURE sp_AgregarServicioTecnico
     @falla NVARCHAR(MAX),
+@responsable NVARCHAR(100),
     @fecha_envio DATETIME,
     @foto VARBINARY(MAX),
     @id_equipo INT
 AS
 BEGIN
-    INSERT INTO ServiciosTecnicos (Falla, FechaEnvio, Foto, IdEquipo)
-    VALUES (@falla, @fecha_envio, @foto, @id_equipo);
+    INSERT INTO Servicio_tecnico (Falla, Fecha_Envio, Foto, Id_Equipo, Responsable)
+    VALUES (@falla, @fecha_envio, @foto, @id_equipo,@responsable);
 END;
 GO
 

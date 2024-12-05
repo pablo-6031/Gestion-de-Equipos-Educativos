@@ -96,5 +96,10 @@ namespace Gestion_de_Equipos_Educativos
         {
             this.WindowState = WindowState.Minimized;
         }
+
+        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

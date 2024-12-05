@@ -256,5 +256,10 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                 System.Windows.MessageBox.Show("No hay datos en la tabla");
             }
         }
+
+        private void DGAlumnos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

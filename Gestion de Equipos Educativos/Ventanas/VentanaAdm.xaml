@@ -1,0 +1,144 @@
+﻿<Window x:Class="Gestion_de_Equipos_Educativos.Ventanas.VentanaAdm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Ventanas"
+        mc:Ignorable="d"
+        Title="VentanaAdm" Width="1424" Height="851" WindowStyle="None" Background="{x:Null}" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="700*"/>
+            <ColumnDefinition Width="26*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="331*"/>
+            <RowDefinition Height="316*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.RowSpan="3" 
+                    StrokeThickness="5" HorizontalAlignment="Left" Width="1425" Height="848" Grid.ColumnSpan="3" Fill="{StaticResource colorFondo}" >
+
+
+        </Rectangle>
+
+
+        <Grid Grid.Column="0" Grid.RowSpan="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="172*"/>
+                <RowDefinition Height="43*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="85*"/>
+
+
+
+
+
+            </Grid.ColumnDefinitions>
+
+            <!-- Foto -->
+            <Button Name="btnCargarImagen" Content="Cargar Imagen" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="116" />
+            <Rectangle Name="eFoto" HorizontalAlignment="Center" Height="222" Grid.RowSpan="7" StrokeThickness="5" VerticalAlignment="Top" Width="178" Margin="0,14,0,0" Grid.Row="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="../Imagenes/user.jpg"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+
+            <!-- Campos de texto -->
+            <TextBlock Text="NÚMERO DE  SERIE:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="16" Width="117"  />
+            <TextBlock Text="MATRICULA:" Grid.Column="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left"  Grid.Row="2" Foreground="#FFF8E7E7" FontSize="12" Height="16" Width="92" />
+            <TextBlock Text="ESTADO:" Grid.Row="4" Grid.Column="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="16" Width="80"  />
+            <TextBlock Text="OBSERVACION:" Grid.Row="6" Grid.Column="1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="16" Width="85" Margin="0,0,0,38" Grid.RowSpan="2"  />
+
+            <!-- Campos de entrada -->
+            <TextBox x:Name="txtNumeroActa"  Grid.Row="1" Margin="5,5,5,5" Grid.Column="1"  Style="{StaticResource colorTexbox}" Height="34"  />
+            <TextBox x:Name="txtMatricula"  Grid.Row="3" Margin="5,5,5,5"
+Grid.Column="1"  Style="{StaticResource colorTexbox}" />
+            <TextBox x:Name="txtResponsable"  Grid.Row="5" Margin="5,5,5,5"
+Grid.Column="1"  Style="{StaticResource colorTexbox}"   />
+
+            <TextBox x:Name="txtObservacion" 
+   Grid.Row="7" 
+   Grid.Column="3"   Style="{StaticResource TexBoxDetalles}" Margin="5,5,5,5" Grid.RowSpan="2" 
+   />
+
+            <!-- Botones -->
+            <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal" Height="66" Width="348" >
+                <Button Name="btnGuardar" Content="GUARDAR" 
+                        Width="117" Margin="10,0" Height="41" VerticalAlignment="Top"  Style="{StaticResource Botones}"/>
+                <Button Name="btnSalir" Content="SALIR" 
+        Width="123" Margin="10,0" Height="40" VerticalAlignment="Top"  Style="{StaticResource Botones}" Click="btnSalir_Click"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Button Name="btnAgregarEquipo"  Grid.Column="1" Content="AGREGAR EQUIPO" Margin="10,21,0,0"
+HorizontalAlignment="Left" 
+Width="166"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}"  />
+        <TextBox x:Name="txtBuscarEquipo"  Grid.Column="1"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Left"  Margin="520,0,0,0" Width="342" Height="33"   />
+
+        <Border Grid.Column="1" Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Grid.RowSpan="3" Margin="10,64,0,10" >
+            <DataGrid Name="DGEquipos"  IsReadOnly="True" 
+                       Style="{StaticResource DarkDataGridStyle}"
+                      
+                GridLinesVisibility="Vertical" AutoGenerateColumns="False"  Height="759" VerticalAlignment="Top" Background="#FF565555" >
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Width="30*"  Header="ID"  Binding="{Binding IdEquipo}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70*"  Header="Tipo"  Binding="{Binding IdTipoEquipo}" />
+                    <DataGridTextColumn Width="100*"  Header="Numero de serie"  Binding="{Binding NumSerie}"/>
+                    <DataGridTextColumn Width="100*"  Header="Matricula"  Binding="{Binding Matricula}"/>
+                    <DataGridTextColumn Width="100*"  Header="Estado"  Visibility="Hidden" Binding="{Binding Estado}"/>
+                    <DataGridTextColumn Width="100*"  Header="Observacion"  Binding="{Binding Observacion}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70*"  Header="Destino"  Visibility="Hidden" Binding="{Binding Destino}" />
+
+                    <DataGridTextColumn Width="70*"  Header="IdActa"  Binding="{Binding IdActa}" Visibility="Hidden"/>
+
+                    <DataGridTemplateColumn Width="80*" Header="ACCION" >
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnEliminarFilaEquipo" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}"    ></Button>
+                                    <Button Name="btnEditarFilaEquipo" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}"   ></Button>
+                                </StackPanel>
+
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Border>
+    </Grid>
+</Window>

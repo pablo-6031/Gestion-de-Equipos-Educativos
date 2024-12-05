@@ -18,6 +18,11 @@ namespace Controllers
             return equipoDao.ListarEquipos();
         }
 
+        public DataTable ObtenerDetalleEquipo(int idEquipo)
+        {
+            return equipoDao.ObtenerDetalleEquipo(idEquipo);
+        }
+
         public DataTable listarEquiposPorActa(int idActa)
         {
             return equipoDao.ListarEquiposPorActa(idActa);

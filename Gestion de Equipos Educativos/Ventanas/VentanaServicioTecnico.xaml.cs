@@ -26,29 +26,16 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
     public partial class VentanaServicioTecnico : Window
     {
         EquipoController equipoController = new EquipoController();
+        ServicioTecnicoController servicioTecnicoController = new ServicioTecnicoController();  
         private string imageSource = null;
         byte[] FotoServTec;
+        int idEquipo;
         public VentanaServicioTecnico()
         {
             InitializeComponent();
         }
 
-        private void txtBuscarEquipo_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string textoBusqueda = txtBuscarEquipo.Text.Trim();
-            if (string.IsNullOrWhiteSpace(textoBusqueda))
-            {
-                // Si no hay texto, mostrar todos los docentes
-                
-            }
-
-
-            // Llamar al controlador para obtener los datos filtrados
-
-            var dtEquipos = equipoController.ListarEquiposporNumSerie(textoBusqueda);
-
-            this.DGEquipos.ItemsSource = dtEquipos.DefaultView;
-        }
+        
 
         private void CargarImagen(object foto, Ellipse destino)
         {
@@ -98,5 +85,13 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
                 FotoServTec = File.ReadAllBytes(openFileDialog.FileName);
             }
         }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        
+
     }
 }

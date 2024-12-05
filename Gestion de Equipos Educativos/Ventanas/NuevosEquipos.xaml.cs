@@ -126,7 +126,7 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
 
         private void cmbModelo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
             var FotoTipoEquipo = (byte[])tipoEquipoController.ObtenerFoto((int)cmbModelo.SelectedValue);
 
 
@@ -164,6 +164,11 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
             ComboBoxItem selectedItem = (ComboBoxItem)cmbTipo.SelectedItem;
             string tipo = selectedItem.Content.ToString();
             LlenarComboBox(tipo);
+        }
+
+        private void txtMatricula_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

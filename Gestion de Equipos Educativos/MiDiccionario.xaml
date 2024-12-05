@@ -1,10 +1,70 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+
+
+    <!-- Estilo para DataGrid -->
+    <Style TargetType="DataGrid" x:Key="DarkDataGridStyle">
+        <Setter Property="Background" Value="Black"/>
+        <!-- Fondo oscuro general -->
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <!-- Líneas divisoras visibles -->
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="RowHeight" Value="40"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="#555555"/>
+        <!-- Líneas horizontales -->
+        <Setter Property="VerticalGridLinesBrush" Value="#555555"/>
+        <!-- Líneas verticales -->
+    </Style>
+
+    <!-- Estilo para cabeceras -->
+    <Style TargetType="DataGridColumnHeader" x:Key="DarkDataGridHeaderStyle">
+        <Setter Property="Background" Value="#444444"/>
+        <!-- Fondo más oscuro para cabeceras -->
+        <Setter Property="Foreground" Value="White"/>
+        <!-- Texto blanco -->
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="5"/>
+        <!-- Borde inferior como divisor -->
+        <Setter Property="BorderBrush" Value="#555555"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+
+    <!-- Estilo para filas y celdas -->
+    <Style TargetType="DataGridCell" x:Key="DarkDataGridCellStyle">
+
+        <!-- Margen interno -->
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="White"/>
+        <!-- Texto blanco -->
+        <Setter Property="Background" Value="#333333"/>
+        <!-- Fondo oscuro -->
+        <Setter Property="BorderBrush" Value="#555555"/>
+        <!-- Líneas divisorias -->
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <!-- Línea inferior divisoria -->
+    </Style>
+
     <!--#Region COLORES-->
+
     <LinearGradientBrush x:Key="colorFondo"  EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#003366" Offset="0"/>
-        <GradientStop Color="#CCF12C2C" Offset="1"/>
-        <GradientStop Color="#D62828" Offset="0.458"/>
+        <GradientStop Color="#FF041F37" Offset="0" />
+        <GradientStop Color="#FF123D5F" Offset="0.5" />
+        <GradientStop Color="#FF04716E" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- Labels -->
+
+
+    <LinearGradientBrush x:Key="colorBarraSuperior"  EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF02101D" Offset="0" />
+        <GradientStop Color="#FF031B2F" Offset="0.5" />
+        <GradientStop Color="#FF011313" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ButtonColor" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -33,7 +93,106 @@
         <GradientStop Color="#FFC3E436" Offset="1"/>
     </LinearGradientBrush>
 
+
+
+
+
+
+
+    <!-- Degradados -->
+    <LinearGradientBrush x:Key="GradientBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF1E88E5" Offset="0" />
+        <GradientStop Color="#FF42A5F5" Offset="0.5" />
+        <GradientStop Color="#FF64B5F6" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientButton" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF03517B" Offset="0" />
+        <GradientStop Color="#FF09667F" Offset="0.5" />
+        <GradientStop Color="#FF2196F3" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientButtonHover" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF1565C0" Offset="0" />
+        <GradientStop Color="#FF42A5F5" Offset="0.5" />
+        <GradientStop Color="#FF64B5F6" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientDataGrid" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF0D47A1" Offset="0" />
+        <GradientStop Color="#FF1E88E5" Offset="0.5" />
+        <GradientStop Color="#FF64B5F6" Offset="1" />
+    </LinearGradientBrush>
+
+
+
+
+    <!-- Botones -->
+    <Style TargetType="Button" x:Key="Botones">
+        <Setter Property="Background" Value="{StaticResource GradientButton}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource GradientButtonHover}"  />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+
+
+    <!-- TextBox -->
+    <Style x:Key="colorTexbox" TargetType="TextBox">
+        <Setter Property="Background" Value="#F5FBFF" />
+        <Setter Property="Foreground" Value="#FF1C7CB7" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="BorderBrush" Value="#FF90CAF9" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="BorderThickness" Value="2"/>
+
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="TexBoxDetalles">
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="#FFC6E5F1" />
+        <Setter Property="Foreground" Value="#FF1C7CB7" />
+        <Setter Property="BorderBrush" Value="#AA90CAF9" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
     
+    <!-- ComboBox -->
+    <Style x:Key="colorCombobox" TargetType="ComboBox">
+        <Setter Property="Background" Value="#F5FBFF" />
+        <Setter Property="Foreground" Value="#FF1C7CB7" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="BorderBrush" Value="#FF90CAF9" />
+        <Setter Property="Opacity" Value="0.9"/>
+        <Setter Property="BorderThickness" Value="2"/>
+
+    </Style>
 
     <Style x:Key="ListViewItemNormalDataGrid" TargetType="{x:Type DataGridRow}" >
         <Setter Property="Height" Value="55" />
@@ -54,17 +213,13 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <DropShadowEffect x:Key="ButtonPressed" ShadowDepth="0" Color="Yellow" BlurRadius="15"/>
 
     <SolidColorBrush x:Key="VerdeTransparente" Color="#80FF00FF"/>
     <!-- Ajusta el color y la opacidad según tus necesidades -->
 
-    <DataTemplate x:Key="GreenHeaderTransparente">
-        <!--Este template espara la colorear el header de la lista de Estudiantes -->
-        <StackPanel Orientation="Horizontal" Margin="-5,-5,-5,-5" Width="450" Background="{DynamicResource VerdeTransparente}">
-            <TextBlock Margin="8,6,8,6" Text="{Binding}" HorizontalAlignment="Center" FontSize="12" VerticalAlignment="Center" Foreground="Black"/>
-        </StackPanel>
-    </DataTemplate>
+
 
     <!--#EndRegion COLORES-->
 

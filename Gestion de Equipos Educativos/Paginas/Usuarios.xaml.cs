@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Models;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Gestion_de_Equipos_Educativos.Paginas
 {
@@ -106,7 +107,22 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Archivos de imagen (.jpg)|*.jpg|PNG(*.png)|*.png|All files(*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.Multiselect = false;//selecciona mas de un archivo
 
+            bool? revisarOK = openFileDialog.ShowDialog();
+            if (revisarOK == true)
+            {
+                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
+                imageSource = openFileDialog.FileName.ToString();
+                ImageBrush fotoAlumno = new ImageBrush();
+                fotoAlumno.ImageSource = bitmapImage;
+                this.eFoto.Fill = fotoAlumno;
+
+                FotoUsuario = File.ReadAllBytes(openFileDialog.FileName);
+            }
         }
     }
 }
