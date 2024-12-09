@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
-      Title="Proveedores" Width="1349" Height="828">
+      Title="Proveedores" Width="1250" Height="831">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="429*" x:Name="ColumnaDatos"/>
 
         </Grid.ColumnDefinitions>
-        <Rectangle StrokeThickness="5"   HorizontalAlignment="Left"  Width="1341" Fill="{StaticResource colorFondo}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="9,4,0,-2"/>
+        <Rectangle StrokeThickness="5"   HorizontalAlignment="Left"  Width="1253" Fill="{StaticResource colorFondo}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="9,4,0,-2"/>
 
         <Label Content="PROVEEDORES"
                HorizontalAlignment="Center"
@@ -54,8 +54,9 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="31*"/>
-                <ColumnDefinition Width="467*"/>
+                <ColumnDefinition Width="13*"/>
+                <ColumnDefinition Width="369*"/>
+                <ColumnDefinition Width="16*"/>
 
             </Grid.ColumnDefinitions>
 
@@ -63,22 +64,22 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
 
             <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
             <TextBlock Text="JURISDICCION:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
-            <TextBlock Text="TELÉFONO:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="TELÉFONO:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,59" Grid.RowSpan="2" />
             <TextBlock Text="CORREO:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
             <TextBlock Text="DIRECCIÓN:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
 
             <!-- Campos de entrada -->
 
             <TextBox x:Name="txtNombre" 
-                     Grid.Row="1"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+                     Grid.Row="1"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtJurisdiccion" 
-         Grid.Row="3"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+         Grid.Row="3"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtTelefono" 
-                     Grid.Row="5"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+                     Grid.Row="5"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtCorreo" 
-                    Grid.Row="7"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+                    Grid.Row="7"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtDireccion" 
-                     Grid.Row="9"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+                     Grid.Row="9"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
 
             <!-- Botones -->
             <StackPanel Grid.Row="11"
@@ -94,8 +95,12 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
 
         </Grid>
 
-        <Border Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Grid.RowSpan="2" Margin="10,1,0,10" Grid.Row="1"   >
-            <DataGrid Name="DGProveedores" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="0,0,5,0"  >
+        <Border Background="{DynamicResource colorFondDg}" BorderThickness="5" Margin="26,1,0,10" Grid.Row="1"   >
+            <DataGrid Name="DGProveedores" AutoGenerateColumns="False" IsReadOnly="True"  GridLinesVisibility="Vertical" Margin="0,16,0,20" HorizontalAlignment="Center"  Style="{StaticResource DarkDataGridStyle}" >
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="30*" Header="ID" Binding="{Binding id_proveedor}" Visibility="Hidden"/>

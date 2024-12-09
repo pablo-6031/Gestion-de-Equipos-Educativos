@@ -7,7 +7,7 @@
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
 
-      Width="1349" Height="828"
+      Width="1224" Height="831"
       Title="Instituciones">
 
     <Grid >
@@ -17,11 +17,11 @@
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="807*"/>
-            <ColumnDefinition Width="542*" x:Name="ColumnaDatos"/>
+            <ColumnDefinition Width="379*"/>
+            <ColumnDefinition Width="233*" x:Name="ColumnaDatos"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="2" 
-                    StrokeThickness="5" HorizontalAlignment="Left" Width="1349" Grid.ColumnSpan="2" Fill="{StaticResource colorFondo}" />
+                    StrokeThickness="5" HorizontalAlignment="Left" Width="1225" Grid.ColumnSpan="2" Fill="{StaticResource colorFondo}" />
         <Label Content="INSTITUCIONES"
 HorizontalAlignment="Center"
 VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="228" RenderTransformOrigin="0.5,0.5">
@@ -43,11 +43,11 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
         </Label>
 
 
-        <Button Name="btnAgregarInstitucion" Content="AGREGAR" Margin="10,21,0,0"
+        <Button Name="btnAgregarInstitucion" Content="AGREGAR" Margin="10,0,0,0"
 HorizontalAlignment="Left" 
-Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}" Click="btnAgregarInstitucion_Click" />
-        <TextBox x:Name="txtBuscar"  Grid.Column="0"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"   Width="283" Height="32" TextChanged="txtBuscar_TextChanged"/>
-        <Grid Grid.Row="1"  Grid.Column="1">
+Width="127"  Height="33" VerticalAlignment="Center" Style="{StaticResource Botones}" Click="btnAgregarInstitucion_Click" />
+        <TextBox x:Name="txtBuscar"  Grid.Column="0"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Left"   Width="283" Height="32" TextChanged="txtBuscar_TextChanged" Grid.ColumnSpan="2" Margin="481,0,0,0" />
+        <Grid  Grid.Column="1" Margin="30,76,0,0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="50*"/>
@@ -68,8 +68,9 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="263*"/>
-                <ColumnDefinition Width="263*"/>
+                <ColumnDefinition Width="210*"/>
+                <ColumnDefinition Width="233*"/>
+                <ColumnDefinition Width="20*"/>
 
 
 
@@ -83,12 +84,12 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
             <TextBlock Text="TURNO:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
             <TextBlock Text="DIRECTOR:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
             <TextBlock Text="REGION:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
-            <TextBlock Text="CUE:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
-            <TextBlock Text="PROVINCIA:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
-            <TextBlock Text="LOCALIDAD:" Grid.Row="8" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
-            <TextBlock Text="BARRIO:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
-            <TextBlock Text="CALLE:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
-            <TextBlock Text="NUMERO:" Grid.Row="10" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="CUE:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2" />
+            <TextBlock Text="PROVINCIA:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2"/>
+            <TextBlock Text="LOCALIDAD:" Grid.Row="8" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2"/>
+            <TextBlock Text="BARRIO:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2"/>
+            <TextBlock Text="CALLE:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2" />
+            <TextBlock Text="NUMERO:" Grid.Row="10" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,44" Grid.RowSpan="2" />
             <TextBlock Text="CP:" Grid.Row="12" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
 
             <ComboBox x:Name="cmbNivel" Grid.Column="0" Grid.Row="3" Margin="5,5,5,5"   Style="{StaticResource colorCombobox}">
@@ -107,14 +108,14 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
                 <ComboBoxItem Content="VI"/>
                 <ComboBoxItem Content="VII"/>
             </ComboBox>
-            <TextBox x:Name="txtNombre" Grid.Row="1"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtTelefono" Grid.Row="1"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtDirector" Grid.Column="0" Grid.Row="5" Style="{StaticResource colorTexbox}" Margin="5,5,5,5" />
-            <TextBox x:Name="txtCue" Grid.Row="7"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtProvincia" Grid.Row="7"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtLocalidad" Grid.Row="9"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtBarrio" Grid.Row="9"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
-            <TextBox x:Name="txtCalle" Grid.Row="11"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtNombre" Grid.Row="1"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtTelefono" Grid.Row="1"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtDirector" Grid.Column="0" Grid.Row="5" Style="{StaticResource colorTexbox}" Margin="5,0,5,0" Height="33" />
+            <TextBox x:Name="txtCue" Grid.Row="7"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtProvincia" Grid.Row="7"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtLocalidad" Grid.Row="9"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtBarrio" Grid.Row="9"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtCalle" Grid.Row="11"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtNumeroCalle" Grid.Row="11"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
             <TextBox x:Name="txtCP" Grid.Row="13"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
 
@@ -143,8 +144,12 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
 
 
 
-        <Border Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Margin="10,1,0,10" Grid.Row="1"  >
+        <Border    BorderThickness="5" Margin="10,1,0,10" Grid.Row="1"  Background="{DynamicResource colorFondDg}">
             <DataGrid Name="DGInstituciones" AutoGenerateColumns="False" IsReadOnly="True" Style="{StaticResource DarkDataGridStyle}" GridLinesVisibility="Vertical"  MouseDoubleClick="DGInstituciones_MouseDoubleClick">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>

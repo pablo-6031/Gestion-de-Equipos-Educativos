@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
-      Title="Usuarios" Width="1349" Height="828">
+      Title="Usuarios" Width="1250" Height="831">
 
     <Grid >
         <Grid.RowDefinitions>
@@ -13,15 +13,19 @@
 
             <RowDefinition Height="251*"/>
         </Grid.RowDefinitions>
-        <Rectangle  StrokeThickness="5"  HorizontalAlignment="Left"  Width="1349" Fill="{StaticResource colorFondo}" Grid.RowSpan="2" />
+        <Rectangle  StrokeThickness="5"  HorizontalAlignment="Left"  Width="1339" Fill="{StaticResource colorFondo}" Grid.RowSpan="2" />
         <Button Name="btnAgregarUsuario" Content="AGREGAR" Margin="10,0,0,21"
 HorizontalAlignment="Left" 
 Width="127"  Height="34" VerticalAlignment="Bottom" Style="{StaticResource Botones}" Click="btnAgregarUsuario_Click"  />
-        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="342" Height="34" TextChanged="txtBuscar_TextChanged"  />
+        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="322" Height="34" TextChanged="txtBuscar_TextChanged" Margin="0,0,20,0"  />
 
 
-        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1328" Margin="0,10,0,10"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGUsuarios" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,-5,5,1">
+        <Border Grid.Row="1" HorizontalAlignment="Center" Background="{DynamicResource colorFondDg}" Width="1224" Margin="0,10,0,16"   BorderThickness="5">
+            <DataGrid Name="DGUsuarios" AutoGenerateColumns="False" IsReadOnly="True"  Margin="0,19,17,1" HorizontalAlignment="Right" Width="1182" Style="{StaticResource DarkDataGridStyle}">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60*" >
                         <DataGridTemplateColumn.CellTemplate>
