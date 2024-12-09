@@ -23,7 +23,7 @@
 RadiusY="15" 
 RadiusX="15" StrokeThickness="5" HorizontalAlignment="Center" Width="800" Grid.Column="1" Fill="{StaticResource colorFondo}">
         </Rectangle>
-        <Label Content="NUEVO ALUMNO" Grid.Row="0"  VerticalAlignment="Top" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46"   Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <Label Content="NUEVO USUARIO" Grid.Row="0"  VerticalAlignment="Top" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46"   Grid.ColumnSpan="2" HorizontalAlignment="Center">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -69,6 +69,7 @@ RadiusX="15" StrokeThickness="5" HorizontalAlignment="Center" Width="800" Grid.C
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <Button x:Name="btnAgregarFoto" Content="AGREGAR"   Style="{StaticResource Botones}"  Height="30" Grid.Column="0" Grid.Row="8" VerticalAlignment="Top"  Margin="23,0,177,0" Click="btnAgregarFoto_Click"  />
 
 
             <TextBlock Text="NOMBRE:" Grid.Row="0"
@@ -86,21 +87,27 @@ RadiusX="15" StrokeThickness="5" HorizontalAlignment="Center" Width="800" Grid.C
 
             <TextBlock Text="CORREO:" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
 
-            <TextBox x:Name="txtNombre" Grid.Row="1"  Margin="5,5,5,5"  Grid.Column="1" Style="{StaticResource colorTexbox}" />
-            <TextBox x:Name="txtCuil" Grid.Row="3" Margin="5,5,5,5"  Grid.Column="1" Style="{StaticResource colorTexbox}" Height="32" />
-            <TextBox x:Name="txtLoginName" Grid.Row="5"  Grid.Column="1"   Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"  />
-            <ComboBox x:Name="cmbInstitucion" Grid.Column="1"   Foreground="Black"  Margin="5,5,5,5" Grid.Row="7" Style="{StaticResource colorCombobox}" Background="#FF1C5B84" />
-            <TextBox x:Name="txtPassword" Grid.Row="5"  Grid.Column="2"   Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"  />
-            <TextBox x:Name="txtApellido" Grid.Row="1"  Grid.Column="2"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="32"  />
-            <TextBox x:Name="txtCorreo" Grid.Row="3"  Grid.Column="2"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"  />
+            <TextBox x:Name="txtNombre" Grid.Row="1"  Margin="5,0,5,0"  Grid.Column="1" Style="{StaticResource colorTexbox}"  />
+            <TextBox x:Name="txtCuil" Grid.Row="3" Margin="5,0,5,0"  Grid.Column="1" Style="{StaticResource colorTexbox}" Height="32" />
+            <TextBox x:Name="txtLoginName" Grid.Row="5"  Grid.Column="1"   Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"  />
+            <ComboBox x:Name="cmbInstitucion" Grid.Column="1"   Foreground="Black"  Margin="5,0,5,0" Grid.Row="7" Style="{StaticResource colorCombobox}" Background="#FF1C5B84" SelectionChanged="cmbInstitucion_SelectionChanged"  />
+            <ComboBox x:Name="cmbRol" Grid.Column="2"   Foreground="Black"  Margin="5,0,5,0" Grid.Row="7" Style="{StaticResource colorCombobox}" Background="#FF1C5B84" SelectionChanged="cmbInstitucion_SelectionChanged" >
+                <ComboBoxItem Content="ADMINISTRADOR"/>
+                <ComboBoxItem Content="TECNICO"/>
+                <ComboBoxItem Content="DIRECTOR"/>
+                <ComboBoxItem Content="DOCENTE"/>
+            </ComboBox>
+            <TextBox x:Name="txtPassword" Grid.Row="5"  Grid.Column="2"   Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"  />
+            <TextBox x:Name="txtApellido" Grid.Row="1"  Grid.Column="2"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="32"  />
+            <TextBox x:Name="txtCorreo" Grid.Row="3"  Grid.Column="2"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"  />
             <StackPanel Grid.Row="8"
            HorizontalAlignment="Left"
            VerticalAlignment="Top"
            Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="2" Height="74" Width="324" Grid.RowSpan="2" Margin="0,44,0,0">
-                <Button x:Name="btnAgregar" Content="AGREGAR"   Style="{StaticResource Botones}"
-           Width="150"  Height="50" Margin="12" />
+                <Button x:Name="btnGuardar" Content="GUARDAR"   Style="{StaticResource Botones}"
+           Width="150"  Height="50" Margin="12" Click="btnGuardar_Click" />
                 <Button x:Name="btnCancelar" Content="CANCELAR" Style="{StaticResource Botones}"
-           Width="150"  Height="50" />
+           Width="150"  Height="50" Click="btnCancelar_Click" />
 
             </StackPanel>
 

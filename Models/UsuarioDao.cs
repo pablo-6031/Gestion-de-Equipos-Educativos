@@ -31,55 +31,130 @@ namespace Models
             }
         }
 
-        public void AgregarUsuario(Usuario usuario)
+        public DataTable FiltrarUsuarios(string texto)
         {
+            DataTable listaProveedores = new DataTable();
             using (var connection = GetConnection())
             {
+                SqlDataReader reader;
                 connection.Open();
-                using (var command = new SqlCommand())
+                using (var command = new SqlCommand("sp_FiltrarUsuarios", connection))
                 {
-                    command.Connection = connection;
-                    command.Parameters.AddWithValue("@pLoginName", usuario.LoginName);
-                    command.Parameters.AddWithValue("@pPassword", usuario.Password);
-                    command.Parameters.AddWithValue("@pNombres", usuario.Nombres);
-                    command.Parameters.AddWithValue("@pApellidos", usuario.Apellidos);
-                    command.Parameters.AddWithValue("@pIdRol", usuario.Rol);
-                    command.Parameters.AddWithValue("@pCorreo", usuario.Correo);
-                    command.Parameters.AddWithValue("@pDNI", usuario.Cuil);
-                    command.Parameters.AddWithValue("@pFoto", usuario.Foto);
-                    command.Parameters.AddWithValue("@pIdInstitucion", usuario.IdInstitucion);
-                    command.CommandText = "agregarUsuario";
+                    command.Parameters.AddWithValue("@texto", texto);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
-
+                    reader = command.ExecuteReader();
+                    listaProveedores.Load(reader);
+                    reader.Close();
                 }
             }
+            return listaProveedores;
         }
 
-        public void EditarUsuario(Usuario usuario)
+        public string AgregarUsuario(Usuario usuario)
         {
+
+
+            string resultado = string.Empty;
+
             using (var connection = GetConnection())
             {
-                connection.Open();
-                using (var command = new SqlCommand())
+                try
                 {
-                    command.Connection = connection;
-                    command.Parameters.AddWithValue("@pLoginName", usuario.LoginName);
-                    command.Parameters.AddWithValue("@pPassword", usuario.Password);
-                    command.Parameters.AddWithValue("@pNombres", usuario.Nombres);
-                    command.Parameters.AddWithValue("@pApellidos", usuario.Apellidos);
-                    command.Parameters.AddWithValue("@pIdRol", usuario.Rol);
-                    command.Parameters.AddWithValue("@pCorreo", usuario.Correo);
-                    command.Parameters.AddWithValue("@pDNI", usuario.Cuil);
-                    command.Parameters.AddWithValue("@pFoto", usuario.Foto);
-                    command.Parameters.AddWithValue("@pIdInstitucion", usuario.IdInstitucion);
-                    command.CommandText = "editarUsuario";
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("sp_AgregarUsuario", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Agrega los parámetros
+                        command.Parameters.AddWithValue("@loginName", usuario.LoginName);
+                        command.Parameters.AddWithValue("@password", usuario.Password);
+                        command.Parameters.AddWithValue("@nombres", usuario.Nombres);
+                        command.Parameters.AddWithValue("@apellidos", usuario.Apellidos);
+                        command.Parameters.AddWithValue("@rol", usuario.Rol);
+                        command.Parameters.AddWithValue("@correo", usuario.Correo);
+                        command.Parameters.AddWithValue("@cuil", usuario.Cuil);
+                        command.Parameters.AddWithValue("@foto", usuario.Foto);
+                        command.Parameters.AddWithValue("@id_institucion", usuario.IdInstitucion);
+
+                        // Captura mensajes del procedimiento almacenado
+                        connection.InfoMessage += (sender, e) =>
+                        {
+                            foreach (SqlError error in e.Errors)
+                            {
+                                resultado = error.Message; // Captura el mensaje del servidor
+                            }
+                        };
+
+                        // Ejecuta el procedimiento
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    resultado = "Error SQL: " + ex.Message; // Retorna el mensaje de error
+                }
+                catch (Exception ex)
+                {
+                    resultado = "Error general: " + ex.Message; // Retorna otro tipo de error
                 }
             }
+
+            return resultado; // Retorna el mensaje capturado
+
+        }
+
+        public string EditarUsuario(Usuario usuario)
+        {
+
+            string resultado = string.Empty;
+
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("sp_EditarUsuario", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros del procedimiento almacenado
+                        command.Parameters.AddWithValue("@id_usuario", usuario.IdUsuario);
+                        command.Parameters.AddWithValue("@loginName", usuario.LoginName);
+                        command.Parameters.AddWithValue("@password", usuario.Password);
+                        command.Parameters.AddWithValue("@nombres", usuario.Nombres);
+                        command.Parameters.AddWithValue("@apellidos", usuario.Apellidos);
+                        command.Parameters.AddWithValue("@rol", usuario.Rol);
+                        command.Parameters.AddWithValue("@correo", usuario.Correo);
+                        command.Parameters.AddWithValue("@cuil", usuario.Cuil);
+                        command.Parameters.AddWithValue("@foto", usuario.Foto);
+                        command.Parameters.AddWithValue("@id_institucion", usuario.IdInstitucion);
+                        // Captura mensajes del servidor (PRINT y RAISERROR)
+                        connection.InfoMessage += (sender, e) =>
+                        {
+                            foreach (SqlError error in e.Errors)
+                            {
+                                resultado = error.Message; // Captura el mensaje
+                            }
+                        };
+
+                        // Ejecuta el procedimiento almacenado
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    resultado = "Error SQL: " + ex.Message; // Retorna el mensaje del error
+                }
+                catch (Exception ex)
+                {
+                    resultado = "Error general: " + ex.Message; // Retorna otro tipo de error
+                }
+            }
+
+            return resultado; // Retorna el mensaje capturado o el mensaje de error
+
         }
 
 
@@ -91,8 +166,8 @@ namespace Models
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@pIdUsuario", IdUsuario);
-                    command.CommandText = "eliminarUsuario";
+                    command.Parameters.AddWithValue("@id_usuario", IdUsuario);
+                    command.CommandText = "sp_EliminarUsuario";
                     command.CommandType = CommandType.StoredProcedure;
                     command.ExecuteNonQuery();
                 }
@@ -162,16 +237,19 @@ namespace Models
                         while (reader.Read())
                         {
                             UsuarioCache.IdUsuario = reader.GetInt32(0);
-                            UsuarioCache.LoginName = reader.GetString(5);
-                            UsuarioCache.Password = reader.GetString(8);
-                            UsuarioCache.Nombre = reader.GetString(2);
                             UsuarioCache.Apellido = reader.GetString(1);
-                            UsuarioCache.Dni = reader.GetString(3);
-                            UsuarioCache.Rol = reader.GetString(7);
-                            UsuarioCache.Correo = reader.GetString(4);
-                            UsuarioCache.Direccion = reader.GetString(6);
-                            byte[] fotoDB = reader[10] != DBNull.Value ? (byte[])reader[10] : null;
-                            UsuarioCache.Foto = fotoDB;
+                            UsuarioCache.Nombre = reader.GetString(2);
+                            UsuarioCache.Cuil = reader.GetString(3);
+                            UsuarioCache.Foto = !reader.IsDBNull(4) ? (byte[])reader.GetValue(4) : null;
+                            UsuarioCache.Rol = reader.GetString(5);
+                            UsuarioCache.Correo = reader.GetString(6);
+                            UsuarioCache.LoginName = reader.GetString(7);
+                            UsuarioCache.Password = reader.GetString(8);
+                            UsuarioCache.IdInstitucion = reader.GetInt32(9);
+
+
+
+
                         }
                         return true;
                     }

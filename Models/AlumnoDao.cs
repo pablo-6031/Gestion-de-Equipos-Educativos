@@ -26,27 +26,94 @@ namespace Models
             return listaAlumnos;
         }
 
-        // Método para agregar un nuevo alumno
-        public void AgregarAlumno(Alumno alumno)
+        public DataTable FiltrarAlumnos(string texto)
         {
+            DataTable listaAlumnos = new DataTable();
             using (var connection = GetConnection())
             {
+                SqlDataReader reader;
                 connection.Open();
-                using (var command = new SqlCommand("sp_AgregarAlumno", connection))
+                using (var command = new SqlCommand("sp_FiltrarAlumnos", connection))
                 {
+                    command.Parameters.AddWithValue("@texto", texto);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@apellidos", alumno.Apellidos);
-                    command.Parameters.AddWithValue("@nombres", alumno.Nombres);
-                    command.Parameters.AddWithValue("@curso", alumno.Curso);
-                    command.Parameters.AddWithValue("@cuil", alumno.Cuil);
-                    command.Parameters.AddWithValue("@foto", alumno.Foto);
-                    command.Parameters.AddWithValue("@telefono", alumno.Telefono);
-                    command.Parameters.AddWithValue("@id_institucion", alumno.IdInstitucion);
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
+                    reader = command.ExecuteReader();
+                    listaAlumnos.Load(reader);
+                    reader.Close();
                 }
             }
+            return listaAlumnos;
         }
+
+        // Método para agregar un nuevo alumno
+        public void AgregarAlumno(Alumno alumno, int idEquipo)
+        {
+
+
+
+            using (var connection = GetConnection())
+            {
+                decimal idAlumno;
+
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Crear la Acta
+                        using (var command = new SqlCommand("sp_AgregarAlumno", connection, transaction))
+                        {
+                            command.Connection = connection;
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@apellidos", alumno.Apellidos);
+                            command.Parameters.AddWithValue("@nombres", alumno.Nombres);
+                            command.Parameters.AddWithValue("@curso", alumno.Curso);
+                            command.Parameters.AddWithValue("@cuil", alumno.Cuil);
+                            command.Parameters.AddWithValue("@foto", alumno.Foto);
+                            command.Parameters.AddWithValue("@telefono", alumno.Telefono);
+                            command.Parameters.AddWithValue("@id_institucion", alumno.IdInstitucion);
+
+                            // Ejecutar el comando y leer el resultado
+                            idAlumno = (decimal)command.ExecuteScalar();
+
+                        }
+
+                        // Insertar los equipos relacionados
+                        using (var command = new SqlCommand("sp_AgregarDetalleAlumnoEquipo", connection, transaction))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@id_alumno", idAlumno);
+                            command.Parameters.AddWithValue("@id_equipo", idEquipo);
+                            command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Método para editar un alumno existente
         public void EditarAlumno(Alumno alumno)

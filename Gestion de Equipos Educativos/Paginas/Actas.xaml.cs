@@ -2,8 +2,10 @@
 using Entities;
 using Gestion_de_Equipos_Educativos.Ventanas;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Rectangle = System.Windows.Shapes.Rectangle;
 
 
 namespace Gestion_de_Equipos_Educativos.Paginas
@@ -35,6 +38,9 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         EquipoController equipoController = new EquipoController();
         List<Equipo> ListaEquipoTemp = new List<Equipo>();
         List<Equipo> ListaEquipoGuardado = new List<Equipo>();
+        List<Equipo> ListaEquipoCombinada = new List<Equipo>();
+        List<Equipo> ListaEquiposNormal = new List<Equipo>();
+        List<Equipo> ListaAdms = new List<Equipo>();
         int idActaSeleccionada=0;
         private Dictionary<int, string> institucion = new Dictionary<int, string>();
         private Dictionary<int, string> proveedor = new Dictionary<int, string>();
@@ -42,27 +48,81 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private string imageSource = null;
         byte[] FotoActa;
+        string estado = "";
 
-        public Actas()
+
+        public Actas(string rol)
         {
             InitializeComponent();
             ListarActas();
             LlenarComboBox();
             ColumnaActa.Width = new GridLength(0);
+            permisoSegunRol(rol);
         }
+
+        private void permisoSegunRol(string rol)
+        {
+            if (rol == "DIRECTOR")
+            {
+                this.btnAgregar.Visibility = Visibility.Collapsed;
+                OcultarBotonesEnGrid();
+            }
+
+        }
+        private void OcultarBotonesEnGrid()
+        {
+            foreach (DataGridRow row in DGActas.Items.OfType<object>()
+                     .Select(item => DGActas.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow)
+                     .Where(row => row != null))
+            {
+                // Ocultar botón Eliminar
+                Button btnEliminarFila = DGActas.Columns[0] // Suponiendo que está en la primera columna
+                    .GetCellContent(row)?
+                    .FindName("btnEliminarFila") as Button;
+
+                if (btnEliminarFila != null)
+                {
+                    btnEliminarFila.Visibility = Visibility.Collapsed;
+                }
+
+                // Ocultar botón Editar
+                Button btnEditarFila = DGActas.Columns[1] // Suponiendo que está en la segunda columna
+                    .GetCellContent(row)?
+                    .FindName("btnEditarFila") as Button;
+
+                if (btnEditarFila != null)
+                {
+                    btnEditarFila.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
 
         private void btnAgregar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                dividirLista();
+                string estadoActa = "";
+                string mensaje = "¿Desea finalizar el acta o guardarla como borrador para editarla después?";
+                bool resp = mostrarVentanaEleccion(mensaje, "FINALIZAR", "BORRADOR");
+                if (resp)
+                {
+                    estadoActa = "COMPLETA";
+                }
+                else
+                {
+                    estadoActa = "BORRADOR";
+                }
                 if (!string.IsNullOrEmpty(txtNumeroActa.Text) && !string.IsNullOrEmpty(txtResponsable.Text))
                 {
                     Acta acta = new Acta
                     {
-                        NumeroActa = txtNumeroActa.Text,
-                        Estado = "Completa",
+                        IdActa = idActaSeleccionada,
+                        NumeroActa = txtNumeroActa.Text.ToUpper(),
+                        Estado = estadoActa,
                         FechaEntrega = dpFechaEntrega.SelectedDate.HasValue ? dpFechaEntrega.SelectedDate.Value : DateTime.Now,
-                        Responsable = txtResponsable.Text,
+                        Responsable = txtResponsable.Text.ToUpper(),
                         IdProveedor = Convert.ToInt32(cmbProveedor.SelectedValue),
                         IdInstitucion = Convert.ToInt32(cmbInstitucion.SelectedValue),
                         Foto = FotoActa != null ? FotoActa : null
@@ -72,108 +132,80 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                     {
                         if (idActaSeleccionada == 0)
                         {
-                            actaController.agregarActaConEquipos(acta, ListaEquipoTemp);
+                            //AGREGA UNA NUEVA ACTA CON EQUIPOS
+                            actaController.AgregarActaConEquipos(acta, ListaEquiposNormal, ListaAdms);
                             //actaController.AgregarActa(acta);
-                            MessageBox.Show("Acta agregada con éxito", "Agregar");
+                            string mensaj = "Acta agregada con éxito";
+                            mostrarVentana(mensaj, "AGREGAR");
                         }
                         else
                         {
-                            equipoController.agregarListaEquipo(ListaEquipoTemp, idActaSeleccionada);
+                            //EDITA LA ACTA SELECCIONDA AGREGANDO NUEVOS EQUIPOS
+                            actaController.EditarActaConEquipos(acta, ListaEquipoTemp);
+                            //actaController.EditarActaConAdm(acta, ListaAdms);
                             //actaController.AgregarActa(acta);
-                            MessageBox.Show("Equipo agregado con éxito", "Agregar");
+                            string mensaj = "Acta editada con éxito";
+                            mostrarVentana(mensaj, "EDITAR");
                         }
-                        
+
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Error al guardar el acta", "Error");
+                        string mensaj = "Error al guardar el acta";
+                        mostrarVentanaError(mensaj, "ERROR");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Complete los campos obligatorios", "Advertencia");
+                    string mensaj = "Complete los campos obligatorios";
+                    mostrarVentanaError(mensaj, "ADVERTENCIA");
                 }
+
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                string mensaj = ex.Message;
+                mostrarVentanaError(mensaj, "ERROR");
             }
 
             ListarActas();
             LimpiarCampos();
+            estado = "";
 
 
-
-            /*
-
-
-            if (DGActas.SelectedItem != null)
-            {
-                DataRowView rowView = (DataRowView)DGActas.SelectedItem;
-                int idActa = Convert.ToInt32(rowView["id_acta"]);
-
-                Acta acta = new Acta
-                {
-                    IdActa = idActa,
-                    NumeroActa = txtNumeroActa.Text,
-                    Estado = "",
-                    FechaEntrega = dpFechaEntrega.SelectedDate.HasValue ? dpFechaEntrega.SelectedDate.Value : DateTime.Now,
-                    Responsable = txtResponsable.Text,
-                    IdProveedor = Convert.ToInt32(cmbProveedor.SelectedValue),
-                    IdInstitucion = Convert.ToInt32(cmbInstitucion.SelectedValue),
-                    Foto = FotoActa != null ? FotoActa : null
-                };
-
-                try
-                {
-                    actaController.EditarActa(acta);
-                    MessageBox.Show("Acta actualizada con éxito", "Editar");
-                    ListarActas();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al actualizar el acta: " + ex.Message, "Error");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Seleccione un acta para editar", "Advertencia");
-            }
-
-            */
 
 
         }
+
+
+        private void dividirLista()
+        {
+            foreach (Equipo item in ListaEquipoTemp)
+            {
+                if (item.TipoEquipo == "GABINETE MOVIL") 
+                {
+                    ListaAdms.Add(item);
+                }
+                else
+                {
+                    ListaEquiposNormal.Add(item);
+                }
+            }
+        }
+
 
         private void ListarActas()
         {
-            //DataTable dataTable = actaController.ListarActas();
-            /*
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            DGActas.ItemsSource = dataTable.DefaultView;
-                        }
-            */
-            var dtActas = actaController.ListarActas();
-            TraerActas(dtActas);
+            DataTable dataTable = actaController.ListarActas();
+            
+            if (dataTable.Rows.Count > 0)
+             {
+                DGActas.ItemsSource = dataTable.DefaultView;
+              }
         }
 
-        private void TraerActas(DataTable dtActas)
-        {
-            List<Acta> actasList = (from DataRow dr in dtActas.Rows
-                                                select new Acta()
-                                                {
-                                                    IdActa = Convert.ToInt32(dr["id_acta"]),
-                                                    NumeroActa = dr["num_acta"].ToString(),
-                                                    Estado = dr["estado"].ToString(),
-                                                    FechaEntrega = DateTime.Parse(dr["fecha_entrega"].ToString()),
-                                                    Responsable = dr["responsable"].ToString(),
-                                                    IdProveedor = Convert.ToInt32(dr["id_proveedor"].ToString()),
-                                                    IdInstitucion = Convert.ToInt32(dr["id_institucion"].ToString()),
-                                                    Foto = dr["Foto"] == DBNull.Value ? null : (byte[])dr["Foto"]
-                                                }).ToList();
-            this.DGActas.ItemsSource = actasList;
-        }
+       
 
         private void ListarEquipos(List<Equipo> list)
         {
@@ -197,6 +229,8 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             fotoActa.ImageSource = new BitmapImage(new Uri(@"default_image.png", UriKind.RelativeOrAbsolute));
 
             FotoActa = null;
+
+            ColumnaActa.Width = new GridLength(0);
         }
 
         
@@ -222,25 +256,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void DGActas_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // Verificar que haya un elemento seleccionado
-            if (DGActas.SelectedItem is Entities.Acta actaSeleccionada)
-            {
-                // Asignar los valores del objeto a los controles
-                txtNumeroActa.Text = actaSeleccionada.NumeroActa;
-                dpFechaEntrega.SelectedDate = actaSeleccionada.FechaEntrega;
-                txtResponsable.Text = actaSeleccionada.Responsable;
-                cmbProveedor.SelectedValue = actaSeleccionada.IdProveedor;
-                cmbInstitucion.SelectedValue = actaSeleccionada.IdInstitucion;
-                // Cargar la imagen asociada
-                CargarImagen(actaSeleccionada.Foto, eFoto);
 
-                idActaSeleccionada = actaSeleccionada.IdActa;
-                DataTable dtEquipos = equipoController.listarEquiposPorActa(idActaSeleccionada);
-                ListaEquipoGuardado = ConvertirDataTableEnListaDeEquipos(dtEquipos);
-                ListarEquipos(ListaEquipoGuardado);
-
-
-            }
 
         }
 
@@ -257,9 +273,11 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                     Matricula = fila["matricula"].ToString(),
                     Estado = fila["estado"].ToString(),
                     Observacion = fila["observacion"].ToString(),
-                    Destino = fila["destino"].ToString(),
                     IdTipoEquipo = Convert.ToInt32(fila["id_tipo_equipo"]),
-                    IdActa = Convert.ToInt32(fila["id_acta"])
+                    IdActa = Convert.ToInt32(fila["id_acta"]),
+                    TipoEquipo = fila["tipo_equipo"].ToString(),
+                    Modelo = fila["modelo_equipo"].ToString()
+
                 };
 
                 listaEquipos.Add(equipo);
@@ -335,10 +353,10 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnAgregarEquipo_Click(object sender, RoutedEventArgs e)
         {
-            mostrarVentana();
+            mostrarVentana("agregar");
 
 
-            if (EquipoCache.NumSerie != null && EquipoCache.Matricula != null && EquipoCache.Estado != null && EquipoCache.Observacion != null && EquipoCache.Destino != null)
+            if (EquipoCache.IdTipoEquipo != 0 && EquipoCache.Destino != null )
             {
                 Equipo equipo = new Equipo();
                 equipo.NumSerie = EquipoCache.NumSerie;
@@ -347,16 +365,32 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                 equipo.Observacion = EquipoCache.Observacion;
                 equipo.Destino = EquipoCache.Destino;
                 equipo.IdTipoEquipo = EquipoCache.IdTipoEquipo;
+                equipo.TipoEquipo = EquipoCache.TipoEquipo;
                 equipo.IdActa = 0;
 
                 ListaEquipoTemp.Add(equipo);
+                ListaEquipoCombinada.Add(equipo);
 
             }
             
-            ListarEquipos(ListaEquipoTemp);
-        }      
+            ListarEquipos(ListaEquipoCombinada);
+            LimpiarEquipoCache();
+        }
 
-        private void mostrarVentana()
+        private void LimpiarEquipoCache()
+        {
+            EquipoCache.IdEquipo = 0;
+            EquipoCache.NumSerie = "";
+            EquipoCache.Matricula = "";
+            EquipoCache.Estado = "";
+            EquipoCache.Observacion = "";
+            EquipoCache.Destino = "";
+            EquipoCache.TipoEquipo = "";
+            EquipoCache.Modelo = "";
+            EquipoCache.IdTipoEquipo = 0;
+        }
+
+        private void mostrarVentana(string op)
         {
             // Referencia a la ventana principal
             var mainWindow = Application.Current.MainWindow as MainWindow;
@@ -370,13 +404,29 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                 };
             }
 
-            // Crea una instancia del modal
-            NuevosEquipos nuevosEquipos = new NuevosEquipos
+            if (EquipoCache.TipoEquipo == "GABINETE MOVIL" )
             {
-                Owner = mainWindow // Establece el propietario
-            };
+                // Crea una instancia del modal
+                VentanaAdm ventanaAdm = new VentanaAdm
+                {
+                    Owner = mainWindow // Establece el propietario
+                };
 
-            nuevosEquipos.ShowDialog(); // Abre la ventana
+                ventanaAdm.ShowDialog(); // Abre la ventana
+            }
+            else 
+            {
+                // Crea una instancia del modal
+                NuevosEquipos nuevosEquipos = new NuevosEquipos(op)
+                {
+                    Owner = mainWindow // Establece el propietario
+                };
+
+                nuevosEquipos.ShowDialog(); // Abre la ventana
+
+            }
+
+
 
 
             // Quita el desenfoque al cerrar el modal
@@ -386,115 +436,82 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
         }
 
-        private void btnBorrador_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(txtNumeroActa.Text) && !string.IsNullOrEmpty(txtResponsable.Text))
-                {
-                    Acta acta = new Acta
-                    {
-                        NumeroActa = txtNumeroActa.Text,
-                        Estado = "Borrador",
-                        FechaEntrega = dpFechaEntrega.SelectedDate.HasValue ? dpFechaEntrega.SelectedDate.Value : DateTime.Now,
-                        Responsable = txtResponsable.Text,
-                        IdProveedor = Convert.ToInt32(cmbProveedor.SelectedValue),
-                        IdInstitucion = Convert.ToInt32(cmbInstitucion.SelectedValue),
-                        Foto = FotoActa != null ? FotoActa : null
-                    };
-
-                    try
-                    {
-                        if (idActaSeleccionada == 0)
-                        {
-                            actaController.agregarActaConEquipos(acta, ListaEquipoTemp);
-                            //actaController.AgregarActa(acta);
-                            MessageBox.Show("Acta agregada con éxito", "Agregar");
-                        }
-                        else
-                        {
-                            equipoController.agregarListaEquipo(ListaEquipoTemp, idActaSeleccionada);
-                            //actaController.AgregarActa(acta);
-                            MessageBox.Show("Equipo agregado con éxito", "Agregar");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Error al guardar el acta", "Error");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Complete los campos obligatorios", "Advertencia");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
-
-            ListarActas();
-            LimpiarCampos();
-        }
 
         private void btnEliminarFila_Click(object sender, RoutedEventArgs e)
         {
-            // Obtener el botón que disparó el evento
-            Button boton = sender as Button;
 
-            // Obtener la fila (elemento de la lista) asociada al botón
-            Acta acta = boton.DataContext as Acta;
 
-            if (acta != null)
+            if (DGActas.SelectedItem != null)
             {
+                DataRowView rowView = (DataRowView)DGActas.SelectedItem;
+                int idActa = Convert.ToInt32(rowView["id_acta"]);
 
-                // Llamar al controlador para eliminar el acta de la base de datos
                 try
                 {
-                    actaController.EliminarActa(acta.IdActa);
-                    MessageBox.Show("Acta eliminada con éxito", "Eliminar");
+                    string mensaje = "¿Desea eliminar el acta N° " + rowView["id_acta"].ToString() + " del registro?";
+                    bool resp = mostrarVentanaEleccion(mensaje, "ACEPTAR", "CANCELAR");
+                    if (resp)
+                    {
+                        actaController.EliminarActa(idActa);
+                        string mensaj = "El acta fue eliminada con éxito";
+                        mostrarVentana(mensaj, "Eliminar");
+
+                    }
 
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al eliminar el acta: " + ex.Message, "Error");
+                    string mensaj = "Error al eliminar el proveedor";
+                    mostrarVentanaError(mensaj, "Error");
                 }
-
-                // Eliminar el acta de la lista local y actualizar el DataGrid
-                var listaActas = DGActas.ItemsSource as List<Acta>;
-                listaActas.Remove(acta);
-
-                DGActas.ItemsSource = null; // Resetear ItemsSource para actualizar
-                DGActas.ItemsSource = listaActas;
-
-
             }
+            else
+            {
+                string mensaj = "Seleccione un proveedor para eliminar";
+                mostrarVentanaError(mensaj, "Advertencia");
+            }
+            ListarActas();
 
         }
 
         private void btnEditarFila_Click(object sender, RoutedEventArgs e)
         {
-
-            // Obtener el botón que se clickeó
-            if (sender is Button button && button.DataContext is Entities.Acta actaSeleccionada)
+            if (estado != "editando")
             {
-                // Cargar los datos del acta seleccionada en los controles
-                txtNumeroActa.Text = actaSeleccionada.NumeroActa;
-                dpFechaEntrega.SelectedDate = actaSeleccionada.FechaEntrega;
-                txtResponsable.Text = actaSeleccionada.Responsable;
-                cmbProveedor.SelectedValue = actaSeleccionada.IdProveedor;
-                cmbInstitucion.SelectedValue = actaSeleccionada.IdInstitucion;
+                estado = "editando";
+                ColumnaActa.Width = new GridLength(500, GridUnitType.Pixel);
+
+                DataRowView rowView = (DataRowView)this.DGActas.SelectedItem;
+
+                this.txtNumeroActa.Text = rowView["num_acta"].ToString();
+                this.dpFechaEntrega.Text = rowView["fecha_entrega"].ToString();
+                this.txtResponsable.Text = rowView["responsable"].ToString();
+                this.cmbProveedor.SelectedValue = rowView["id_proveedor"].ToString();
+                this.cmbInstitucion.SelectedValue = rowView["id_institucion"].ToString();
+
+
+                soloLectura(false);
+
+
 
                 // Cargar la imagen asociada
-                CargarImagen(actaSeleccionada.Foto, eFoto);
+                CargarImagen(rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null, eFoto);
 
-                idActaSeleccionada = actaSeleccionada.IdActa;
-                DataTable dtEquipos = equipoController.listarEquiposPorActa(idActaSeleccionada);
+                idActaSeleccionada = (int)rowView["id_acta"];
+                ActaCache.IdActa = idActaSeleccionada;
+
+                DataTable dtEquipos = equipoController.ListarEquiposAdmPorActa(idActaSeleccionada);
                 ListaEquipoGuardado = ConvertirDataTableEnListaDeEquipos(dtEquipos);
                 ListarEquipos(ListaEquipoGuardado);
+                ListaEquipoCombinada = ListaEquipoGuardado;
             }
-
+            else
+            {
+                string mensaje = "¿Primero guarde el acta seleccionada?";
+                mostrarVentanaError(mensaje, "GUARDAR");
+            }
+            
 
         }
 
@@ -518,28 +535,36 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                     // equipoController.eliminarEquipo(equipo.IdEquipo);
                     if (equipo.IdActa != 0)
                     {
-                        string mensajes = equipoController.eliminarEquipo(equipo.IdEquipo);
-                        MessageBox.Show(mensajes, "Eliminar");
+                        string mensaje = "¿Desea eliminar al equipo " + equipo.NumSerie + " del registro?";
+                        bool resp = mostrarVentanaEleccion(mensaje, "ACEPTAR", "CANCELAR");
+                        if (resp)
+                        {
+                            equipoController.eliminarEquipo(equipo.IdEquipo);
+                            string mensaj = "Equipo eliminado con éxito";
+                            mostrarVentana(mensaj, "ELIMINAR");
+                            ListaEquipoCombinada.Remove(equipo);
+                        }
 
                     }
                     else
                     {
-                        //ListaEquipoTemp.Remove();
-                        ListarEquipos(ListaEquipoTemp);
+
+                        ListaEquipoTemp.Remove(equipo);
+                        ListaEquipoCombinada.Remove(equipo);
                     }
 
                     
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al eliminar el equipo: " + ex.Message, "Error");
+                    string mensaj = "Error al eliminar el equipo";
+                    mostrarVentanaError(mensaj, "Eliminar");
                 }
 
-                // Eliminar el acta de la lista local y actualizar el DataGrid
-                var listaEquipos = DGEquipos.ItemsSource as List<Equipo>;
-                listaEquipos.Remove(equipo);
+                
+                
 
-                ListarEquipos(listaEquipos);
+                ListarEquipos(ListaEquipoCombinada);
 
 
 
@@ -548,11 +573,106 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         }
 
+
+        private bool mostrarVentanaEleccion(string mensaje,string boton1, string boton2)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal y envía un parámetro
+            VentanaMensajeEleccion ventanaMensaje = new VentanaMensajeEleccion(mensaje, boton1, boton2)
+            {
+                Owner = mainWindow, // Establece el propietario
+            };
+
+            // Abre la ventana
+            bool? dialogResult = ventanaMensaje.ShowDialog();
+
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+            return ventanaMensaje.Eleccion;
+        }
+
+        private void mostrarVentanaError(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensajeError ventanaMensaje = new VentanaMensajeError(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void mostrarVentana(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensaje ventanaMensaje = new VentanaMensaje(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
         private void btnEditarFilaEquipo_Click(object sender, RoutedEventArgs e)
         {
             // Obtener el botón que se clickeó
             if (sender is Button button && button.DataContext is Entities.Equipo equipoSeleccionado)
             {
+
                 // Cargar los datos del acta seleccionada en los controles
                 EquipoCache.IdEquipo = equipoSeleccionado.IdEquipo;
                 EquipoCache.NumSerie = equipoSeleccionado.NumSerie;
@@ -561,12 +681,17 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                 EquipoCache.Observacion = equipoSeleccionado.Observacion;
                 EquipoCache.Destino = equipoSeleccionado.Destino;
                 EquipoCache.IdTipoEquipo = equipoSeleccionado.IdTipoEquipo;
+                EquipoCache.TipoEquipo = equipoSeleccionado.TipoEquipo;
+                EquipoCache.Modelo = equipoSeleccionado.Modelo;
 
-                mostrarVentana();
+                mostrarVentana("editar");
 
+                LimpiarEquipoCache();
             }
 
         }
+
+
 
         private void DGActas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -576,7 +701,168 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private void btnAgregarActa_Click(object sender, RoutedEventArgs e)
         {
             // Mostrar columna (por ejemplo, restableciendo su ancho original)
-            ColumnaActa.Width = new GridLength(700, GridUnitType.Pixel);
+            LimpiarCampos();
+            LimpiarEquipoCache();
+            estado = "";
+            ListaEquipoCombinada.Clear();
+
+
+            DGEquipos.ItemsSource = null;
+            DGEquipos.ItemsSource = ListaEquipoCombinada;
+
+
+
+
+
+            ColumnaActa.Width = new GridLength(500, GridUnitType.Pixel);
+        }
+
+        private void txtBuscarActa_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string textoBusqueda = txtBuscarActa.Text.Trim();
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                // Si no hay texto, mostrar todos los docentes
+                ListarActas();
+            }
+            else
+            {
+
+                // Llamar al controlador para obtener los datos filtrados
+
+                DataTable dataTable = actaController.FiltrarActasPorFecha(textoBusqueda);
+
+                // Actualizar el DataGrid
+                DGActas.ItemsSource = dataTable.DefaultView;
+            }
+        }
+
+        private void btnVerrFila_Click(object sender, RoutedEventArgs e)
+        {
+            if (estado != "editando")
+            {
+                if (!this.DGActas.Items.IsEmpty)
+                {
+                    ColumnaActa.Width = new GridLength(500, GridUnitType.Pixel);
+
+                    DataRowView rowView = (DataRowView)this.DGActas.SelectedItem;
+
+                    this.txtNumeroActa.Text = rowView["num_acta"].ToString();
+                    this.dpFechaEntrega.Text = rowView["fecha_entrega"].ToString();
+                    this.txtResponsable.Text = rowView["responsable"].ToString();
+                    this.cmbProveedor.SelectedValue = rowView["id_proveedor"].ToString();
+                    this.cmbInstitucion.SelectedValue = rowView["id_institucion"].ToString();
+
+
+                    soloLectura(true);
+
+
+
+
+
+                    // Cargar la imagen asociada
+                    CargarImagen(rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null, eFoto);
+
+                    idActaSeleccionada = (int)rowView["id_acta"];
+                    DataTable dtEquipos = equipoController.ListarEquiposAdmPorActa(idActaSeleccionada);
+                    ListaEquipoGuardado = ConvertirDataTableEnListaDeEquipos(dtEquipos);
+                    ListarEquipos(ListaEquipoGuardado);
+
+                }
+            }
+            else
+            {
+                string mensaje = "¿Primero guarde el acta seleccionada?";
+                 mostrarVentanaError(mensaje, "GUARDAR");
+                
+            }
+
+            
+            
+        }
+        private void soloLectura(bool opcion)
+        {
+            txtNumeroActa.IsReadOnly = opcion;
+            dpFechaEntrega.IsEnabled = !opcion;
+            txtResponsable.IsReadOnly = opcion;
+            cmbProveedor.IsEnabled = !opcion;
+            cmbInstitucion.IsEnabled = !opcion;
+
+            btnAgregarEquipo.IsEnabled = !opcion;
+            btnCargarImagen.IsEnabled = !opcion;
+            if (opcion) 
+            {
+                DGEquipos.Columns[9].Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                DGEquipos.Columns[9].Visibility = Visibility.Visible;
+            }
+
+
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarEquipoCache();
+            ColumnaActa.Width = new GridLength(0);
+            estado = "";
+        }
+
+        private void btnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime? fechaInicio = dpFechaDesde.SelectedDate;
+            DateTime? fechaFin = dpFechaHasta.SelectedDate;
+
+            if (fechaInicio == null || fechaFin == null)
+            {
+
+                string mensaje = "Por favor seleccione ambas fechas.";
+                mostrarVentanaError(mensaje, "ADVERTENCIA");
+                return;
+            }
+
+            // Validar que la fecha de inicio sea menor o igual a la fecha final
+            if (fechaInicio > fechaFin)
+            {
+                string mensaj = "La fecha de inicio no puede ser mayor que la fecha final.";
+                mostrarVentanaError(mensaj, "ERROR");
+                return;
+            }
+            
+
+            // Lógica para buscar entre fechas
+            BuscarEntreFechas(fechaInicio.Value, fechaFin.Value);
+        }
+
+        private void BuscarEntreFechas(DateTime desde, DateTime hasta)
+        {
+            DataTable dataTable = actaController.ListarActasPorFechas(desde,hasta);
+
+            if (dataTable.Rows.Count > 0)
+            {
+                DGActas.ItemsSource = dataTable.DefaultView;
+            }
+        }
+
+
+        private void btnImprimirActa_Click(object sender, RoutedEventArgs e)
+        {
+            int idActaFila = obtenerIdActa();
+            Reportes.FormReporteTablaActa fru = new Reportes.FormReporteTablaActa();
+            fru.id_acta = Convert.ToInt32(idActaFila);
+            fru.ShowDialog();
+        }
+
+        private int obtenerIdActa()
+        {
+
+            DataRowView rowView = (DataRowView)this.DGActas.SelectedItem;
+
+            int numero = (int)rowView["id_acta"];
+
+            return numero;
+
         }
     }
 }

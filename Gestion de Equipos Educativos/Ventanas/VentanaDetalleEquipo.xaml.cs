@@ -31,7 +31,7 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
 
         private void mostrarEquipo()
         {
-            var dtEquipo = equipoController.ObtenerDetalleEquipo(EquipoCache.IdEquipo);
+            var dtEquipo = equipoController.ObtenerDetalleEquipo((int)EquipoCache.IdEquipo);
 
             if (dtEquipo.Rows.Count > 0)
             {
@@ -59,9 +59,7 @@ namespace Gestion_de_Equipos_Educativos.Ventanas
 
         private void btnReporte_Click(object sender, RoutedEventArgs e)
         {
-            Reportes.FormReporteUsuario fru = new Reportes.FormReporteUsuario();
-            fru.IdEquipo = Convert.ToInt32(EquipoCache.IdEquipo);
-            fru.ShowDialog();
+
         }
     }
 }

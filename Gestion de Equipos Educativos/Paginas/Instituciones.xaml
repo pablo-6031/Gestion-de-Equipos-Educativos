@@ -4,38 +4,24 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1300"
+
+      Width="1349" Height="828"
       Title="Instituciones">
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="13*"/>
-
-            <RowDefinition Height="87*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="188*" />
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="153*"/>
-            <ColumnDefinition Width="172*"/>
+            <ColumnDefinition Width="807*"/>
+            <ColumnDefinition Width="542*" x:Name="ColumnaDatos"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="2" 
- RadiusY="18" 
- RadiusX="18" StrokeThickness="5" Margin="-32,10,0,4" HorizontalAlignment="Left" Width="1322" Grid.ColumnSpan="2" >
-            <Rectangle.Fill>
-                <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#CC2C1414" Offset="0"/>
-                    <GradientStop Color="#CCF12C2C" Offset="1"/>
-                    <GradientStop Color="#CCCB4343" Offset="0.458"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-            <Rectangle.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF8A1212" Offset="0"/>
-                    <GradientStop Color="#FF111010" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Stroke>
-        </Rectangle>
+                    StrokeThickness="5" HorizontalAlignment="Left" Width="1349" Grid.ColumnSpan="2" Fill="{StaticResource colorFondo}" />
         <Label Content="INSTITUCIONES"
 HorizontalAlignment="Center"
 VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="228" RenderTransformOrigin="0.5,0.5">
@@ -55,66 +41,64 @@ VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" 
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Grid Grid.Row="1" Grid.Column="1">
+
+
+        <Button Name="btnAgregarInstitucion" Content="AGREGAR" Margin="10,21,0,0"
+HorizontalAlignment="Left" 
+Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}" Click="btnAgregarInstitucion_Click" />
+        <TextBox x:Name="txtBuscar"  Grid.Column="0"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"   Width="283" Height="32" TextChanged="txtBuscar_TextChanged"/>
+        <Grid Grid.Row="1"  Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="63*"/>
-                <RowDefinition Height="52*"/>
-                <RowDefinition Height="60*"/>
-                <RowDefinition Height="59*"/>
-                <RowDefinition Height="44*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="100*"/>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="134*"/>
-                <ColumnDefinition Width="102*"/>
-                <ColumnDefinition Width="59*"/>
-                <ColumnDefinition Width="151*"/>
-                <ColumnDefinition Width="134*"/>
-                <ColumnDefinition Width="109*"/>
+                <ColumnDefinition Width="263*"/>
+                <ColumnDefinition Width="263*"/>
+
+
+
 
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0"
-              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Margin="0,27,1,2" Text="IDINSTITUCION:" Width="124" RenderTransformOrigin="-1.623,0.538"/>
-            <TextBlock Text="NIVEL:" Grid.Row="1" Grid.Column="0"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Margin="90,0,0,0" Height="24" Width="85" Grid.ColumnSpan="2"/>
-            <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="1"
-              VerticalAlignment="Bottom"
-              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="0,0,20,2" Width="104" Grid.ColumnSpan="2"/>
-            <TextBlock Text="TELEFONO:" Grid.Row="1" Grid.Column="3"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="18" Height="24" Margin="1,0,0,0" Width="115"/>
-            <TextBlock Text="TURNO:" Grid.Row="2" Grid.Column="0"
-              VerticalAlignment="Bottom"
-              HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,32,3"/>
-            <TextBlock Text="DIRECTOR:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
-            <TextBlock Text="REGION:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,32,3"/>
-            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
-            <TextBlock Text="PROVINCIA:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
-            <TextBlock Text="LOCALIDAD:" Grid.Row="0" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,111,0,0"/>
-            <TextBlock Text="BARRIO:" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,87,0,0"/>
-            <TextBlock Text="CALLE:" Grid.Row="2" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,104,0,0"/>
-            <TextBlock Text="NUMERO:" Grid.Row="3" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,103,0,0"/>
-            <TextBlock Text="CUE:" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,0,20,3" Grid.ColumnSpan="2"/>
-            <TextBlock Text="CP:" Grid.Row="4" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFF8E7E7" FontSize="18" Height="24" Width="95" Margin="0,69,0,0"/>
-            <TextBox x:Name="txtIdInstitucion" 
-            Grid.Column="1" 
-            Style="{StaticResource TextBoxTextos}"
-            Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.493,0.495" Grid.ColumnSpan="3"/>
-            <ComboBox x:Name="cmbNivel" Grid.Column="1" Grid.Row="1" Margin="10,10,55,10"  Foreground="Black">
+
+
+            <TextBlock Text="NOMBRE:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="TELEFONO:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="NIVEL:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="TURNO:" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="DIRECTOR:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="REGION:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="CUE:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="PROVINCIA:" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="LOCALIDAD:" Grid.Row="8" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="BARRIO:" Grid.Row="8" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"/>
+            <TextBlock Text="CALLE:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="NUMERO:" Grid.Row="10" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+            <TextBlock Text="CP:" Grid.Row="12" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" />
+
+            <ComboBox x:Name="cmbNivel" Grid.Column="0" Grid.Row="3" Margin="5,5,5,5"   Style="{StaticResource colorCombobox}">
                 <ComboBoxItem Content="Primario"/>
                 <ComboBoxItem Content="Secundario"/>
                 <ComboBoxItem Content="Terciario"/>
-
             </ComboBox>
-            <TextBox x:Name="txtTurno" 
-Grid.Row="2" 
-Grid.Column="1" 
-Style="{StaticResource TextBoxTextos}"
-Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="txtTurno" Grid.Row="3"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
 
-
-
-            <ComboBox x:Name="cmbRegion" Grid.Column="1" Grid.Row="3" Margin="10,10,55,10">
+            <ComboBox x:Name="cmbRegion" Grid.Column="1" Grid.Row="5" Margin="5,5,5,5"   Style="{StaticResource colorCombobox}">
                 <ComboBoxItem Content="I"/>
                 <ComboBoxItem Content="II"/>
                 <ComboBoxItem Content="III"/>
@@ -123,33 +107,29 @@ Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" Grid.ColumnS
                 <ComboBoxItem Content="VI"/>
                 <ComboBoxItem Content="VII"/>
             </ComboBox>
-            <TextBox x:Name="txtNombre" Grid.Column="3" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtTelefono" Grid.Column="3" Grid.Row="1" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtDirector" Grid.Column="3" Grid.Row="2" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtCue" Grid.Column="3" Grid.Row="3" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtProvincia" Grid.Column="3" Grid.Row="4" Style="{StaticResource TextBoxTextos}" Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" RenderTransformOrigin="0.505,0.381" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtLocalidad" Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
-            <TextBox x:Name="txtBarrio" Grid.Row="1"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
-            <TextBox x:Name="txtCalle" Grid.Row="2"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
-            <TextBox x:Name="txtNumeroCalle" Grid.Row="3" Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
-            <TextBox x:Name="txtCP" Grid.Row="4"  Grid.Column="5" Style="{StaticResource TextBoxTextos}" Width="187" Height="40"/>
+            <TextBox x:Name="txtNombre" Grid.Row="1"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtTelefono" Grid.Row="1"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtDirector" Grid.Column="0" Grid.Row="5" Style="{StaticResource colorTexbox}" Margin="5,5,5,5" />
+            <TextBox x:Name="txtCue" Grid.Row="7"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtProvincia" Grid.Row="7"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtLocalidad" Grid.Row="9"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtBarrio" Grid.Row="9"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtCalle" Grid.Row="11"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,5,5,5" Height="33"/>
+            <TextBox x:Name="txtNumeroCalle" Grid.Row="11"  Grid.Column="1"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
+            <TextBox x:Name="txtCP" Grid.Row="13"  Grid.Column="0"  Style="{StaticResource colorTexbox}"   Margin="5,0,5,0" Height="33"/>
 
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="4"
-               HorizontalAlignment="Left"
+            <StackPanel Grid.Row="15" Grid.ColumnSpan="2"
+               HorizontalAlignment="Center"
                VerticalAlignment="Center"
-               Orientation="Horizontal" Height="42" Width="294" Grid.Column="0" Margin="15,0,0,0">
-                <Button x:Name="btnAgregar" Content="Agregar" 
-               Width="86" 
+               Orientation="Horizontal" Height="75" Width="282" Grid.Column="0" >
+                <Button x:Name="btnGuardar" Content="Guardar" Margin="10,0"
+               Width="128" Style="{StaticResource Botones}"
                
-               Click="btnAgregar_Click" Height="28"/>
-                <Button x:Name="btnEliminar" Content="Eliminar" 
-               Width="94" 
+                Height="44" Click="btnGuardar_Click"/>
+                <Button x:Name="btnCancelar" Content="Cancelar" 
+               Width="119" Style="{StaticResource Botones}"
                
-               Height="28" Click="btnEliminar_Click"/>
-                <Button x:Name="btnEditar" Content="Editar" 
-               Width="80" 
-               
-               Margin="10,0" Click="btnEditar_Click" Height="30"/>
+               Height="45" Click="btnCancelar_Click" />
 
 
             </StackPanel>
@@ -158,8 +138,13 @@ Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" Grid.ColumnS
 
 
         </Grid>
-        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Background="White"  CornerRadius="0,0,15,15"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGInstituciones" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" MouseDoubleClick="DGInstituciones_MouseDoubleClick">
+
+
+
+
+
+        <Border Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Margin="10,1,0,10" Grid.Row="1"  >
+            <DataGrid Name="DGInstituciones" AutoGenerateColumns="False" IsReadOnly="True" Style="{StaticResource DarkDataGridStyle}" GridLinesVisibility="Vertical"  MouseDoubleClick="DGInstituciones_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -172,26 +157,43 @@ Margin="5,0,0,0" Width="187" HorizontalAlignment="Left" Height="40" Grid.ColumnS
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="100"  Header="ID"  Binding="{Binding id_institucion}"/>
-                    <DataGridTextColumn Width="300"  Header="Nombre"  Binding="{Binding nombre}"/>
-                    <DataGridTextColumn Width="200"  Header="Nivel"  Binding="{Binding nivel}"/>
-                    <DataGridTextColumn Width="250"  Header="Turno" Binding="{Binding turno}"/>
-                    <DataGridTextColumn Width="250"  Header="Region"  Binding="{Binding region}"/>
-                    <DataGridTextColumn Width="250"  Header="Telefono"  Binding="{Binding telefono}"/>
-                    <DataGridTextColumn Width="250"  Header="Director"  Binding="{Binding director}"/>
-                    <DataGridTextColumn Width="250"  Header="Cue"  Binding="{Binding cue}"/>
-                    <DataGridTextColumn Width="250"  Header="Provincia"  Binding="{Binding provincia}"/>
-                    <DataGridTextColumn Width="250"  Header="Localidad"  Binding="{Binding localidad}"/>
-                    <DataGridTextColumn Width="250"  Header="Barrio"  Binding="{Binding barrio}"/>
-                    <DataGridTextColumn Width="250"  Header="Calle"  Binding="{Binding calle}"/>
-                    <DataGridTextColumn Width="250"  Header="Numero"  Binding="{Binding numerodecalle}"/>
-                    <DataGridTextColumn Width="250"  Header="Cp"  Binding="{Binding codigopostal}"/>
+                    <DataGridTextColumn Width="100*"  Header="ID"  Binding="{Binding id_institucion}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="300*"  Header="NOMBRE"  Binding="{Binding nombre}"/>
+                    <DataGridTextColumn Width="200*"  Header="NIVEL"  Binding="{Binding nivel}"/>
+                    <DataGridTextColumn Width="250*"  Header="TURNO" Binding="{Binding turno}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="REGION"  Binding="{Binding region}"/>
+                    <DataGridTextColumn Width="250*"  Header="TELEFONO"  Binding="{Binding telefono}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="DIRECTOR"  Binding="{Binding director}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="CUE"  Binding="{Binding cue}" />
+                    <DataGridTextColumn Width="250*"  Header="PROVINCIA"  Binding="{Binding provincia}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="LOCALIDAD"  Binding="{Binding localidad}"/>
+                    <DataGridTextColumn Width="250*"  Header="BARRIO"  Binding="{Binding barrio}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="CALLE"  Binding="{Binding calle}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="NUMERO"  Binding="{Binding numerodecalle}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="250*"  Header="CP"  Binding="{Binding codigopostal}" Visibility="Hidden"/>
 
 
-                    <DataGridTemplateColumn Width="80" Header="ACCION" >
+                    <DataGridTemplateColumn Width="250*" Header="ACCION" >
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
 
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnVerrFila"  VerticalAlignment="Center" Width="30" Height="25" Template="{DynamicResource ButtonFilaVer}"  Click="btnVerrFila_Click" Margin="3,0" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Eye" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnEditarFila" VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit}" Click="btnEditarFila_Click"  Margin="3,0" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnEliminarrFila" VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaDelete}" Click="btnEliminarrFila_Click" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Trash" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

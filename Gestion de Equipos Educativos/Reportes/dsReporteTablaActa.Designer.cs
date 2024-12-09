@@ -20,17 +20,17 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("dsReporteUsuario")]
+    [global::System.Xml.Serialization.XmlRootAttribute("dsReporteTablaActa")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class dsReporteUsuario : global::System.Data.DataSet {
+    public partial class dsReporteTablaActa : global::System.Data.DataSet {
         
-        private sp_ListarEquiposDataTable tablesp_ListarEquipos;
+        private sp_ReporteTablaActaDataTable tablesp_ReporteTablaActa;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public dsReporteUsuario() {
+        public dsReporteTablaActa() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        protected dsReporteUsuario(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected dsReporteTablaActa(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["sp_ListarEquipos"] != null)) {
-                    base.Tables.Add(new sp_ListarEquiposDataTable(ds.Tables["sp_ListarEquipos"]));
+                if ((ds.Tables["sp_ReporteTablaActa"] != null)) {
+                    base.Tables.Add(new sp_ReporteTablaActaDataTable(ds.Tables["sp_ReporteTablaActa"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public sp_ListarEquiposDataTable sp_ListarEquipos {
+        public sp_ReporteTablaActaDataTable sp_ReporteTablaActa {
             get {
-                return this.tablesp_ListarEquipos;
+                return this.tablesp_ReporteTablaActa;
             }
         }
         
@@ -127,7 +127,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            dsReporteUsuario cln = ((dsReporteUsuario)(base.Clone()));
+            dsReporteTablaActa cln = ((dsReporteTablaActa)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["sp_ListarEquipos"] != null)) {
-                    base.Tables.Add(new sp_ListarEquiposDataTable(ds.Tables["sp_ListarEquipos"]));
+                if ((ds.Tables["sp_ReporteTablaActa"] != null)) {
+                    base.Tables.Add(new sp_ReporteTablaActaDataTable(ds.Tables["sp_ReporteTablaActa"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tablesp_ListarEquipos = ((sp_ListarEquiposDataTable)(base.Tables["sp_ListarEquipos"]));
+            this.tablesp_ReporteTablaActa = ((sp_ReporteTablaActaDataTable)(base.Tables["sp_ReporteTablaActa"]));
             if ((initTable == true)) {
-                if ((this.tablesp_ListarEquipos != null)) {
-                    this.tablesp_ListarEquipos.InitVars();
+                if ((this.tablesp_ReporteTablaActa != null)) {
+                    this.tablesp_ReporteTablaActa.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "dsReporteUsuario";
+            this.DataSetName = "dsReporteTablaActa";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/dsReporteUsuario.xsd";
+            this.Namespace = "http://tempuri.org/dsReporteTablaActa.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tablesp_ListarEquipos = new sp_ListarEquiposDataTable();
-            base.Tables.Add(this.tablesp_ListarEquipos);
+            this.tablesp_ReporteTablaActa = new sp_ReporteTablaActaDataTable();
+            base.Tables.Add(this.tablesp_ReporteTablaActa);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private bool ShouldSerializesp_ListarEquipos() {
+        private bool ShouldSerializesp_ReporteTablaActa() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            dsReporteUsuario ds = new dsReporteUsuario();
+            dsReporteTablaActa ds = new dsReporteTablaActa();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,35 +270,35 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public delegate void sp_ListarEquiposRowChangeEventHandler(object sender, sp_ListarEquiposRowChangeEvent e);
+        public delegate void sp_ReporteTablaActaRowChangeEventHandler(object sender, sp_ReporteTablaActaRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class sp_ListarEquiposDataTable : global::System.Data.TypedTableBase<sp_ListarEquiposRow> {
+        public partial class sp_ReporteTablaActaDataTable : global::System.Data.TypedTableBase<sp_ReporteTablaActaRow> {
             
-            private global::System.Data.DataColumn columnId_equipo;
+            private global::System.Data.DataColumn columnNumeracion;
             
-            private global::System.Data.DataColumn columnNum_serie;
+            private global::System.Data.DataColumn columnCantidad;
+            
+            private global::System.Data.DataColumn columnTipoYModelo;
+            
+            private global::System.Data.DataColumn columnContadorFila;
+            
+            private global::System.Data.DataColumn columnNumeroDeSerie;
             
             private global::System.Data.DataColumn columnMatricula;
             
-            private global::System.Data.DataColumn columnEstado;
+            private global::System.Data.DataColumn columnEspecificacionesTecnicas;
             
             private global::System.Data.DataColumn columnObservacion;
             
-            private global::System.Data.DataColumn columnDestino;
-            
-            private global::System.Data.DataColumn columnId_Tipo_Equipo;
-            
-            private global::System.Data.DataColumn columnId_Acta;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposDataTable() {
-                this.TableName = "sp_ListarEquipos";
+            public sp_ReporteTablaActaDataTable() {
+                this.TableName = "sp_ReporteTablaActa";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -306,7 +306,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal sp_ListarEquiposDataTable(global::System.Data.DataTable table) {
+            internal sp_ReporteTablaActaDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -323,24 +323,48 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected sp_ListarEquiposDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected sp_ReporteTablaActaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn Id_equipoColumn {
+            public global::System.Data.DataColumn NumeracionColumn {
                 get {
-                    return this.columnId_equipo;
+                    return this.columnNumeracion;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn Num_serieColumn {
+            public global::System.Data.DataColumn CantidadColumn {
                 get {
-                    return this.columnNum_serie;
+                    return this.columnCantidad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TipoYModeloColumn {
+                get {
+                    return this.columnTipoYModelo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ContadorFilaColumn {
+                get {
+                    return this.columnContadorFila;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn NumeroDeSerieColumn {
+                get {
+                    return this.columnNumeroDeSerie;
                 }
             }
             
@@ -354,9 +378,9 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn EstadoColumn {
+            public global::System.Data.DataColumn EspecificacionesTecnicasColumn {
                 get {
-                    return this.columnEstado;
+                    return this.columnEspecificacionesTecnicas;
                 }
             }
             
@@ -365,30 +389,6 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             public global::System.Data.DataColumn ObservacionColumn {
                 get {
                     return this.columnObservacion;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn DestinoColumn {
-                get {
-                    return this.columnDestino;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn Id_Tipo_EquipoColumn {
-                get {
-                    return this.columnId_Tipo_Equipo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn Id_ActaColumn {
-                get {
-                    return this.columnId_Acta;
                 }
             }
             
@@ -403,59 +403,52 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRow this[int index] {
+            public sp_ReporteTablaActaRow this[int index] {
                 get {
-                    return ((sp_ListarEquiposRow)(this.Rows[index]));
+                    return ((sp_ReporteTablaActaRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event sp_ListarEquiposRowChangeEventHandler sp_ListarEquiposRowChanging;
+            public event sp_ReporteTablaActaRowChangeEventHandler sp_ReporteTablaActaRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event sp_ListarEquiposRowChangeEventHandler sp_ListarEquiposRowChanged;
+            public event sp_ReporteTablaActaRowChangeEventHandler sp_ReporteTablaActaRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event sp_ListarEquiposRowChangeEventHandler sp_ListarEquiposRowDeleting;
+            public event sp_ReporteTablaActaRowChangeEventHandler sp_ReporteTablaActaRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event sp_ListarEquiposRowChangeEventHandler sp_ListarEquiposRowDeleted;
+            public event sp_ReporteTablaActaRowChangeEventHandler sp_ReporteTablaActaRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Addsp_ListarEquiposRow(sp_ListarEquiposRow row) {
+            public void Addsp_ReporteTablaActaRow(sp_ReporteTablaActaRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRow Addsp_ListarEquiposRow(string Num_serie, string Matricula, string Estado, string Observacion, string Destino, int Id_Tipo_Equipo, int Id_Acta) {
-                sp_ListarEquiposRow rowsp_ListarEquiposRow = ((sp_ListarEquiposRow)(this.NewRow()));
+            public sp_ReporteTablaActaRow Addsp_ReporteTablaActaRow(long Numeracion, int Cantidad, string TipoYModelo, long ContadorFila, string NumeroDeSerie, string Matricula, string EspecificacionesTecnicas, string Observacion) {
+                sp_ReporteTablaActaRow rowsp_ReporteTablaActaRow = ((sp_ReporteTablaActaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
-                        Num_serie,
+                        Numeracion,
+                        Cantidad,
+                        TipoYModelo,
+                        ContadorFila,
+                        NumeroDeSerie,
                         Matricula,
-                        Estado,
-                        Observacion,
-                        Destino,
-                        Id_Tipo_Equipo,
-                        Id_Acta};
-                rowsp_ListarEquiposRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowsp_ListarEquiposRow);
-                return rowsp_ListarEquiposRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRow FindById_equipo(int Id_equipo) {
-                return ((sp_ListarEquiposRow)(this.Rows.Find(new object[] {
-                            Id_equipo})));
+                        EspecificacionesTecnicas,
+                        Observacion};
+                rowsp_ReporteTablaActaRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowsp_ReporteTablaActaRow);
+                return rowsp_ReporteTablaActaRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                sp_ListarEquiposDataTable cln = ((sp_ListarEquiposDataTable)(base.Clone()));
+                sp_ReporteTablaActaDataTable cln = ((sp_ReporteTablaActaDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -463,79 +456,80 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new sp_ListarEquiposDataTable();
+                return new sp_ReporteTablaActaDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columnId_equipo = base.Columns["Id_equipo"];
-                this.columnNum_serie = base.Columns["Num_serie"];
+                this.columnNumeracion = base.Columns["Numeracion"];
+                this.columnCantidad = base.Columns["Cantidad"];
+                this.columnTipoYModelo = base.Columns["TipoYModelo"];
+                this.columnContadorFila = base.Columns["ContadorFila"];
+                this.columnNumeroDeSerie = base.Columns["NumeroDeSerie"];
                 this.columnMatricula = base.Columns["Matricula"];
-                this.columnEstado = base.Columns["Estado"];
+                this.columnEspecificacionesTecnicas = base.Columns["EspecificacionesTecnicas"];
                 this.columnObservacion = base.Columns["Observacion"];
-                this.columnDestino = base.Columns["Destino"];
-                this.columnId_Tipo_Equipo = base.Columns["Id_Tipo_Equipo"];
-                this.columnId_Acta = base.Columns["Id_Acta"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnId_equipo = new global::System.Data.DataColumn("Id_equipo", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId_equipo);
-                this.columnNum_serie = new global::System.Data.DataColumn("Num_serie", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNum_serie);
+                this.columnNumeracion = new global::System.Data.DataColumn("Numeracion", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumeracion);
+                this.columnCantidad = new global::System.Data.DataColumn("Cantidad", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCantidad);
+                this.columnTipoYModelo = new global::System.Data.DataColumn("TipoYModelo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoYModelo);
+                this.columnContadorFila = new global::System.Data.DataColumn("ContadorFila", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContadorFila);
+                this.columnNumeroDeSerie = new global::System.Data.DataColumn("NumeroDeSerie", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumeroDeSerie);
                 this.columnMatricula = new global::System.Data.DataColumn("Matricula", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMatricula);
-                this.columnEstado = new global::System.Data.DataColumn("Estado", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEstado);
+                this.columnEspecificacionesTecnicas = new global::System.Data.DataColumn("EspecificacionesTecnicas", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEspecificacionesTecnicas);
                 this.columnObservacion = new global::System.Data.DataColumn("Observacion", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnObservacion);
-                this.columnDestino = new global::System.Data.DataColumn("Destino", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDestino);
-                this.columnId_Tipo_Equipo = new global::System.Data.DataColumn("Id_Tipo_Equipo", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId_Tipo_Equipo);
-                this.columnId_Acta = new global::System.Data.DataColumn("Id_Acta", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId_Acta);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnId_equipo}, true));
-                this.columnId_equipo.AutoIncrement = true;
-                this.columnId_equipo.AllowDBNull = false;
-                this.columnId_equipo.ReadOnly = true;
-                this.columnId_equipo.Unique = true;
-                this.columnNum_serie.AllowDBNull = false;
-                this.columnNum_serie.MaxLength = 50;
+                this.columnNumeracion.ReadOnly = true;
+                this.columnCantidad.ReadOnly = true;
+                this.columnTipoYModelo.ReadOnly = true;
+                this.columnTipoYModelo.MaxLength = 153;
+                this.columnContadorFila.ReadOnly = true;
+                this.columnNumeroDeSerie.ReadOnly = true;
+                this.columnNumeroDeSerie.MaxLength = 50;
+                this.columnMatricula.ReadOnly = true;
                 this.columnMatricula.MaxLength = 20;
-                this.columnEstado.MaxLength = 100;
+                this.columnEspecificacionesTecnicas.ReadOnly = true;
+                this.columnEspecificacionesTecnicas.MaxLength = 300;
+                this.columnObservacion.ReadOnly = true;
                 this.columnObservacion.MaxLength = 200;
-                this.columnDestino.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRow Newsp_ListarEquiposRow() {
-                return ((sp_ListarEquiposRow)(this.NewRow()));
+            public sp_ReporteTablaActaRow Newsp_ReporteTablaActaRow() {
+                return ((sp_ReporteTablaActaRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new sp_ListarEquiposRow(builder);
+                return new sp_ReporteTablaActaRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(sp_ListarEquiposRow);
+                return typeof(sp_ReporteTablaActaRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.sp_ListarEquiposRowChanged != null)) {
-                    this.sp_ListarEquiposRowChanged(this, new sp_ListarEquiposRowChangeEvent(((sp_ListarEquiposRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteTablaActaRowChanged != null)) {
+                    this.sp_ReporteTablaActaRowChanged(this, new sp_ReporteTablaActaRowChangeEvent(((sp_ReporteTablaActaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -543,8 +537,8 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.sp_ListarEquiposRowChanging != null)) {
-                    this.sp_ListarEquiposRowChanging(this, new sp_ListarEquiposRowChangeEvent(((sp_ListarEquiposRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteTablaActaRowChanging != null)) {
+                    this.sp_ReporteTablaActaRowChanging(this, new sp_ReporteTablaActaRowChangeEvent(((sp_ReporteTablaActaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -552,8 +546,8 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.sp_ListarEquiposRowDeleted != null)) {
-                    this.sp_ListarEquiposRowDeleted(this, new sp_ListarEquiposRowChangeEvent(((sp_ListarEquiposRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteTablaActaRowDeleted != null)) {
+                    this.sp_ReporteTablaActaRowDeleted(this, new sp_ReporteTablaActaRowChangeEvent(((sp_ReporteTablaActaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -561,14 +555,14 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.sp_ListarEquiposRowDeleting != null)) {
-                    this.sp_ListarEquiposRowDeleting(this, new sp_ListarEquiposRowChangeEvent(((sp_ListarEquiposRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteTablaActaRowDeleting != null)) {
+                    this.sp_ReporteTablaActaRowDeleting(this, new sp_ReporteTablaActaRowChangeEvent(((sp_ReporteTablaActaRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Removesp_ListarEquiposRow(sp_ListarEquiposRow row) {
+            public void Removesp_ReporteTablaActaRow(sp_ReporteTablaActaRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -577,7 +571,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dsReporteUsuario ds = new dsReporteUsuario();
+                dsReporteTablaActa ds = new dsReporteTablaActa();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -595,7 +589,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "sp_ListarEquiposDataTable";
+                attribute2.FixedValue = "sp_ReporteTablaActaDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -639,36 +633,97 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class sp_ListarEquiposRow : global::System.Data.DataRow {
+        public partial class sp_ReporteTablaActaRow : global::System.Data.DataRow {
             
-            private sp_ListarEquiposDataTable tablesp_ListarEquipos;
+            private sp_ReporteTablaActaDataTable tablesp_ReporteTablaActa;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal sp_ListarEquiposRow(global::System.Data.DataRowBuilder rb) : 
+            internal sp_ReporteTablaActaRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablesp_ListarEquipos = ((sp_ListarEquiposDataTable)(this.Table));
+                this.tablesp_ReporteTablaActa = ((sp_ReporteTablaActaDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int Id_equipo {
+            public long Numeracion {
                 get {
-                    return ((int)(this[this.tablesp_ListarEquipos.Id_equipoColumn]));
+                    try {
+                        return ((long)(this[this.tablesp_ReporteTablaActa.NumeracionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Numeracion\' de la tabla \'sp_ReporteTablaActa\' es DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tablesp_ListarEquipos.Id_equipoColumn] = value;
+                    this[this.tablesp_ReporteTablaActa.NumeracionColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Num_serie {
+            public int Cantidad {
                 get {
-                    return ((string)(this[this.tablesp_ListarEquipos.Num_serieColumn]));
+                    try {
+                        return ((int)(this[this.tablesp_ReporteTablaActa.CantidadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Cantidad\' de la tabla \'sp_ReporteTablaActa\' es DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tablesp_ListarEquipos.Num_serieColumn] = value;
+                    this[this.tablesp_ReporteTablaActa.CantidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string TipoYModelo {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteTablaActa.TipoYModeloColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TipoYModelo\' de la tabla \'sp_ReporteTablaActa\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteTablaActa.TipoYModeloColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public long ContadorFila {
+                get {
+                    try {
+                        return ((long)(this[this.tablesp_ReporteTablaActa.ContadorFilaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ContadorFila\' de la tabla \'sp_ReporteTablaActa\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteTablaActa.ContadorFilaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string NumeroDeSerie {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteTablaActa.NumeroDeSerieColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NumeroDeSerie\' de la tabla \'sp_ReporteTablaActa\' es DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteTablaActa.NumeroDeSerieColumn] = value;
                 }
             }
             
@@ -677,30 +732,31 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             public string Matricula {
                 get {
                     try {
-                        return ((string)(this[this.tablesp_ListarEquipos.MatriculaColumn]));
+                        return ((string)(this[this.tablesp_ReporteTablaActa.MatriculaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Matricula\' de la tabla \'sp_ListarEquipos\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Matricula\' de la tabla \'sp_ReporteTablaActa\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablesp_ListarEquipos.MatriculaColumn] = value;
+                    this[this.tablesp_ReporteTablaActa.MatriculaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Estado {
+            public string EspecificacionesTecnicas {
                 get {
                     try {
-                        return ((string)(this[this.tablesp_ListarEquipos.EstadoColumn]));
+                        return ((string)(this[this.tablesp_ReporteTablaActa.EspecificacionesTecnicasColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Estado\' de la tabla \'sp_ListarEquipos\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'EspecificacionesTecnicas\' de la tabla \'sp_ReporteTablaAct" +
+                                "a\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablesp_ListarEquipos.EstadoColumn] = value;
+                    this[this.tablesp_ReporteTablaActa.EspecificacionesTecnicasColumn] = value;
                 }
             }
             
@@ -709,136 +765,112 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
             public string Observacion {
                 get {
                     try {
-                        return ((string)(this[this.tablesp_ListarEquipos.ObservacionColumn]));
+                        return ((string)(this[this.tablesp_ReporteTablaActa.ObservacionColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Observacion\' de la tabla \'sp_ListarEquipos\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablesp_ListarEquipos.ObservacionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Destino {
-                get {
-                    try {
-                        return ((string)(this[this.tablesp_ListarEquipos.DestinoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Destino\' de la tabla \'sp_ListarEquipos\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablesp_ListarEquipos.DestinoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int Id_Tipo_Equipo {
-                get {
-                    try {
-                        return ((int)(this[this.tablesp_ListarEquipos.Id_Tipo_EquipoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Id_Tipo_Equipo\' de la tabla \'sp_ListarEquipos\' es DBNull." +
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Observacion\' de la tabla \'sp_ReporteTablaActa\' es DBNull." +
                                 "", e);
                     }
                 }
                 set {
-                    this[this.tablesp_ListarEquipos.Id_Tipo_EquipoColumn] = value;
+                    this[this.tablesp_ReporteTablaActa.ObservacionColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int Id_Acta {
-                get {
-                    try {
-                        return ((int)(this[this.tablesp_ListarEquipos.Id_ActaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Id_Acta\' de la tabla \'sp_ListarEquipos\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablesp_ListarEquipos.Id_ActaColumn] = value;
-                }
+            public bool IsNumeracionNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.NumeracionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetNumeracionNull() {
+                this[this.tablesp_ReporteTablaActa.NumeracionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCantidadNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.CantidadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCantidadNull() {
+                this[this.tablesp_ReporteTablaActa.CantidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTipoYModeloNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.TipoYModeloColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTipoYModeloNull() {
+                this[this.tablesp_ReporteTablaActa.TipoYModeloColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsContadorFilaNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.ContadorFilaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetContadorFilaNull() {
+                this[this.tablesp_ReporteTablaActa.ContadorFilaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsNumeroDeSerieNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.NumeroDeSerieColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetNumeroDeSerieNull() {
+                this[this.tablesp_ReporteTablaActa.NumeroDeSerieColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsMatriculaNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.MatriculaColumn);
+                return this.IsNull(this.tablesp_ReporteTablaActa.MatriculaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetMatriculaNull() {
-                this[this.tablesp_ListarEquipos.MatriculaColumn] = global::System.Convert.DBNull;
+                this[this.tablesp_ReporteTablaActa.MatriculaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsEstadoNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.EstadoColumn);
+            public bool IsEspecificacionesTecnicasNull() {
+                return this.IsNull(this.tablesp_ReporteTablaActa.EspecificacionesTecnicasColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetEstadoNull() {
-                this[this.tablesp_ListarEquipos.EstadoColumn] = global::System.Convert.DBNull;
+            public void SetEspecificacionesTecnicasNull() {
+                this[this.tablesp_ReporteTablaActa.EspecificacionesTecnicasColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsObservacionNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.ObservacionColumn);
+                return this.IsNull(this.tablesp_ReporteTablaActa.ObservacionColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetObservacionNull() {
-                this[this.tablesp_ListarEquipos.ObservacionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsDestinoNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.DestinoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetDestinoNull() {
-                this[this.tablesp_ListarEquipos.DestinoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsId_Tipo_EquipoNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.Id_Tipo_EquipoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetId_Tipo_EquipoNull() {
-                this[this.tablesp_ListarEquipos.Id_Tipo_EquipoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsId_ActaNull() {
-                return this.IsNull(this.tablesp_ListarEquipos.Id_ActaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetId_ActaNull() {
-                this[this.tablesp_ListarEquipos.Id_ActaColumn] = global::System.Convert.DBNull;
+                this[this.tablesp_ReporteTablaActa.ObservacionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -846,22 +878,22 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public class sp_ListarEquiposRowChangeEvent : global::System.EventArgs {
+        public class sp_ReporteTablaActaRowChangeEvent : global::System.EventArgs {
             
-            private sp_ListarEquiposRow eventRow;
+            private sp_ReporteTablaActaRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRowChangeEvent(sp_ListarEquiposRow row, global::System.Data.DataRowAction action) {
+            public sp_ReporteTablaActaRowChangeEvent(sp_ReporteTablaActaRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public sp_ListarEquiposRow Row {
+            public sp_ReporteTablaActaRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -877,7 +909,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes {
         }
     }
 }
-namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
+namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteTablaActaTableAdapters {
     
     
     /// <summary>
@@ -889,7 +921,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class sp_ListarEquiposTableAdapter : global::System.ComponentModel.Component {
+    public partial class sp_ReporteTablaActaTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -903,7 +935,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public sp_ListarEquiposTableAdapter() {
+        public sp_ReporteTablaActaTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1000,15 +1032,15 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "sp_ListarEquipos";
-            tableMapping.ColumnMappings.Add("Id_equipo", "Id_equipo");
-            tableMapping.ColumnMappings.Add("Num_serie", "Num_serie");
+            tableMapping.DataSetTable = "sp_ReporteTablaActa";
+            tableMapping.ColumnMappings.Add("Numeracion", "Numeracion");
+            tableMapping.ColumnMappings.Add("Cantidad", "Cantidad");
+            tableMapping.ColumnMappings.Add("TipoYModelo", "TipoYModelo");
+            tableMapping.ColumnMappings.Add("ContadorFila", "ContadorFila");
+            tableMapping.ColumnMappings.Add("NumeroDeSerie", "NumeroDeSerie");
             tableMapping.ColumnMappings.Add("Matricula", "Matricula");
-            tableMapping.ColumnMappings.Add("Estado", "Estado");
+            tableMapping.ColumnMappings.Add("EspecificacionesTecnicas", "EspecificacionesTecnicas");
             tableMapping.ColumnMappings.Add("Observacion", "Observacion");
-            tableMapping.ColumnMappings.Add("Destino", "Destino");
-            tableMapping.ColumnMappings.Add("Id_Tipo_Equipo", "Id_Tipo_Equipo");
-            tableMapping.ColumnMappings.Add("Id_Acta", "Id_Acta");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1016,7 +1048,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Gestion_de_Equipos_Educativos.Properties.Settings.Default.DB_GestionEquiposConnectionString;
+            this._connection.ConnectionString = global::Gestion_de_Equipos_Educativos.Properties.Settings.Default.DB_GestionEquiposConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1025,17 +1057,24 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.sp_ListarEquipos";
+            this._commandCollection[0].CommandText = "dbo.sp_ReporteTablaActa";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_acta", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(dsReporteUsuario.sp_ListarEquiposDataTable dataTable, int idEquipo) {
+        public virtual int Fill(dsReporteTablaActa.sp_ReporteTablaActaDataTable dataTable, global::System.Nullable<int> id_acta) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((id_acta.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(id_acta.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -1047,9 +1086,15 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dsReporteUsuario.sp_ListarEquiposDataTable GetData() {
+        public virtual dsReporteTablaActa.sp_ReporteTablaActaDataTable GetData(global::System.Nullable<int> id_acta) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            dsReporteUsuario.sp_ListarEquiposDataTable dataTable = new dsReporteUsuario.sp_ListarEquiposDataTable();
+            if ((id_acta.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(id_acta.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            dsReporteTablaActa.sp_ReporteTablaActaDataTable dataTable = new dsReporteTablaActa.sp_ReporteTablaActaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1123,7 +1168,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateUpdatedRows(dsReporteUsuario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(dsReporteTablaActa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1133,7 +1178,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateInsertedRows(dsReporteUsuario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(dsReporteTablaActa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1143,7 +1188,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateDeletedRows(dsReporteUsuario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(dsReporteTablaActa dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1177,7 +1222,7 @@ namespace Gestion_de_Equipos_Educativos.Reportes.dsReporteUsuarioTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public virtual int UpdateAll(dsReporteUsuario dataSet) {
+        public virtual int UpdateAll(dsReporteTablaActa dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

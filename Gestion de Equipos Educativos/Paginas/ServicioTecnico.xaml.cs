@@ -1,7 +1,10 @@
 ﻿using Controllers;
+using Entities;
 using Gestion_de_Equipos_Educativos.Ventanas;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +35,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             listarEquipos();
         }
 
-        private void mostrarVentana()
+        private void mostrarVentana(string opcion)
         {
             // Referencia a la ventana principal
             var mainWindow = Application.Current.MainWindow as MainWindow;
@@ -47,7 +50,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
 
             // Crea una instancia del modal
-            VentanaServicioTecnico servTec = new VentanaServicioTecnico
+            VentanaServicioTecnico servTec = new VentanaServicioTecnico(opcion)
             {
                 Owner = mainWindow // Establece el propietario
             };
@@ -64,8 +67,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
-            mostrarVentana();
-            listarEquipos();
+
         }
 
         private void listarEquipos()
@@ -74,6 +76,67 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             var dtServicio = servicioTecnicoController.ListarServiciosTecnicosConEquipos();
 
             this.DGServiciosTecnicos.ItemsSource = dtServicio.DefaultView;
+        }
+
+        private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string textoBusqueda = txtBuscar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                // Si no hay texto, mostrar todos los docentes
+                listarEquipos();
+            }
+            else
+            {
+
+                // Llamar al controlador para obtener los datos filtrados
+
+                DataTable dataTable = servicioTecnicoController.FiltrarServiciosTecnicos(textoBusqueda);
+
+                // Actualizar el DataGrid
+                DGServiciosTecnicos.ItemsSource = dataTable.DefaultView;
+            }
+        }
+
+        private void btnVerrFila_Click(object sender, RoutedEventArgs e)
+        {
+            if (!DGServiciosTecnicos.Items.IsEmpty)
+            {
+                DataRowView rowView = (DataRowView)DGServiciosTecnicos.SelectedItem;
+
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                ServicioTecnicoCache.IdServicioTecnico = (int)rowView["Id_Servicio_Tecnico"];
+                ServicioTecnicoCache.FechaEnvio = Convert.ToDateTime(rowView["Fecha_Envio"]);
+                ServicioTecnicoCache.Responsable = rowView["Responsable"].ToString();
+                ServicioTecnicoCache.NumSerie = rowView["Num_serie"].ToString();
+                ServicioTecnicoCache.Falla = rowView["Falla"].ToString();
+                ServicioTecnicoCache.Foto = rowView["Foto"] != DBNull.Value ? (byte[])rowView["Foto"] : null;
+
+                mostrarVentana("ver");
+            }
+            listarEquipos();
+        }
+
+        
+
+
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!DGServiciosTecnicos.Items.IsEmpty)
+            {
+                DataRowView rowView = (DataRowView)DGServiciosTecnicos.SelectedItem;
+
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                ServicioTecnicoCache.IdServicioTecnico = (int)rowView["Id_Servicio_Tecnico"];
+                ServicioTecnicoCache.FechaEnvio = Convert.ToDateTime(rowView["Fecha_Envio"]);
+                ServicioTecnicoCache.Responsable = rowView["Responsable"].ToString();
+                ServicioTecnicoCache.NumSerie = rowView["Num_serie"].ToString();
+                ServicioTecnicoCache.Falla = rowView["Falla"].ToString();
+                ServicioTecnicoCache.Foto = rowView["Foto"] != DBNull.Value ? (byte[])rowView["Foto"] : null;
+
+                mostrarVentana("editar");
+            }
+            listarEquipos();
         }
     }
 }

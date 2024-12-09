@@ -13,9 +13,15 @@ namespace Controllers
             return alumnoDao.ListarAlumnos();
         }
 
-        public void agregarAlumno(Alumno alumno)
+        public DataTable FiltrarAlumnos(string texto)
         {
-            alumnoDao.AgregarAlumno(alumno);
+            return alumnoDao.FiltrarAlumnos(texto);
+        }
+
+
+        public void agregarAlumno(Alumno alumno, int idEquipo)
+        {
+            alumnoDao.AgregarAlumno(alumno, idEquipo);
         }
 
         public void editarAlumno(Alumno alumno)

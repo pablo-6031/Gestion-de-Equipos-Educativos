@@ -13,6 +13,14 @@ namespace Controllers
             return servicioTecnicoDao.ListarServiciosTecnicos();
         }
 
+        public DataTable FiltrarServiciosTecnicos(string texto)
+        {
+            return servicioTecnicoDao.FiltrarServiciosTecnicos(texto);
+        }
+
+
+        
+
         public DataTable ListarServiciosTecnicosConEquipos()
         {
             return servicioTecnicoDao.ListarServiciosTecnicosConEquipos();

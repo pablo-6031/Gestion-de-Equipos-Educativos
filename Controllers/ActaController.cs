@@ -2,6 +2,7 @@
 using Models;
 using Entities;
 using System.Collections.Generic;
+using System;
 
 namespace Controllers
 {
@@ -14,19 +15,34 @@ namespace Controllers
             return actaDao.ListarActas();
         }
 
+        public DataTable FiltrarActasPorFecha(string fecha)
+        {
+            return actaDao.FiltrarActasPorFecha(fecha);
+        }
+
+
+        public DataTable ListarActasPorFechas(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return actaDao.ListarActasPorFechas(fechaDesde, fechaHasta);
+        }
+
+
         public void AgregarActa(Acta acta)
         {
             actaDao.AgregarActa(acta);
         }
 
-        public void agregarActaConEquipos(Acta acta, List<Equipo> equipos)
+        public void AgregarActaConEquipos(Acta acta, List<Equipo> equipos, List<Equipo> adm)
         {
-            actaDao.AgregarActaConEquipos(acta, equipos);
+            actaDao.AgregarActaConEquipos(acta, equipos, adm);
         }
 
-        public void EditarActa(Acta acta)
+
+
+        
+        public void EditarActaConEquipos(Acta acta, List<Equipo> equipos)
         {
-            actaDao.EditarActa(acta);
+            actaDao.EditarActaConEquipos(acta, equipos);
         }
 
         public void EliminarActa(int idActa)

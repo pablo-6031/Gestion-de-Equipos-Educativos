@@ -3,35 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas"
+      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1300"
+      Width="1349" Height="828"
       Title="Equipos">
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="31*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="64*"/>
 
 
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="2" 
-	   RadiusY="18" 
-	   RadiusX="18" StrokeThickness="5" Margin="-32,10,0,4" HorizontalAlignment="Left" Width="1322" >
-            <Rectangle.Fill>
-                <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#CC2C1414" Offset="0"/>
-                    <GradientStop Color="#CCF12C2C" Offset="1"/>
-                    <GradientStop Color="#CCCB4343" Offset="0.458"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-            <Rectangle.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF8A1212" Offset="0"/>
-                    <GradientStop Color="#FF111010" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Stroke>
-        </Rectangle>
+        <Rectangle StrokeThickness="5"  HorizontalAlignment="Center"  Width="1349" Fill="{StaticResource colorFondo}" Grid.RowSpan="2"/>
+
         <Label Content="Equipos"
    HorizontalAlignment="Center"
    VerticalAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semibold" FontSize="30" Height="46" Width="228" RenderTransformOrigin="0.5,0.5">
@@ -51,35 +36,45 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
+        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="342" Height="34" TextChanged="txtBuscar_TextChanged"   />
 
-        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,28" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" MouseDoubleClick="DGEquipos_MouseDoubleClick">
-                
+        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1329" Margin="0,3,0,10"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
+            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="-5,5,5,-5" MouseDoubleClick="DGEquipos_MouseDoubleClick">
+
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="60" >
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="30" Width="50" Height="50">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Foto}"/>
-                                    </Border.Background>
-                                </Border>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="100"  Header="ID"  Binding="{Binding IdEquipo}"/>
-                    <DataGridTextColumn Width="200"  Header="NumeroSerie"  Binding="{Binding NumSerie}"/>
-                    <DataGridTextColumn Width="250"  Header="Matricula" Binding="{Binding Matricula}"/>
-                    <DataGridTextColumn Width="250"  Header="Estado"  Binding="{Binding Estado}"/>
 
-                    <DataGridTemplateColumn Width="300" Header="ACCION" HeaderTemplate="{StaticResource GreenHeaderTransparente}">
+                    <DataGridTextColumn Width="100*"  Header="ID"  Binding="{Binding id_equipo}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="200*"  Header="TIPO"  Binding="{Binding tipo_equipo}"/>
+                    <DataGridTextColumn Width="250*"  Header="MODELO"  Binding="{Binding modelo_equipo}"/>
+                    <DataGridTextColumn Width="250*"  Header="NUMERO DE SERIE" Binding="{Binding num_serie}"/>
+                    <DataGridTextColumn Width="250*"  Header="MATRICULA"  Binding="{Binding matricula}"/>
+
+
+                    <DataGridTextColumn Width="100*"  Header="ESTADO"  Binding="{Binding estado}"/>
+                    <DataGridTextColumn Width="200*"  Header="DESTINO"  Binding="{Binding destino}"/>
+                    <DataGridTextColumn Width="250*"  Header="OBSERVACION" Binding="{Binding observacion}"/>
+                    <DataGridTextColumn Width="250*"  Header="IDTIPOEQUIPO" Binding="{Binding id_tipo_equipo}" Visibility="Hidden"/>
+
+                    <DataGridTemplateColumn Width="300*" Header="ACCION" >
                         <DataGridTemplateColumn.CellTemplate>
 
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button Name="btnVerEquipo" Content="Ver" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnVerEquipo_Click"   ></Button>
-                                    <Button Name="btnEditarEquipo" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarEquipo_Click"   ></Button>
-                                    <Button Name="btnEliminarEquipo" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarEquipo_Click"  ></Button>
+                                    <Button Name="btnVerEquipo"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaVer}" Click="btnVerEquipo_Click"  Margin="3,0"  >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Eye" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnEditarEquipo"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit}" Click="btnEditarEquipo_Click" Margin="3,0"   >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnEliminarEquipo"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaDelete}" Click="btnEliminarEquipo_Click"  >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Trash" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
                                 </StackPanel>
 
 

@@ -67,7 +67,7 @@
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Button x:Name="btnAgregarFoto" Content="Agregar"  Grid.Row="6"  Style="{StaticResource Botones}"  HorizontalAlignment="Left" Width="68" Margin="34,27,0,68" Grid.RowSpan="2" />
+            <Button x:Name="btnAgregarFoto" Content="Agregar"  Grid.Row="6"  Style="{StaticResource Botones}"  HorizontalAlignment="Left" Width="68" Margin="34,27,0,68" Grid.RowSpan="2" Click="btnAgregarFoto_Click" />
 
 
             <TextBlock Text="TIPO:" Grid.Row="0"
@@ -81,17 +81,17 @@
               HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,45" Grid.RowSpan="2" />
             <TextBlock Text="DETALLE:" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86" Margin="0,0,0,45" Grid.RowSpan="2"  />
             <TextBox x:Name="txtModelo" Grid.Row="3" Margin="5,5,5,5" Grid.Column="1" Style="{StaticResource colorTexbox}"  />
-            <TextBox x:Name="txtTipo" Grid.Row="1" Margin="5,5,5,5"  Grid.Column="2" Style="{StaticResource colorTexbox}"  />
-            <TextBox x:Name="txtMarca" Grid.Row="1" Margin="5,5,5,5"  Grid.Column="1" Style="{StaticResource colorTexbox}" />
+            <TextBox x:Name="txtMarca" Grid.Row="1" Margin="5,5,5,5"  Grid.Column="2" Style="{StaticResource colorTexbox}"  />
+            <TextBox x:Name="txtTipo" Grid.Row="1" Margin="5,5,5,5"  Grid.Column="1" Style="{StaticResource colorTexbox}" />
             <TextBox x:Name="txtDetalle" Grid.Row="3" Grid.Column="2"  Style="{StaticResource TexBoxDetalles}" Margin="5,5,5,5" Grid.RowSpan="2" />
             <StackPanel Grid.Row="6"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
               Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="2" Height="74" Width="324" Grid.RowSpan="2" Margin="0,44,0,0">
                 <Button x:Name="btnAgregar" Content="AGREGAR"   Style="{StaticResource Botones}"
-              Width="150"  Height="50" Margin="12" />
+              Width="150"  Height="50" Margin="12" Click="btnAgregar_Click" />
                 <Button x:Name="btnCancelar" Content="CANCELAR" Style="{StaticResource Botones}"
-              Width="150"  Height="50" />
+              Width="150"  Height="50" Click="btnCancelar_Click" />
 
             </StackPanel>
 

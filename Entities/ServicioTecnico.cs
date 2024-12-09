@@ -11,8 +11,8 @@ namespace Entities
         public int IdServicioTecnico { get; set; }
         public string Falla { get; set; }
         public string Responsable { get; set; }
-        public DateTime FechaEnvio { get; set; }
+        public DateTime? FechaEnvio { get; set; }
         public byte[] Foto { get; set; }
-        public int IdEquipo { get; set; }
+        public int? IdEquipo { get; set; }
     }
 }

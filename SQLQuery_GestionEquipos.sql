@@ -29,6 +29,16 @@ Correo NVARCHAR(100),
 Direccion NVARCHAR(255)
 );
 
+CREATE TABLE Prestamo (
+    id_prestamo INT IDENTITY(1,1) PRIMARY KEY,
+    nombre NVARCHAR(100) NOT NULL,
+apellido NVARCHAR(100) NOT NULL,
+    dni NVARCHAR(100),
+funcion NVARCHAR(20),
+fecha_prestamo DATE NOT NULL,
+
+);
+
 CREATE TABLE Alumnos (
     id_alumno INT IDENTITY(1,1) PRIMARY KEY,
     Apellidos NVARCHAR(100) NOT NULL,
@@ -113,6 +123,12 @@ CREATE TABLE Detalle_Alumno_Equipo (
 CREATE TABLE Detalle_ADMovil_Equipo (
     id_detalle INT IDENTITY(1,1) PRIMARY KEY,
     id_admovil INT NOT NULL,
+    id_equipo INT NOT NULL
+);
+
+CREATE TABLE Detalle_Prestamo_Equipo (
+    id_detalle INT IDENTITY(1,1) PRIMARY KEY,
+    id_prestamo INT NOT NULL,
     id_equipo INT NOT NULL
 );
 
@@ -237,6 +253,18 @@ FOREIGN KEY (id_equipo) REFERENCES Equipos(id_equipo)
 ON DELETE CASCADE;
 GO
 
+ALTER TABLE Detalle_Prestamo_Equipo 
+ADD CONSTRAINT fk_detalle_prestamo_equipo 
+FOREIGN KEY (id_equipo) REFERENCES Equipos(id_equipo) 
+ON DELETE CASCADE;
+GO
+
+ALTER TABLE Detalle_Prestamo_Equipo 
+ADD CONSTRAINT fk_detalle_prestamo
+FOREIGN KEY (id_prestamo) REFERENCES Prestamo(id_prestamo) 
+ON DELETE CASCADE;
+GO
+
 INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES 
 ('Netbook', 'Exo', 'Conectar Igualdad G1', 
  'Procesador Intel Atom N450, 1.66 GHz, RAM DDR2 1 GB, almacenamiento SATA 160 GB, pantalla LED 10.1" WSVGA 1024 x 600, sistema operativo Windows XP y Linux, refrigeración activa, conectores VGA, 3 USB 2.0, LAN RJ-45, lector SD, expansión PCIe Mini Card.'),
@@ -316,6 +344,113 @@ INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico) VALUES
  
 
 
+
+
+
+
+
+CREATE PROCEDURE sp_AgregarTipoEquipo
+    @tipo NVARCHAR(100),
+    @marca NVARCHAR(50),
+    @modelo NVARCHAR(50),
+    @detalle_tecnico NVARCHAR(300) = NULL,
+    @foto VARBINARY(MAX) = NULL
+AS
+BEGIN
+
+    BEGIN TRY
+        -- Verifica que no exista un registro con el mismo tipo y modelo
+        IF EXISTS (SELECT 1 FROM Tipo_equipos WHERE tipo = @tipo AND modelo = @modelo)
+        BEGIN
+            THROW 50001, 'Ya existe un equipo con el mismo tipo y modelo.', 1;
+        END
+
+        -- Inserta el nuevo registro
+        INSERT INTO Tipo_equipos (tipo, marca, modelo, detalle_tecnico, foto)
+        VALUES (@tipo, @marca, @modelo, @detalle_tecnico, @foto);
+
+        PRINT 'El tipo de equipo se agregó correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+CREATE PROCEDURE sp_EliminarTipoEquipo
+    @id_tipo_equipo INT
+AS
+BEGIN
+    DELETE FROM Tipo_equipos WHERE id_tipo_equipo = @id_tipo_equipo;
+
+
+END;
+
+
+
+CREATE PROCEDURE sp_EditarTipoEquipo
+    @id_tipo_equipo INT,
+    @tipo NVARCHAR(100),
+    @marca NVARCHAR(50),
+    @modelo NVARCHAR(50),
+    @detalle_tecnico NVARCHAR(300) = NULL,
+    @foto VARBINARY(MAX) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Verifica que el registro exista
+        IF NOT EXISTS (SELECT 1 FROM Tipo_equipos WHERE id_tipo_equipo = @id_tipo_equipo)
+        BEGIN
+            THROW 50001, 'El tipo de equipo especificado no existe.', 1;
+        END
+
+        -- Verifica que el nuevo tipo y modelo no coincidan con otro registro existente
+        IF EXISTS (SELECT 1 FROM Tipo_equipos 
+                   WHERE tipo = @tipo AND modelo = @modelo AND id_tipo_equipo <> @id_tipo_equipo)
+        BEGIN
+            THROW 50002, 'Ya existe un equipo con el mismo tipo y modelo.', 1;
+        END
+
+        -- Actualiza el registro
+        UPDATE Tipo_equipos
+        SET
+            tipo = @tipo,
+            marca = @marca,
+            modelo = @modelo,
+            detalle_tecnico = @detalle_tecnico,
+            foto = @foto
+        WHERE 
+            id_tipo_equipo = @id_tipo_equipo;
+
+        PRINT 'El tipo de equipo se actualizó correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+
+
+
  CREATE PROCEDURE sp_ListarTipoEquipos
 AS
 BEGIN
@@ -325,6 +460,31 @@ BEGIN
     FROM 
         Tipo_equipos;
 END;
+
+
+
+CREATE PROCEDURE sp_FiltrarTipoEquipos
+    @texto NVARCHAR(100) = NULL 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        *
+    FROM 
+        Tipo_equipos
+    WHERE 
+        (@texto IS NULL OR 
+         tipo LIKE '%' + @texto + '%' OR 
+         marca LIKE '%' + @texto + '%' OR 
+         modelo LIKE '%' + @texto + '%')
+    ORDER BY 
+        tipo; 
+END;
+GO
+
+
+
 
  CREATE PROCEDURE sp_TraerTipoEquipo
 @id_tipo_equipo INT
@@ -402,19 +562,170 @@ BEGIN
 END;
 
 
+CREATE PROCEDURE sp_ListarEquiposporNumSerieCompleto
+    @texto NVARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        e.id_equipo,
+        e.num_serie,
+        e.matricula,
+        e.estado,
+        e.destino,
+        e.observacion,
+        e.id_tipo_equipo,
+        te.tipo AS tipo_equipo,
+        te.marca AS marca_equipo,
+        te.modelo AS modelo_equipo,
+        te.detalle_tecnico AS detalle_equipo
+    FROM 
+        Equipos e
+    LEFT JOIN 
+        Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
+    WHERE 
+        (@texto IS NULL OR 
+         e.num_serie LIKE '%' + @texto + '%' OR 
+         e.matricula LIKE '%' + @texto + '%' )
+    ORDER BY 
+        e.num_serie; -- Ordena por número de serie para mayor claridad
+
+END;
+
+
+
+
+
+
+
 CREATE PROCEDURE sp_ListarEquiposPorActa
     @id_acta INT
 AS
 BEGIN
 
-    SELECT *
+    SELECT 
+	e.id_equipo,
+        e.num_serie,
+        e.matricula,
+        e.estado,
+        e.destino,
+        e.observacion,
+        e.id_tipo_equipo,
+e.id_acta,
+        te.tipo AS tipo_equipo,
+te.Modelo AS modelo_equipo
+    FROM 
+        Equipos e
+	LEFT JOIN 
+        Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
+        WHERE 
+        e.id_acta = @id_acta;
+END;
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE PROCEDURE sp_ListarEquiposAdmPorActa
+    @id_acta INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Selección de Equipos
+    SELECT DISTINCT 
+        e.id_equipo AS id_equipo,
+        e.num_serie,
+        e.matricula,
+        e.estado,
+        e.observacion,
+        e.id_tipo_equipo,
+        e.id_acta,
+        te.tipo AS tipo_equipo,
+        te.modelo AS modelo_equipo
+
     FROM 
         Equipos e
     INNER JOIN 
-        Actas a ON e.id_acta = a.id_acta
+        Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
     WHERE 
-        e.id_acta = @id_acta;
+        e.id_acta = @id_acta
+
+    UNION ALL
+
+    -- Selección de Móviles Administrativos
+    SELECT DISTINCT 
+        adm.id_admovil AS id_equipo,
+        adm.num_serie,
+        adm.matricula,
+        adm.estado,
+        adm.observacion,
+        adm.id_tipo_equipo,
+        adm.id_acta,
+        te.tipo AS tipo_equipo,
+        te.modelo AS modelo_equipo
+    FROM 
+        ADMoviles adm
+    INNER JOIN 
+        Detalle_ADMovil_Equipo dam ON adm.id_admovil = dam.id_admovil
+    INNER JOIN 
+        Equipos e ON dam.id_equipo = e.id_equipo
+	INNER JOIN 
+        Tipo_equipos te ON adm.id_tipo_equipo = te.id_tipo_equipo
+    WHERE 
+        adm.id_acta = @id_acta;
 END;
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE PROCEDURE sp_ComprobarEquipo
+    @num_serie NVARCHAR(50), -- Número de serie a buscar
+    @matricula NVARCHAR(20), -- Matrícula a buscar
+    @resultado BIT OUTPUT    -- Resultado de la búsqueda
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar si existe un equipo con el num_serie o matricula proporcionados
+    IF EXISTS (
+        SELECT 1
+        FROM Equipos
+        WHERE num_serie = @num_serie OR matricula = @matricula
+    )
+    BEGIN
+        SET @resultado = 1; -- True si se encontró
+    END
+    ELSE
+    BEGIN
+        SET @resultado = 0; -- False si no se encontró
+    END
+END;
+GO
+
+
+
 
 
 
@@ -428,7 +739,9 @@ CREATE PROCEDURE sp_AgregarEquipo
     @Id_Acta INT
 AS
 BEGIN
+    SET NOCOUNT ON;
 
+    -- Insertar el nuevo equipo en la tabla Equipos
     INSERT INTO Equipos (
         Num_serie,
         Matricula,
@@ -447,7 +760,15 @@ BEGIN
         @Id_Tipo_Equipo,
         @Id_Acta
     );
+
+    -- Devolver el ID del equipo recién insertado
+    SELECT SCOPE_IDENTITY() AS Id_Equipo;
 END;
+GO
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------EQUIPO-
+
 
 
 
@@ -458,22 +779,70 @@ CREATE PROCEDURE sp_EditarEquipo
     @Estado NVARCHAR(50),
     @Observacion NVARCHAR(255),
     @Destino NVARCHAR(100),
-    @Id_Tipo_Equipo INT,
-    @Id_Acta INT
+    @Id_Tipo_Equipo INT
 AS
 BEGIN
-    UPDATE Equipos
-    SET
-        Num_serie = @Num_serie,
-        Matricula = @Matricula,
-        Estado = @Estado,
-        Observacion = @Observacion,
-        Destino = @Destino,
-        Id_Tipo_Equipo = @Id_Tipo_Equipo,
-        Id_Acta = @Id_Acta
-    WHERE
-        Id_Equipo = @Id_Equipo; 
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Verifica que el equipo existe
+        IF NOT EXISTS (SELECT 1 FROM Equipos WHERE Id_Equipo = @Id_Equipo)
+        BEGIN
+            THROW 50001, 'El equipo especificado no existe.', 1;
+        END
+
+        -- Verifica que el número de serie no esté duplicado (excepto si es vacío)
+        IF LTRIM(RTRIM(@Num_serie)) <> '' AND EXISTS (SELECT 1 FROM Equipos WHERE Num_serie = @Num_serie AND Id_Equipo <> @Id_Equipo)
+        BEGIN
+            THROW 50002, 'El número de serie ya está en uso por otro equipo.', 1;
+        END
+
+       
+        -- Verifica que el tipo de equipo existe
+        IF NOT EXISTS (SELECT 1 FROM Tipo_equipos WHERE Id_Tipo_Equipo = @Id_Tipo_Equipo)
+        BEGIN
+            THROW 50004, 'El tipo de equipo especificado no existe.', 1;
+        END
+
+        -- Actualiza los datos del equipo
+        UPDATE Equipos
+        SET
+            Num_serie = @Num_serie,
+            Matricula = @Matricula,
+            Estado = @Estado,
+            Observacion = @Observacion,
+            Destino = @Destino,
+            Id_Tipo_Equipo = @Id_Tipo_Equipo
+        WHERE
+            Id_Equipo = @Id_Equipo;
+
+        PRINT 'El equipo se actualizó correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
 END;
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -510,6 +879,37 @@ BEGIN
     END
 END;
 
+
+
+CREATE PROCEDURE sp_FiltrarInstituciones
+    @texto NVARCHAR(100) = NULL
+
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        id_institucion,
+        nombre,
+        localidad,
+        codigopostal,
+        provincia,
+        cue,
+        turno,
+        director,
+        region,
+        nivel,
+        barrio,
+        calle,
+        numerodecalle,
+        telefono
+    FROM Institucion
+    WHERE 
+        (@texto IS NULL OR nombre LIKE '%' + @texto + '%') OR
+        (@texto IS NULL OR cue LIKE '%' + @texto + '%')
+    ORDER BY nombre;
+END;
+GO
 
 
 CREATE PROCEDURE sp_ListarInstituciones
@@ -612,6 +1012,35 @@ BEGIN
         Alumnos
 END
 
+
+CREATE PROCEDURE sp_FiltrarAlumnos
+    @texto NVARCHAR(100) 
+AS
+BEGIN
+
+    SELECT 
+        id_alumno,
+        apellidos,
+        nombres,
+        curso,
+        cuil,
+        foto,
+        telefono,
+        id_institucion
+    FROM 
+        Alumnos
+    WHERE 
+        (@texto IS NULL OR nombres LIKE '%' + @texto + '%') OR
+        (@texto IS NULL OR cuil LIKE '%' + @texto + '%')
+    ORDER BY 
+        apellidos, nombres; 
+END;
+GO
+
+
+
+
+
 CREATE PROCEDURE sp_AgregarAlumno
     @apellidos NVARCHAR(50),
     @nombres NVARCHAR(50),
@@ -620,11 +1049,18 @@ CREATE PROCEDURE sp_AgregarAlumno
     @foto VARBINARY(MAX),
     @telefono NVARCHAR(20),
     @id_institucion INT
-AS
+    AS
 BEGIN
+    SET NOCOUNT ON;
+
     INSERT INTO Alumnos (apellidos, nombres, curso, cuil, foto, telefono, id_institucion)
-    VALUES (@apellidos, @nombres, @curso, @cuil, @foto, @telefono, @id_institucion)
-END
+    VALUES (@apellidos, @nombres, @curso, @cuil, @foto, @telefono, @id_institucion);
+
+     -- Devolver el ID del alumn recién insertado
+    SELECT SCOPE_IDENTITY() AS Id_Alumno;
+END;
+GO
+
 
 CREATE PROCEDURE sp_EditarAlumno
     @id_alumno INT,
@@ -662,43 +1098,143 @@ CREATE PROCEDURE sp_ListarProveedores
 AS
 BEGIN
     SELECT 
+        *
+    FROM 
+        Proveedor
+END
+
+
+
+CREATE PROCEDURE sp_FiltrarProveedores
+    @texto NVARCHAR(100) = NULL 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
         id_proveedor,
         nombre,
+        jurisdiccion,
         telefono,
         correo,
         direccion
     FROM 
         Proveedor
-END
+    WHERE 
+        (@texto IS NULL OR 
+         nombre LIKE '%' + @texto + '%' OR 
+         jurisdiccion LIKE '%' + @texto + '%')
+    ORDER BY 
+        nombre; 
+END;
+GO
+
+
+
+
 
 CREATE PROCEDURE sp_AgregarProveedor
     @nombre NVARCHAR(100),
-    @telefono NVARCHAR(20),
-    @correo NVARCHAR(100),
-    @direccion NVARCHAR(255)
+    @jurisdiccion NVARCHAR(100) = NULL,
+    @Telefono NVARCHAR(20) = NULL,
+    @Correo NVARCHAR(100) = NULL,
+    @Direccion NVARCHAR(255) = NULL
 AS
 BEGIN
-    INSERT INTO Proveedor (nombre, telefono, correo, direccion)
-    VALUES (@nombre, @telefono, @correo, @direccion)
-END
+
+        -- Verifica que el nombre no se repita
+        IF EXISTS (SELECT 1 FROM Proveedor WHERE nombre = @nombre)
+        BEGIN
+            THROW 50001, 'El nombre del proveedor ya existe.', 1;
+        END
+
+        -- Verifica que el teléfono no se repita, si no es NULL
+        IF @Telefono IS NOT NULL AND EXISTS (SELECT 1 FROM Proveedor WHERE Telefono = @Telefono)
+        BEGIN
+            THROW 50002, 'El teléfono del proveedor ya está en uso.', 1;
+        END
+
+        -- Verifica que el correo no se repita, si no es NULL
+        IF @Correo IS NOT NULL AND EXISTS (SELECT 1 FROM Proveedor WHERE Correo = @Correo)
+        BEGIN
+            THROW 50003, 'El correo del proveedor ya está en uso.', 1;
+        END
+
+        -- Inserta el nuevo proveedor
+        INSERT INTO Proveedor (
+            nombre,
+            jurisdiccion,
+            Telefono,
+            Correo,
+            Direccion
+        )
+        VALUES (
+            @nombre,
+            @jurisdiccion,
+            @Telefono,
+            @Correo,
+            @Direccion
+        );
+
+        PRINT 'Proveedor agregado correctamente.';
+
+END;
+GO
+
+
+
+
+
+
+
+
 
 CREATE PROCEDURE sp_EditarProveedor
     @id_proveedor INT,
     @nombre NVARCHAR(100),
-    @telefono NVARCHAR(20),
-    @correo NVARCHAR(100),
-    @direccion NVARCHAR(255)
+    @jurisdiccion NVARCHAR(100) = NULL,
+    @Telefono NVARCHAR(20) = NULL,
+    @Correo NVARCHAR(100) = NULL,
+    @Direccion NVARCHAR(255) = NULL
 AS
 BEGIN
-    UPDATE Proveedor
-    SET 
-        nombre = @nombre,
-        telefono = @telefono,
-        correo = @correo,
-        direccion = @direccion
-    WHERE 
-        id_proveedor = @id_proveedor
-END
+    -- Verifica que el proveedor exista
+        IF NOT EXISTS (SELECT 1 FROM Proveedor WHERE id_proveedor = @id_proveedor)
+        BEGIN
+            THROW 50001, 'El proveedor especificado no existe.', 1;
+        END
+
+        -- Verifica que el nombre no se repita en otro proveedor
+        IF EXISTS (SELECT 1 FROM Proveedor WHERE nombre = @nombre AND id_proveedor <> @id_proveedor)
+        BEGIN
+            THROW 50002, 'El nombre del proveedor ya está en uso por otro proveedor.', 1;
+        END
+
+        -- Verifica que el teléfono no se repita en otro proveedor
+        IF @Telefono IS NOT NULL AND EXISTS (SELECT 1 FROM Proveedor WHERE Telefono = @Telefono AND id_proveedor <> @id_proveedor)
+        BEGIN
+            THROW 50003, 'El teléfono ya está en uso por otro proveedor.', 1;
+        END
+
+        -- Verifica que el correo no se repita en otro proveedor
+        IF @Correo IS NOT NULL AND EXISTS (SELECT 1 FROM Proveedor WHERE Correo = @Correo AND id_proveedor <> @id_proveedor)
+        BEGIN
+            THROW 50004, 'El correo ya está en uso por otro proveedor.', 1;
+        END
+
+        -- Actualiza los datos del proveedor
+        UPDATE Proveedor
+        SET 
+            nombre = @nombre,
+            jurisdiccion = @jurisdiccion,
+            Telefono = @Telefono,
+            Correo = @Correo,
+            Direccion = @Direccion
+        WHERE id_proveedor = @id_proveedor;
+
+        PRINT 'Proveedor actualizado correctamente.';
+END;
+GO
 
 CREATE PROCEDURE sp_EliminarProveedor
     @id_proveedor INT
@@ -707,6 +1243,36 @@ BEGIN
     DELETE FROM Proveedor
     WHERE id_proveedor = @id_proveedor
 END
+
+
+
+
+CREATE PROCEDURE sp_FiltrarActasPorFecha
+    @fecha NVARCHAR(10) 
+AS
+BEGIN
+   SELECT 
+            id_acta, 
+            num_acta, 
+            fecha_entrega, 
+            responsable, 
+            estado, 
+            foto, 
+            id_proveedor, 
+            id_institucion
+        FROM Actas
+        WHERE FORMAT(fecha_entrega, 'dd-MM-yyyy') LIKE '%' + @fecha + '%'; 
+
+END;
+GO
+
+
+
+
+
+
+
+
 
 
 CREATE PROCEDURE sp_ListarActas
@@ -741,6 +1307,33 @@ BEGIN
  -- Devolver el ID generado
     SELECT SCOPE_IDENTITY()
 END
+
+
+
+CREATE PROCEDURE sp_ListarActasPorFechas
+    @FechaDesde DATE,
+    @FechaHasta DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        id_acta, 
+        num_acta, 
+        fecha_entrega, 
+        responsable, 
+        estado, 
+        foto, 
+        id_proveedor, 
+        id_institucion
+    FROM Actas
+    WHERE fecha_entrega BETWEEN @FechaDesde AND @FechaHasta
+    ORDER BY fecha_entrega; -- Orden opcional por fecha
+END;
+GO
+
+
+
 
 
 CREATE PROCEDURE sp_EditarActa
@@ -847,6 +1440,7 @@ BEGIN
         st.Falla,
         st.Fecha_Envio,
         st.Foto,
+st.Responsable,
         e.Num_serie,
         e.Matricula,
         te.Tipo
@@ -858,6 +1452,38 @@ BEGIN
         Tipo_Equipos te ON e.Id_Tipo_Equipo = te.Id_Tipo_Equipo;
 END;
 GO
+
+
+
+CREATE PROCEDURE sp_FiltrarServiciosTecnicos
+    @texto NVARCHAR(100) = NULL 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        st.Id_Servicio_Tecnico,
+        st.Falla,
+        st.Fecha_Envio,
+        st.Foto,
+        e.Num_serie,
+        e.Matricula,
+        te.Tipo
+    FROM 
+        Servicio_Tecnico st
+    INNER JOIN 
+        Equipos e ON st.Id_Equipo = e.Id_Equipo
+    INNER JOIN 
+        Tipo_Equipos te ON e.Id_Tipo_Equipo = te.Id_Tipo_Equipo
+    WHERE 
+        (@texto IS NULL OR 
+         e.Num_serie LIKE '%' + @texto + '%' OR 
+         FORMAT(st.Fecha_Envio, 'dd-MM-yyyy') LIKE '%' + @texto + '%')
+    ORDER BY 
+        st.Fecha_Envio; 
+END;
+GO
+
 
 
 
@@ -903,22 +1529,22 @@ BEGIN
 END;
 GO
 
+
 CREATE PROCEDURE sp_EditarServicioTecnico
     @id_servicio_tecnico INT,
     @falla NVARCHAR(MAX),
-    @fecha_envio DATETIME,
-    @foto VARBINARY(MAX),
-    @id_equipo INT
+    @foto VARBINARY(MAX)
+
 AS
 BEGIN
-    UPDATE ServiciosTecnicos
-    SET Falla = @falla,
-        FechaEnvio = @fecha_envio,
-        Foto = @foto,
-        IdEquipo = @id_equipo
-    WHERE IdServicioTecnico = @id_servicio_tecnico;
+    UPDATE Servicio_Tecnico
+    SET falla = @falla,
+        foto = @foto
+
+    WHERE id_servicio_tecnico = @id_servicio_tecnico;
 END;
 GO
+
 
 CREATE PROCEDURE sp_EliminarServicioTecnico
     @id_servicio_tecnico INT
@@ -929,30 +1555,544 @@ BEGIN
 END;
 GO
 
-
-
-
-CREATE TYPE EquipoType AS TABLE
-(
-    id_equipo INT PRIMARY KEY,
-    fecha_ingreso DATE NOT NULL,
-    num_serie NVARCHAR(50) NOT NULL,
-    matricula NVARCHAR(20),
-    estado NVARCHAR(100),
-    destino NVARCHAR(50),
-    observacion NVARCHAR(200),
-    id_acta INT,
-    id_tipo_equipo INT
-);
-GO
-
-
-
 ALTER TABLE Equipos ALTER COLUMN id_acta INT NULL;
 
 ALTER TABLE ADMoviles ALTER COLUMN id_acta INT NULL;
 
 
+CREATE PROCEDURE sp_AgregarPrestamo
+    @Nombre NVARCHAR(100),
+    @Apellido NVARCHAR(100),
+    @Dni NVARCHAR(100) = NULL,
+    @Funcion NVARCHAR(30) = NULL,
+    @FechaPrestamo DATE
+AS
+BEGIN
+    
+        -- Inserta el nuevo préstamo
+        INSERT INTO Prestamo (nombre, apellido, dni, funcion, fecha_prestamo)
+        VALUES (@Nombre, @Apellido, @Dni, @Funcion, @FechaPrestamo);
+-- Devolver el ID generado
+    SELECT SCOPE_IDENTITY()
+ END;
+
+
+
+
+CREATE PROCEDURE sp_AgregarEquipoPrestamo
+    @id_equipo INT,
+    @id_prestamo INT
+AS
+BEGIN
+  -- Inserta el equipo asociado al préstamo en la tabla intermedia
+        INSERT INTO Detalle_Prestamo_Equipo (id_prestamo, id_equipo)
+        VALUES (@id_prestamo,@id_equipo);
+END;
+
+
+CREATE PROCEDURE sp_ListarPrestamos
+AS
+BEGIN
+    SELECT 
+            *
+        FROM 
+            Prestamo;
+END;
+
+
+CREATE PROCEDURE sp_ReporteSinide
+    @IdPrestamo INT
+AS
+BEGIN
+    -- Evitar que se muestren mensajes de conteo de filas afectadas
+    SET NOCOUNT ON;
+
+    -- Consulta principal filtrada por IdPrestamo
+    SELECT 
+        p.nombre AS NombrePrestamo,
+        p.apellido AS ApellidoPrestamo,
+        DAY(p.fecha_prestamo) AS DiaPrestamo,
+        MONTH(p.fecha_prestamo) AS MesPrestamo,
+        YEAR(p.fecha_prestamo) AS AnioPrestamo,
+        p.dni AS DNI,
+        p.funcion AS Funcion,
+        e.num_serie AS NumeroSerie,
+        t.tipo AS TipoEquipo,
+        t.marca AS MarcaEquipo,
+        t.modelo AS ModeloEquipo,
+        i.nombre AS NombreInstitucion
+    FROM 
+        dbo.Prestamo AS p
+    JOIN 
+        dbo.Detalle_Prestamo_Equipo AS dpe ON p.id_prestamo = dpe.id_prestamo
+    JOIN 
+        dbo.Equipos AS e ON dpe.id_equipo = e.id_equipo
+    JOIN 
+        dbo.Tipo_equipos AS t ON e.id_tipo_equipo = t.id_tipo_equipo
+    JOIN 
+        dbo.Actas AS a ON e.id_acta = a.id_acta
+    JOIN 
+        dbo.Institucion AS i ON a.id_institucion = i.id_institucion
+    WHERE 
+        p.id_prestamo = @IdPrestamo;
+END;
+
+CREATE PROCEDURE sp_ListarPrestamos
+AS
+BEGIN
+
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.id_prestamo AS IdPrestamo,
+        p.nombre AS NombrePrestamo,
+        p.apellido AS ApellidoPrestamo,
+        p.fecha_prestamo AS FechaPrestamo,
+        p.dni AS DNI,
+        p.funcion AS Funcion,
+        e.num_serie AS NumeroSerie,
+        t.tipo AS TipoEquipo
+    FROM 
+        dbo.Prestamo AS p
+    JOIN 
+        dbo.Detalle_Prestamo_Equipo AS dpe ON p.id_prestamo = dpe.id_prestamo
+    JOIN 
+        dbo.Equipos AS e ON dpe.id_equipo = e.id_equipo
+    JOIN 
+        dbo.Tipo_equipos AS t ON e.id_tipo_equipo = t.id_tipo_equipo
+END;
+
+
+
+
+CREATE PROCEDURE sp_FiltrarPrestamos
+    @texto NVARCHAR(100) 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.id_prestamo AS IdPrestamo,
+        p.nombre AS NombrePrestamo,
+        p.apellido AS ApellidoPrestamo,
+        p.fecha_prestamo AS FechaPrestamo,
+        p.dni AS DNI,
+        p.funcion AS Funcion,
+        e.num_serie AS NumeroSerie,
+        t.tipo AS TipoEquipo
+    FROM 
+        Prestamo AS p
+    JOIN 
+        Detalle_Prestamo_Equipo AS dpe ON p.id_prestamo = dpe.id_prestamo
+    JOIN 
+        Equipos AS e ON dpe.id_equipo = e.id_equipo
+    JOIN 
+        Tipo_equipos AS t ON e.id_tipo_equipo = t.id_tipo_equipo
+    WHERE 
+        p.apellido LIKE '%' + @texto + '%' OR 
+        p.dni LIKE '%' + @texto + '%' OR 
+        FORMAT(p.fecha_prestamo, 'dd-MM-yyyy') LIKE '%' + @texto + '%'
+
+    ORDER BY 
+        p.apellido, p.nombre; -- Ordena por apellido y nombre para mayor claridad
+END;
+GO
+
+
+
+
+
+
+CREATE PROCEDURE sp_AgregarUsuario
+    @apellidos NVARCHAR(100),
+    @nombres NVARCHAR(100),
+    @cuil NVARCHAR(20) = NULL,
+    @foto VARBINARY(MAX) = NULL,
+    @correo NVARCHAR(50),
+    @loginName NVARCHAR(50),
+    @password NVARCHAR(255),
+    @rol NVARCHAR(50) = NULL,
+    @id_institucion INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Verifica que el loginName no se repita
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE loginName = @loginName)
+        BEGIN
+            THROW 50001, 'El nombre de usuario ya existe.', 1;
+        END
+        
+        -- Verifica que el correo no se repita
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE correo = @correo)
+        BEGIN
+            THROW 50002, 'El correo ya está en uso.', 1;
+        END
+
+        -- Verifica que el cuil no se repita si no es NULL
+        IF @cuil IS NOT NULL AND EXISTS (SELECT 1 FROM Usuarios WHERE cuil = @cuil)
+        BEGIN
+            THROW 50003, 'El CUIL ya está en uso.', 1;
+        END
+
+        -- Inserta el nuevo usuario
+        INSERT INTO Usuarios (
+            apellidos,
+            nombres,
+            cuil,
+            foto,
+            correo,
+            loginName,
+            password,
+            rol,
+            id_institucion
+        )
+        VALUES (
+            @apellidos,
+            @nombres,
+            @cuil,
+            @foto,
+            @correo,
+            @loginName,
+            @password,
+            @rol,
+            @id_institucion
+        );
+
+        PRINT 'Usuario agregado correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+CREATE PROCEDURE sp_EditarUsuario
+    @id_usuario INT,
+    @apellidos NVARCHAR(100),
+    @nombres NVARCHAR(100),
+    @cuil NVARCHAR(20) = NULL,
+    @foto VARBINARY(MAX) = NULL,
+    @correo NVARCHAR(50),
+    @loginName NVARCHAR(50),
+    @password NVARCHAR(255),
+    @rol NVARCHAR(50) = NULL,
+    @id_institucion INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Verifica que el usuario existe
+        IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE id_usuario = @id_usuario)
+        BEGIN
+            THROW 50001, 'El usuario especificado no existe.', 1;
+        END
+
+        -- Verifica que el loginName no esté en uso por otro usuario
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE loginName = @loginName AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50002, 'El nombre de usuario ya está en uso por otro usuario.', 1;
+        END
+
+        -- Verifica que el correo no esté en uso por otro usuario
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE correo = @correo AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50003, 'El correo ya está en uso por otro usuario.', 1;
+        END
+
+        -- Verifica que el cuil no esté en uso por otro usuario (si no es NULL)
+        IF @cuil IS NOT NULL AND EXISTS (SELECT 1 FROM Usuarios WHERE cuil = @cuil AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50004, 'El CUIL ya está en uso por otro usuario.', 1;
+        END
+
+        -- Actualiza el usuario
+        UPDATE Usuarios
+        SET 
+            apellidos = @apellidos,
+            nombres = @nombres,
+            cuil = @cuil,
+            foto = @foto,
+            correo = @correo,
+            loginName = @loginName,
+            password = @password,
+            rol = @rol,
+            id_institucion = @id_institucion
+        WHERE 
+            id_usuario = @id_usuario;
+
+        PRINT 'Usuario actualizado correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+CREATE PROCEDURE sp_ListarUsuarios
+AS
+BEGIN
+    
+    SELECT 
+            *
+        FROM 
+            Usuarios
+
+END;
+GO
+
+
+
+CREATE PROCEDURE sp_FiltrarUsuarios
+    @texto NVARCHAR(100) = NULL 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+*
+    FROM 
+        Usuarios
+    WHERE 
+        (@texto IS NULL OR 
+         loginName LIKE '%' + @texto + '%' OR 
+         apellidos LIKE '%' + @texto + '%' OR 
+         cuil LIKE '%' + @texto + '%')
+    ORDER BY 
+        apellidos, nombres; 
+END;
+GO
+
+
+
+
+CREATE PROCEDURE sp_EditarUsuario
+    @id_usuario INT,
+    @apellidos NVARCHAR(100),
+    @nombres NVARCHAR(100),
+    @cuil NVARCHAR(20) = NULL,
+    @foto VARBINARY(MAX) = NULL,
+    @correo NVARCHAR(50),
+    @loginName NVARCHAR(50),
+    @password NVARCHAR(255),
+    @rol NVARCHAR(50) = NULL,
+    @id_institucion INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        -- Verifica que el usuario exista
+        IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE id_usuario = @id_usuario)
+        BEGIN
+            THROW 50001, 'El usuario especificado no existe.', 1;
+        END
+
+        -- Verifica que el loginName no esté en uso por otro usuario
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE loginName = @loginName AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50002, 'El nombre de usuario ya está en uso por otro usuario.', 1;
+        END
+
+        -- Verifica que el correo no esté en uso por otro usuario
+        IF EXISTS (SELECT 1 FROM Usuarios WHERE correo = @correo AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50003, 'El correo ya está en uso por otro usuario.', 1;
+        END
+
+        -- Verifica que el cuil no esté en uso por otro usuario (si no es NULL)
+        IF @cuil IS NOT NULL AND EXISTS (SELECT 1 FROM dbo.Usuarios WHERE cuil = @cuil AND id_usuario <> @id_usuario)
+        BEGIN
+            THROW 50004, 'El CUIL ya está en uso por otro usuario.', 1;
+        END
+
+        -- Actualiza el usuario
+        UPDATE Usuarios
+        SET 
+            apellidos = @apellidos,
+            nombres = @nombres,
+            cuil = @cuil,
+            foto = @foto,
+            correo = @correo,
+            loginName = @loginName,
+            password = @password,
+            rol = @rol,
+            id_institucion = @id_institucion
+        WHERE 
+            id_usuario = @id_usuario;
+
+        PRINT 'Usuario actualizado correctamente.';
+    END TRY
+    BEGIN CATCH
+        -- Manejo de errores
+        DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT;
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+        RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH
+END;
+GO
+
+
+
+
+CREATE PROCEDURE sp_EliminarUsuario
+    @id_usuario INT
+AS
+BEGIN
+    DELETE FROM Usuarios
+        WHERE id_usuario = @id_usuario;
+
+END;
+GO
+
+
+
+
+
+CREATE PROCEDURE sp_ListarEquiposConTipo
+AS
+BEGIN
+    SELECT 
+            e.id_equipo,
+            e.num_serie,
+            e.matricula,
+            e.estado,
+            e.destino,
+            e.observacion,
+            e.id_tipo_equipo,
+            te.tipo AS tipo_equipo,
+            te.marca AS marca_equipo,
+            te.modelo AS modelo_equipo,
+            te.detalle_tecnico AS detalle_equipo
+        FROM 
+            dbo.Equipos e
+        LEFT JOIN dbo.Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
+END;
+GO
+
+
+CREATE PROCEDURE sp_ObtenerTiposEquiposUnicos
+AS
+BEGIN
+    SELECT DISTINCT tipo
+    FROM Tipo_equipos
+    ORDER BY tipo;
+END;
+
+
+
+
+
+
+CREATE PROCEDURE sp_AgregarDetalleADMovilEquipo
+    @id_admovil INT,
+    @id_equipo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Detalle_ADMovil_Equipo (id_admovil, id_equipo)
+    VALUES (@id_admovil, @id_equipo);
+
+END;
+GO
+
+
+CREATE PROCEDURE sp_AgregarDetalleAlumnoEquipo
+    @id_alumno INT,
+    @id_equipo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Detalle_Alumno_Equipo (id_alumno, id_equipo)
+    VALUES (@id_alumno, @id_equipo);
+
+END;
+GO
+
+
+
+CREATE PROCEDURE sp_ListarEquiposPorADMovil
+    @id_admovil INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        e.Id_Equipo,
+e.Id_tipo_Equipo,
+        e.Num_serie,
+        e.Matricula,
+        e.Estado,
+        e.Observacion,
+e.Destino
+        te.tipo AS Tipo_Equipo,
+        te.modelo AS Modelo,
+        d.id_admovil
+    FROM 
+        Detalle_ADMovil_Equipo d
+    INNER JOIN 
+        Equipos e ON d.id_equipo = e.Id_Equipo
+    INNER JOIN 
+        Tipo_Equipos te ON e.Id_Tipo_Equipo = te.Id_Tipo_Equipo
+ 
+    WHERE 
+        d.id_admovil = 1;
+END;
+GO
+
+
+
+
+CREATE PROCEDURE sp_VerificarGarantiaEquipo
+    @IdEquipo INT,
+    @TieneGarantia BIT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Variable para almacenar la diferencia de días
+    DECLARE @DiasGarantiaRestantes INT;
+
+    -- Calcular los días restantes de garantía
+    SELECT 
+        @DiasGarantiaRestantes = DATEDIFF(DAY, GETDATE(), DATEADD(YEAR, 1, a.Fecha_Entrega))
+    FROM 
+        Equipos e
+    INNER JOIN 
+        Actas a ON e.Id_Acta = a.Id_Acta
+    WHERE 
+        e.Id_Equipo = @IdEquipo;
+
+    -- Evaluar si tiene garantía
+    IF @DiasGarantiaRestantes > 0
+        SET @TieneGarantia = 1; -- Tiene garantía
+    ELSE
+        SET @TieneGarantia = 0; -- No tiene garantía
+END;
+GO
 
 
 
@@ -962,6 +2102,144 @@ ALTER TABLE ADMoviles ALTER COLUMN id_acta INT NULL;
 
 
 
+
+
+
+
+
+------------------------------------------------------
+
+CREATE PROCEDURE sp_ListarEquiposActa
+    @id_acta INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Crear una tabla temporal para combinar equipos y administrativos
+    CREATE TABLE #EquiposCombinados (
+        id_equipo INT,
+        num_serie NVARCHAR(50),
+        matricula NVARCHAR(20),
+        especificaciones NVARCHAR(MAX),
+        observacion NVARCHAR(200),
+        tipo NVARCHAR(100),
+        modelo NVARCHAR(50),
+        detalle_tecnico NVARCHAR(300)
+    );
+
+    -- Insertar los equipos del acta
+    INSERT INTO #EquiposCombinados (id_equipo, num_serie, matricula, especificaciones, observacion, tipo, modelo, detalle_tecnico)
+    SELECT 
+        e.id_equipo,
+        e.num_serie,
+        e.matricula,
+        e.destino AS especificaciones,
+        e.observacion,
+        te.tipo,
+        te.modelo,
+        te.detalle_tecnico
+    FROM 
+        Equipos e
+    INNER JOIN 
+        Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
+    WHERE 
+        e.id_acta = 48;
+
+    -- Insertar los administrativos del acta
+    INSERT INTO #EquiposCombinados (id_equipo, num_serie, matricula, especificaciones, observacion, tipo, modelo, detalle_tecnico)
+    SELECT 
+        adm.id_admovil AS id_equipo,
+        adm.num_serie,
+        adm.matricula,
+        NULL AS especificaciones,
+        NULL AS observacion,
+        te.tipo,
+        te.modelo,
+        te.detalle_tecnico
+    FROM 
+        ADMoviles adm
+    INNER JOIN 
+        Tipo_equipos te ON adm.id_tipo_equipo = te.id_tipo_equipo
+    WHERE 
+        adm.id_acta = 48;
+
+    -- Generar el resultado final
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY tipo, modelo) AS Numeracion,    -- Enumeración
+        COUNT(*) OVER (PARTITION BY tipo, modelo) AS Cantidad,      -- Cantidad por tipo y modelo
+        CONCAT(tipo, ' - ', modelo) AS TipoYModelo,                -- Tipo y modelo concatenados
+        DENSE_RANK() OVER (PARTITION BY tipo, modelo ORDER BY id_equipo) AS ContadorFila, -- Contador por tipo
+        num_serie AS NumeroDeSerie,                                -- Número de serie
+        matricula AS Matricula,                                    -- Matrícula
+        detalle_tecnico AS EspecificacionesTecnicas,               -- Especificaciones técnicas
+        observacion AS Observacion                                 -- Observación
+    FROM 
+        #EquiposCombinados
+    ORDER BY 
+        tipo, modelo, Numeracion;
+
+    -- Limpiar la tabla temporal
+    DROP TABLE #EquiposCombinados;
+END;
+GO
+
+--------------------------------------------------------------
+
+
+CREATE PROCEDURE sp_ListarEquiposActa
+    @id_acta INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY tipo, modelo) AS Numeracion,          -- Enumeración
+        COUNT(*) OVER (PARTITION BY tipo, modelo) AS Cantidad,            -- Cantidad por tipo y modelo
+        CONCAT(tipo, ' - ', modelo) AS TipoYModelo,                      -- Tipo y modelo concatenados
+        DENSE_RANK() OVER (PARTITION BY tipo, modelo ORDER BY num_serie) AS ContadorFila, -- Contador por tipo
+        num_serie AS NumeroDeSerie,                                      -- Número de serie
+        matricula AS Matricula,                                          -- Matrícula
+        detalle_tecnico AS EspecificacionesTecnicas,                     -- Especificaciones técnicas
+        observacion AS Observacion                                       -- Observación
+    FROM (
+        -- Equipos relacionados con el acta
+        SELECT 
+            e.id_equipo,
+            e.num_serie,
+            e.matricula,
+            te.tipo,
+            te.modelo,
+            te.detalle_tecnico,
+            e.observacion
+        FROM 
+            Equipos e
+        INNER JOIN 
+            Tipo_equipos te ON e.id_tipo_equipo = te.id_tipo_equipo
+        WHERE 
+            e.id_acta = @id_acta
+
+        UNION ALL
+
+        -- Móviles administrativos relacionados con el acta
+        SELECT 
+            adm.id_admovil AS id_equipo,
+            adm.num_serie,
+            adm.matricula,
+            te.tipo,
+            te.modelo,
+            te.detalle_tecnico,
+            NULL AS observacion
+        FROM 
+            ADMoviles adm
+        INNER JOIN 
+            Tipo_equipos te ON adm.id_tipo_equipo = te.id_tipo_equipo
+        WHERE 
+            adm.id_acta = @id_acta
+    ) AS EquiposCombinados
+    ORDER BY 
+        tipo, modelo, Numeracion;
+END;
+GO
 
 
 

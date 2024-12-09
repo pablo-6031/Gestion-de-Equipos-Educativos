@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Entities;
+using Gestion_de_Equipos_Educativos.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +13,10 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+
 
 namespace Gestion_de_Equipos_Educativos.Paginas
 {
@@ -27,57 +30,53 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private Dictionary<int, string> institucion = new Dictionary<int, string>();
         private string imageSource = null;
         byte[] FotoAlumno;
-        public Alumnos()
+
+        public Alumnos(string rol)
         {
             InitializeComponent();
             ListarAlumnos();
-            LlenarComboBox();
+           // LlenarComboBox();
         }
 
-        private void btnAgregar_Click(object sender, RoutedEventArgs e)
+
+        private void btnAgregarAlumno_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                // Verifica que los campos requeridos no estén vacíos
-                if (!string.IsNullOrEmpty(txtNombres.Text) && !string.IsNullOrEmpty(txtApellidos.Text))
-                {
-                    // Crea un nuevo objeto de tipo Alumno y asigna valores a sus propiedades
-                    Alumno alumno = new Alumno
-                    {
-                        Nombres = txtNombres.Text,
-                        Apellidos = txtApellidos.Text,
-                        Curso = txtCurso.Text,
-                        Cuil = txtCuil.Text,
-                        Telefono = txtTelefono.Text,
-                        IdInstitucion = Convert.ToInt32(cmbInstitucion.SelectedValue),
-                        Foto = FotoAlumno != null ? FotoAlumno : null
-                    };
-
-                    try
-                    {
-                        // Guarda el alumno en la base de datos
-                        alumnoController.agregarAlumno(alumno);
-                        System.Windows.MessageBox.Show("Alumno " + alumno.Nombres + " " + alumno.Apellidos + " agregado con éxito", "Agregar");
-                    }
-                    catch (Exception)
-                    {
-                        System.Windows.MessageBox.Show("Error al guardar el alumno", "Error");
-                    }
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Complete los campos obligatorios", "Advertencia");
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message, "Error");
-            }
-
-            // Actualiza la lista de alumnos y limpia los campos
+            mostrarVentana("agregar");
             ListarAlumnos();
-            LimpiarCampos();
+
         }
+
+        private void mostrarVentana(string opcion)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+            // Crea una instancia del modal
+            VentanaAlumnos ventanaAlumno = new VentanaAlumnos(opcion)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaAlumno.ShowDialog(); // Abre la ventana
+
+           
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+
 
         private void ListarAlumnos()
         {
@@ -96,170 +95,225 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
         }
 
-        private void LimpiarCampos()
-        {
-            // Limpia los TextBox
-            txtNombres.Text = "";
-            txtApellidos.Text = "";
-            txtCurso.Text = "";
-            txtCuil.Text = "";
-            txtTelefono.Text = "";
-            cmbInstitucion.SelectedIndex = -1;
 
-            // Limpia la imagen
-            ImageBrush fotoAlumno = new ImageBrush();
-            fotoAlumno.ImageSource = new BitmapImage(new Uri(@"default_image.png", UriKind.RelativeOrAbsolute));
-            eFoto.Fill = fotoAlumno;
-            FotoAlumno = null;
-        }
 
-        private void btnEliminar_Click(object sender, RoutedEventArgs e)
-        {
-            if (DGAlumnos.SelectedItem != null)
-            {
-                DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
-                int idAlumno = Convert.ToInt32(rowView["id_alumno"]);
 
-                try
-                {
-                    alumnoController.eliminarAlumno(idAlumno);
-                    System.Windows.MessageBox.Show("Alumno eliminado con éxito", "Eliminar");
-                    ListarAlumnos();
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.MessageBox.Show("Error al eliminar el alumno: " + ex.Message, "Error");
-                }
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Seleccione un alumno para eliminar", "Advertencia");
-            }
-        }
 
-        private void btnEditar_Click(object sender, RoutedEventArgs e)
-        {
-            if (DGAlumnos.SelectedItem != null)
-            {
-                DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
-                int idAlumno = Convert.ToInt32(rowView["id_alumno"]);
 
-                Alumno alumno = new Alumno
-                {
-                    IdAlumno = idAlumno,
-                    Nombres = txtNombres.Text,
-                    Apellidos = txtApellidos.Text,
-                    Curso = txtCurso.Text,
-                    Cuil = txtCuil.Text,
-                    Telefono = txtTelefono.Text,
-                    IdInstitucion = Convert.ToInt32(cmbInstitucion.SelectedValue),
-                    Foto = FotoAlumno != null ? FotoAlumno : null
-                };
-
-                try
-                {
-                    alumnoController.editarAlumno(alumno);
-                    System.Windows.MessageBox.Show("Alumno actualizado con éxito", "Editar");
-                    ListarAlumnos();
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.MessageBox.Show("Error al actualizar el alumno: " + ex.Message, "Error");
-                }
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Seleccione un alumno para editar", "Advertencia");
-            }
-        }
-
-        private void DGAlumnos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DGAlumnos_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             if (!DGAlumnos.Items.IsEmpty)
             {
                 DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
 
                 // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
-                txtIdAlumno.Text = rowView["id_alumno"].ToString();
-                txtNombres.Text = rowView["nombres"].ToString();
-                txtApellidos.Text = rowView["apellidos"].ToString();
-                txtCurso.Text = rowView["curso"].ToString();
-                txtCuil.Text = rowView["cuil"].ToString();
-                txtTelefono.Text = rowView["telefono"].ToString();
-                cmbInstitucion.SelectedValue = rowView["id_institucion"];
+                AlumnoCache.IdAlumno = (int)rowView["id_alumno"];
+                AlumnoCache.Nombres = rowView["nombres"].ToString();
+                AlumnoCache.Apellidos = rowView["apellidos"].ToString();
+                AlumnoCache.Curso = rowView["curso"].ToString();
+                AlumnoCache.Cuil = rowView["cuil"].ToString();
+                AlumnoCache.Telefono = rowView["telefono"].ToString();
+                AlumnoCache.IdInstitucion = (int)rowView["id_institucion"];
+                AlumnoCache.Foto =  rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
 
-                // Cargar la imagen si está disponible
-                FotoAlumno = rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
-                if (FotoAlumno != null)
-                {
-                    MemoryStream ms = new MemoryStream(FotoAlumno);
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.StreamSource = ms;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.EndInit();
-
-                    ImageBrush miFoto = new ImageBrush { ImageSource = image };
-                    eFoto.Fill = miFoto;
-                }
-                else
-                {
-                    eFoto.Fill = null;
-                }
+                mostrarVentana("editar");
             }
         }
 
-
-        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        private void btnVerrFila_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Archivos de imagen (.jpg)|*.jpg|PNG(*.png)|*.png|All files(*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.Multiselect = false;//selecciona mas de un archivo
-
-            bool? revisarOK = openFileDialog.ShowDialog();
-            if (revisarOK == true)
+            if (!DGAlumnos.Items.IsEmpty)
             {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
-                imageSource = openFileDialog.FileName.ToString();
-                ImageBrush fotoAlumno = new ImageBrush();
-                fotoAlumno.ImageSource = bitmapImage;
-                this.eFoto.Fill = fotoAlumno;
+                DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
 
-                FotoAlumno = File.ReadAllBytes(openFileDialog.FileName);
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                AlumnoCache.IdAlumno = (int)rowView["id_alumno"];
+                AlumnoCache.Nombres = rowView["nombres"].ToString();
+                AlumnoCache.Apellidos = rowView["apellidos"].ToString();
+                AlumnoCache.Curso = rowView["curso"].ToString();
+                AlumnoCache.Cuil = rowView["cuil"].ToString();
+                AlumnoCache.Telefono = rowView["telefono"].ToString();
+                AlumnoCache.IdInstitucion = (int)rowView["id_institucion"];
+                AlumnoCache.Foto = rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
+
+                mostrarVentana("ver");
             }
+            ListarAlumnos();
         }
 
 
-       
+        
 
-        private void LlenarComboBox()
+        private void btnEditarFila_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dataTable = institucionController.ListaInstituciones();
+            if (!DGAlumnos.Items.IsEmpty)
+            {
+                DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
 
-            if (dataTable.Rows.Count > 0)
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                AlumnoCache.IdAlumno = (int)rowView["id_alumno"];
+                AlumnoCache.Nombres = rowView["nombres"].ToString();
+                AlumnoCache.Apellidos = rowView["apellidos"].ToString();
+                AlumnoCache.Curso = rowView["curso"].ToString();
+                AlumnoCache.Cuil = rowView["cuil"].ToString();
+                AlumnoCache.Telefono = rowView["telefono"].ToString();
+                AlumnoCache.IdInstitucion = (int)rowView["id_institucion"];
+                AlumnoCache.Foto = rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
+
+                mostrarVentana("editar");
+            }
+            ListarAlumnos();
+        }
+
+        private void btnEliminarrFila_Click(object sender, RoutedEventArgs e)
+        {
+            if (DGAlumnos.SelectedItem != null)
             {
 
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    int id = Convert.ToInt32(row["Id_institucion"]);
-                    string nombre = row["nombre"].ToString();
-                    institucion[id] = nombre;
-                }
+                DataRowView rowView = (DataRowView)DGAlumnos.SelectedItem;
+                int idAlumno = Convert.ToInt32(rowView["id_alumno"]);
 
-                cmbInstitucion.ItemsSource = institucion;
-                cmbInstitucion.DisplayMemberPath = "Value";    // Muestra el valor (tipo)
-                cmbInstitucion.SelectedValuePath = "Key";      // Usa el ID (IdTipoEquipo) como valor seleccionado
+                try
+                {
+
+                    string mensaje = "¿Desea eliminar a " + rowView["nombres"].ToString() + " " + rowView["apellidos"].ToString() + " del registro?";
+                    bool resp = mostrarVentanaEleccion(mensaje, "ACEPTAR", "CANCELAR");
+                    if (resp)
+                    {
+                        alumnoController.eliminarAlumno(idAlumno);
+                        string mensaj = "Alumno eliminado con éxito";
+                        mostrarVentana(mensaj, "Eliminar");
+                        ListarAlumnos();
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    string mensaj = "Error al eliminar el alumno";
+                    mostrarVentanaError(mensaj, "Eliminar");
+                }
             }
             else
             {
-                System.Windows.MessageBox.Show("No hay datos en la tabla");
+                string mensaj = "Seleccione un alumno para eliminar";
+                mostrarVentanaError(mensaj, "Advertencia");
+            }
+            ListarAlumnos();
+        }
+
+
+        private bool mostrarVentanaEleccion(string mensaje, string boton1, string boton2)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal y envía un parámetro
+            VentanaMensajeEleccion ventanaMensaje = new VentanaMensajeEleccion(mensaje, boton1, boton2)
+            {
+                Owner = mainWindow, // Establece el propietario
+            };
+
+            // Abre la ventana
+            bool? dialogResult = ventanaMensaje.ShowDialog();
+
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+            return ventanaMensaje.Eleccion;
+        }
+
+        private void mostrarVentana(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensaje ventanaMensaje = new VentanaMensaje(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
             }
         }
 
-        private void DGAlumnos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void mostrarVentanaError(string mensaje, string titulo)
         {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
 
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensajeError ventanaMensaje = new VentanaMensajeError(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+
+        private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string textoBusqueda = txtBuscar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                // Si no hay texto, mostrar todos los docentes
+                ListarAlumnos();
+            }
+            else
+            {
+
+                // Llamar al controlador para obtener los datos filtrados
+
+                DataTable dataTable = alumnoController.FiltrarAlumnos(textoBusqueda);
+
+                // Actualizar el DataGrid
+                DGAlumnos.ItemsSource = dataTable.DefaultView;
+            }
         }
     }
 }

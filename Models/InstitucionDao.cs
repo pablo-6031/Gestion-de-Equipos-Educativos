@@ -31,6 +31,32 @@ namespace Models
             }
         }
 
+
+
+        public DataTable FiltrarInstituciones(string texto)
+        {
+            DataTable listaInstituciones = new DataTable();
+            using (var connection = GetConnection())
+            {
+                System.Data.SqlClient.SqlDataReader reader;
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.Parameters.AddWithValue("@texto", texto);
+                    command.CommandText = "sp_FiltrarInstituciones";
+                    command.CommandType = CommandType.StoredProcedure;
+                    reader = command.ExecuteReader();
+                    listaInstituciones.Load(reader);
+                    reader.Close();
+                    return listaInstituciones;
+                }
+            }
+        }
+
+
+
+
         public void AgregarInstitucion(Institucion institucion)
         {
             using (var connection = GetConnection())
