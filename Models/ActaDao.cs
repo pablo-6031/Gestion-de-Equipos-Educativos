@@ -27,6 +27,46 @@ namespace Models
             return listaActas;
         }
 
+
+        public DataTable ListarActasPorFechas(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            DataTable listaActas = new DataTable();
+            using (var connection = GetConnection())
+            {
+                SqlDataReader reader;
+                connection.Open();
+                using (var command = new SqlCommand("sp_ListarActasPorFechas", connection))
+                {
+                    command.Parameters.AddWithValue("@FechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@FechaHasta", fechaHasta);
+                    command.CommandType = CommandType.StoredProcedure;
+                    reader = command.ExecuteReader();
+                    listaActas.Load(reader);
+                    reader.Close();
+                }
+            }
+            return listaActas;
+        }
+
+        public DataTable FiltrarActasPorFecha(string fecha)
+        {
+            DataTable listaActas = new DataTable();
+            using (var connection = GetConnection())
+            {
+                SqlDataReader reader;
+                connection.Open();
+                using (var command = new SqlCommand("sp_FiltrarActasPorFecha", connection))
+                {
+                    command.Parameters.AddWithValue("@fecha", fecha);
+                    command.CommandType = CommandType.StoredProcedure;
+                    reader = command.ExecuteReader();
+                    listaActas.Load(reader);
+                    reader.Close();
+                }
+            }
+            return listaActas;
+        }
+
         // Método para agregar una nueva acta
         public void AgregarActa(Acta acta)
         {
@@ -50,7 +90,7 @@ namespace Models
         }
 
         // Método para agregar una nueva acta
-        public void AgregarActaConEquipos(Acta acta, List<Equipo> equipos)
+        public void AgregarActaConEquipos(Acta acta, List<Equipo> equipos, List<Equipo> adm)
         {
             decimal idActa ;
 
@@ -69,9 +109,12 @@ namespace Models
                             command.Parameters.AddWithValue("@fecha_entrega", acta.FechaEntrega);
                             command.Parameters.AddWithValue("@responsable", acta.Responsable);
                             command.Parameters.AddWithValue("@Estado", acta.Estado);
-                            command.Parameters.AddWithValue("@foto", acta.Foto);
                             command.Parameters.AddWithValue("@id_proveedor", acta.IdProveedor);
                             command.Parameters.AddWithValue("@id_institucion", acta.IdInstitucion);
+                            if (acta.Foto != null && acta.Foto.Length > 0)
+                                command.Parameters.Add("@foto", SqlDbType.VarBinary).Value = acta.Foto;
+                            else
+                                command.Parameters.Add("@foto", SqlDbType.VarBinary).Value = DBNull.Value;
 
                             // Ejecutar el comando y leer el resultado
                             idActa = (decimal)command.ExecuteScalar();
@@ -90,11 +133,97 @@ namespace Models
                                 command.Parameters.AddWithValue("@destino", equipo.Destino);
                                 command.Parameters.AddWithValue("@id_Tipo_Equipo", equipo.IdTipoEquipo);
                                 command.Parameters.AddWithValue("@id_Acta", (int)idActa);
+
                                 
                                 command.ExecuteNonQuery();
                                 command.Parameters.Clear();
                             }
                                 
+
+                        }
+                        // Insertar las actas relacionadas
+                        using (var command = new SqlCommand("sp_AgregarAdMovil", connection, transaction))
+                        {
+                            foreach (var equipo in adm)
+                            {
+                                command.CommandType = CommandType.StoredProcedure;
+                                command.Parameters.AddWithValue("@num_serie", equipo.NumSerie);
+                                command.Parameters.AddWithValue("@matricula", equipo.Matricula);
+                                command.Parameters.AddWithValue("@estado", equipo.Estado);
+                                command.Parameters.AddWithValue("@observacion", equipo.Observacion);
+                                command.Parameters.AddWithValue("@id_tipo_Equipo", equipo.IdTipoEquipo);
+                                command.Parameters.AddWithValue("@id_acta", (int)idActa);
+
+
+                                command.ExecuteNonQuery();
+                                command.Parameters.Clear();
+                            }
+
+
+                        }
+
+
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+
+        public void EditarActaConEquipos(Acta acta, List<Equipo> equipos)
+        {
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Crear la Acta
+                        using (var command = new SqlCommand("sp_EditarActa", connection, transaction))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@id_acta", acta.IdActa);
+                            command.Parameters.AddWithValue("@num_acta", acta.NumeroActa);
+                            command.Parameters.AddWithValue("@fecha_entrega", acta.FechaEntrega);
+                            command.Parameters.AddWithValue("@responsable", acta.Responsable);
+                            command.Parameters.AddWithValue("@Estado", acta.Estado);
+                            command.Parameters.AddWithValue("@id_proveedor", acta.IdProveedor);
+                            command.Parameters.AddWithValue("@id_institucion", acta.IdInstitucion);
+                            if (acta.Foto != null && acta.Foto.Length > 0)
+                                command.Parameters.Add("@foto", SqlDbType.VarBinary).Value = acta.Foto;
+                            else
+                                command.Parameters.Add("@foto", SqlDbType.VarBinary).Value = DBNull.Value;
+                            command.ExecuteNonQuery();
+
+                        }
+
+                        // Insertar los equipos relacionados
+                        using (var command = new SqlCommand("sp_AgregarEquipo", connection, transaction))
+                        {
+                            foreach (var equipo in equipos)
+                            {
+                                command.CommandType = CommandType.StoredProcedure;
+                                command.Parameters.AddWithValue("@num_Serie", equipo.NumSerie);
+                                command.Parameters.AddWithValue("@matricula", equipo.Matricula);
+                                command.Parameters.AddWithValue("@estado", equipo.Estado);
+                                command.Parameters.AddWithValue("@observacion", equipo.Observacion);
+                                command.Parameters.AddWithValue("@destino", equipo.Destino);
+                                command.Parameters.AddWithValue("@id_Tipo_Equipo", equipo.IdTipoEquipo);
+                                command.Parameters.AddWithValue("@id_Acta", acta.IdActa);
+
+                                command.ExecuteNonQuery();
+                                command.Parameters.Clear();
+                            }
+
 
                         }
 
@@ -108,6 +237,15 @@ namespace Models
                 }
             }
         }
+
+
+
+
+
+
+
+
+
         private DataTable ConvertirListaADataTable(List<Equipo> equipos)
         {
             var dataTable = new DataTable();
@@ -128,6 +266,14 @@ namespace Models
 
             return dataTable;
         }
+
+
+
+
+
+
+
+
 
         // Método para editar una acta existente
         public void EditarActa(Acta acta)

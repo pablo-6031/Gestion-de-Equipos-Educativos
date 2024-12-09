@@ -18,6 +18,12 @@ namespace Controllers
             return institucionDao.ListarInstituciones();
         }
 
+        public DataTable FiltrarInstituciones(string texto)
+        {
+            return institucionDao.FiltrarInstituciones(texto);
+        }
+
+
         public void AgregarInstitucion(Institucion institucion)
         {
             institucionDao.AgregarInstitucion(institucion);

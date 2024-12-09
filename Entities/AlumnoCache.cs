@@ -8,7 +8,7 @@ namespace Entities
 {
     public static class AlumnoCache
     {
-        public static int IdAlumno { get; set; }
+        public static int? IdAlumno { get; set; }
         public static string Apellidos { get; set; }
         public static string Nombres { get; set; }
         public static string Curso { get; set; }

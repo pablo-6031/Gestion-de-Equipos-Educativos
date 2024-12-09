@@ -18,24 +18,64 @@ namespace Controllers
             return equipoDao.ListarEquipos();
         }
 
+        public DataTable ListarEquiposporNumSerieCompleto(string texto)
+        {
+            return equipoDao.ListarEquiposporNumSerieCompleto(texto);
+        }
+
+        public bool ComprobarEquipo(string numSerie, string matricula)
+        {
+            return equipoDao.ComprobarEquipo(numSerie, matricula);
+        }
+
+        public bool VerificarGarantiaEquipo(int idEquipo)
+        {
+            return equipoDao.VerificarGarantiaEquipo(idEquipo);
+        }
+
+
+        
+
+
+
+
+        public DataTable ListarEquiposConTipo()
+        {
+            return equipoDao.ListarEquiposConTipo();
+        }
+
+        public DataTable ListarEquiposPorADMovil(int idAdm)
+        {
+            return equipoDao.ListarEquiposPorADMovil(idAdm);
+        }
+
+
+        
+
+
+
+
         public DataTable ObtenerDetalleEquipo(int idEquipo)
         {
             return equipoDao.ObtenerDetalleEquipo(idEquipo);
         }
 
-        public DataTable listarEquiposPorActa(int idActa)
+        public DataTable ListarEquiposAdmPorActa(int idActa)
         {
-            return equipoDao.ListarEquiposPorActa(idActa);
+            return equipoDao.ListarEquiposAdmPorActa(idActa);
         }
+
+
+        
 
         public DataTable ListarEquiposporNumSerie(string valor)
         {
             return equipoDao.ListarEquiposporNumSerie(valor);
         }
 
-        public void agregarEquipo(Equipo equipo)
+        public void AgregarEquipo(Equipo equipo, int idAdm)
         {
-            equipoDao.AgregarEquipo(equipo);
+            equipoDao.AgregarEquipo(equipo, idAdm);
         }
 
         public void agregarListaEquipo(List<Equipo> listEquipo, int idActa)
@@ -44,9 +84,9 @@ namespace Controllers
         }
 
 
-        public void editarEquipo(Equipo equipo)
+        public string EditarEquipo(Equipo equipo)
         {
-            equipoDao.EditarEquipo(equipo);
+            return equipoDao.EditarEquipo(equipo);
         }
         /*
         public void eliminarEquipo(int id)

@@ -33,5 +33,17 @@ namespace Gestion_de_Equipos_Educativos.Properties {
                 return ((string)(this["DB_GestionEquiposConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\pablo\\source\\repos\\" +
+            "Gestion de Equipos Educativos\\DataBase\\DB_GestionEquipos.mdf\";Integrated Securit" +
+            "y=True;Connect Timeout=30;Encrypt=True")]
+        public string DB_GestionEquiposConnectionString1 {
+            get {
+                return ((string)(this["DB_GestionEquiposConnectionString1"]));
+            }
+        }
     }
 }

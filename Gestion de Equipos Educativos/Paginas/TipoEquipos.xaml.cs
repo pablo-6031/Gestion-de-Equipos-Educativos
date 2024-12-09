@@ -21,6 +21,8 @@ using Models;
 using System.Drawing.Imaging;
 using Microsoft.Win32;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Gestion_de_Equipos_Educativos.Ventanas;
+using System.Windows.Media.Effects;
 
 
 
@@ -42,155 +44,241 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             InitializeComponent();
             ListarTipoEquipo();
         }
-        private void TraerTipoEquipos(DataTable dtTipoEquipos)
-        {
-            List<TipoEquipo> tipoEquiposList = new List<TipoEquipo>();
-            tipoEquiposList = (from DataRow dr in dtTipoEquipos.Rows
-                               select new TipoEquipo()
-                               {
-                                   IdTipoEquipo = Convert.ToInt32(dr["id_tipo_equipo"]),
-                                   Tipo = dr["Tipo"].ToString(),
-                                   Marca = dr["Marca"].ToString(),
-                                   Modelo = dr["Modelo"].ToString(),
-                                   Detalle = dr["detalle_tecnico"].ToString(),
-                                   Foto = dr["Foto"] != DBNull.Value ? (byte[])dr["Foto"] : null
-                               }).ToList();
-            this.DGTipoEquipos.ItemsSource = tipoEquiposList;
-        }
+
+
+
 
         private void ListarTipoEquipo()
         {
-            var DtTipoEquipo = tipoEquipoController.ListaTipoEquipos();
-            TraerTipoEquipos(DtTipoEquipo);
+            // Obtenemos la lista de alumnos desde la base de datos
+            DataTable dataTable = tipoEquipoController.ListaTipoEquipos();
+
+            // Verificamos que el DataTable tenga datos
+            if (dataTable.Rows.Count > 0)
+            {
+                // Asigna el DataTable como fuente de datos de un control (por ejemplo, DataGrid)
+                DGTipoEquipos.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+
+            }
         }
-        private void limpiarCampos()
+
+
+
+        private void btnAgregarTipoEquipo_Click(object sender, RoutedEventArgs e)
         {
-            this.txtTipo.Clear();
-            this.txtMarca.Clear();
-            this.txtModelo.Clear();
-            this.txtDetalle.Clear();
-            this.txtIdTipoEquipo.Clear();
-
-            ImageBrush fotoTipoEquipo = new ImageBrush();
-            fotoTipoEquipo.ImageSource = new BitmapImage(new Uri(@"default_image.png", UriKind.RelativeOrAbsolute));
-            this.eFoto.Fill = fotoTipoEquipo;
+            mostrarVentana("agregar");
+            ListarTipoEquipo();
         }
 
-
-
-        private void btnAgregar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnEliminar_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
 
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
-            try
+
+
+
+            if (!DGTipoEquipos.Items.IsEmpty)
             {
-                if (!string.IsNullOrEmpty(this.txtIdTipoEquipo.Text))
+                DataRowView rowView = (DataRowView)DGTipoEquipos.SelectedItem;
+
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                TipoEquipoCache.IdTipoEquipo = (int)rowView["id_tipo_equipo"];
+                TipoEquipoCache.Tipo = rowView["tipo"].ToString();
+                TipoEquipoCache.Marca = rowView["marca"].ToString();
+                TipoEquipoCache.Modelo = rowView["modelo"].ToString();
+                TipoEquipoCache.Detalle = rowView["detalle_tecnico"].ToString();
+                TipoEquipoCache.Foto = rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
+
+                mostrarVentana("editar");
+            }
+            ListarTipoEquipo();
+
+        }
+    
+
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if (DGTipoEquipos.SelectedItem != null)
+            {
+
+                DataRowView rowView = (DataRowView)DGTipoEquipos.SelectedItem;
+                int idTipoEquipo = Convert.ToInt32(rowView["id_tipo_equipo"]);
+
+                try
                 {
-                    // Verificar si se ha seleccionado una nueva imagen
-                    if (imageSource == null)
+
+                    string mensaje = "¿Desea eliminar a " + rowView["tipo"].ToString() + " " + rowView["marca"].ToString() + " del registro?";
+                    bool resp = mostrarVentanaEleccion(mensaje, "ACEPTAR", "CANCELAR");
+                    if (resp)
                     {
-                        stream = this.memoryStream;
-                    }
-                    else
-                    {
-                        stream = new MemoryStream(File.ReadAllBytes(this.imageSource));
+                        tipoEquipoController.EliminarTipoEquipo(idTipoEquipo);
+                        string mensaj = "Tipo de equipo eliminado con éxito";
+                        mostrarVentanaMensaje(mensaj, "Eliminar");
+                        ListarTipoEquipo();
                     }
 
-                    // Convertir el stream en un arreglo de bytes para almacenar la foto
-                    byte[] pic = stream.ToArray();
-
-                    // Crear una instancia de TipoEquipos y asignar valores de los campos de la interfaz
-                    TipoEquipo tipoEquipo = new TipoEquipo
-                    {
-                        IdTipoEquipo = int.Parse(this.txtIdTipoEquipo.Text),
-                        Tipo = this.txtTipo.Text,
-                        Marca = this.txtMarca.Text,
-                        Modelo = this.txtModelo.Text,
-                        Detalle = this.txtDetalle.Text,
-                        Foto = pic
-                    };
-
-                    try
-                    {
-                        tipoEquipoController.EditarTipoEquipo(tipoEquipo);
-                        //mensaje.MensajePersonalizado("Editar", "Cambios realizados con éxito");
-                        //mensaje.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        //mensaje.MensajePersonalizado("Error", "Error al editar");
-                        //mensaje.ShowDialog();
-                    }
+                }
+                catch (Exception ex)
+                {
+                    string mensaj = "Error al eliminar el tipo de equipo";
+                    mostrarVentanaError(mensaj, "Eliminar");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                System.Windows.MessageBox.Show(ex.Message, "Error");
+                string mensaj = "Seleccione un tipo de equipo para eliminar";
+                mostrarVentanaError(mensaj, "Advertencia");
             }
-
-            ListarTipoEquipo(); // Actualizar la lista de tipo de equipos
-            limpiarCampos(); // Limpiar los campos de entrada
+            ListarTipoEquipo();
         }
 
-        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Archivos de imagen (.jpg)|*.jpg|PNG(*.png)|*.png|All files(*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.Multiselect = false;//selecciona mas de un archivo
 
-            bool? revisarOK = openFileDialog.ShowDialog();
-            if (revisarOK == true)
+
+
+        private void mostrarVentana(string opcion)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
             {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(openFileDialog.FileName));
-                imageSource = openFileDialog.FileName.ToString();
-                ImageBrush fotoTipoEquipo = new ImageBrush();
-                fotoTipoEquipo.ImageSource = bitmapImage;
-                this.eFoto.Fill = fotoTipoEquipo;
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+            // Crea una instancia del modal
+            VentanaTipoEquipo ventanaUsuario = new VentanaTipoEquipo(opcion)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaUsuario.ShowDialog(); // Abre la ventana
+
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
             }
         }
 
-        private void DGTipoEquipos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private bool mostrarVentanaEleccion(string mensaje, string boton1, string boton2)
         {
-            if (!this.DGTipoEquipos.Items.IsEmpty)
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
             {
-                TipoEquipo tipoEquipo = (TipoEquipo)this.DGTipoEquipos.CurrentItem;
-                this.txtIdTipoEquipo.Text = tipoEquipo.IdTipoEquipo.ToString();
-                this.txtTipo.Text = tipoEquipo.Tipo;
-                this.txtMarca.Text = tipoEquipo.Marca;
-                this.txtModelo.Text = tipoEquipo.Modelo;
-                this.txtDetalle.Text = tipoEquipo.Detalle;
-                FotoTipoEquipo = tipoEquipo.Foto;
-
-                if (FotoTipoEquipo != null)
+                mainWindow.Principal.Effect = new BlurEffect
                 {
-                    MemoryStream ms = new MemoryStream(FotoTipoEquipo);
-                    memoryStream = ms;
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.StreamSource = ms;
-                    image.CacheOption = BitmapCacheOption.OnLoad; // Asegura que la imagen se cargue completamente
-                    image.EndInit();
+                    Radius = 10
+                };
+            }
 
-                    ImageBrush miFoto = new ImageBrush
-                    {
-                        ImageSource = image
-                    };
-                    this.eFoto.Fill = miFoto; // Asigna la imagen al control eFoto
-                }
-                else
+            // Crea una instancia del modal y envía un parámetro
+            VentanaMensajeEleccion ventanaMensaje = new VentanaMensajeEleccion(mensaje,boton1,boton2)
+            {
+                Owner = mainWindow, // Establece el propietario
+            };
+
+            // Abre la ventana
+            bool? dialogResult = ventanaMensaje.ShowDialog();
+
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+            return ventanaMensaje.Eleccion;
+        }
+
+        private void mostrarVentanaMensaje(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
                 {
-                    // Si no hay imagen, limpiar la imagen de eFoto
-                    this.eFoto.Fill = null;
-                }
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensaje ventanaMensaje = new VentanaMensaje(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void mostrarVentanaError(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensajeError ventanaMensaje = new VentanaMensajeError(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string textoBusqueda = txtBuscar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                // Si no hay texto, mostrar todos los docentes
+                ListarTipoEquipo();
+            }
+            else
+            {
+
+                // Llamar al controlador para obtener los datos filtrados
+
+                DataTable dataTable = tipoEquipoController.FiltrarTipoEquipos(textoBusqueda);
+
+                // Actualizar el DataGrid
+                DGTipoEquipos.ItemsSource = dataTable.DefaultView;
             }
         }
     }

@@ -29,7 +29,11 @@ namespace Gestion_de_Equipos_Educativos
         }
         private void mover(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed) // Verificar si el botón izquierdo está presionado
+            {
+                this.DragMove();
+            }
+
         }
 
         private void txtLoginName_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -50,7 +54,7 @@ namespace Gestion_de_Equipos_Educativos
 
         private void txtPassword_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (txtPassword.Password == "Constraseña")
+            if (txtPassword.Password == "Contraseña")
             {
                 txtPassword.Password = string.Empty;
             }
@@ -75,13 +79,13 @@ namespace Gestion_de_Equipos_Educativos
                         var validarLogin = usuarioController.login(txtLoginName.Text, txtPassword.Password);
                         if (validarLogin)
                         {
-                            MainWindow ventanaPrincipal = new MainWindow();
+                            MainWindow ventanaPrincipal = new MainWindow(UsuarioCache.Rol);
                             txtLoginName.Clear();
                             txtPassword.Clear();
-                            MessageBox.Show("Bienvenido", UsuarioCache.Nombre + " " + UsuarioCache.Apellido);
+                            
                             ventanaPrincipal.ShowDialog();
                             ventanaPrincipal.Closed += Logout;
-                            this.Hide();
+                            this.Close();
                         }
                     }
                     else
@@ -113,7 +117,6 @@ namespace Gestion_de_Equipos_Educativos
                 txtPassword.Password = "Contraseña";
                 ImageBrush brush = new ImageBrush();
                 brush.ImageSource = new BitmapImage(new Uri(@"user.jpg", UriKind.Relative));
-                Foto.Fill = brush;
                 this.Show();
             }
             catch (Exception ex)
@@ -121,6 +124,11 @@ namespace Gestion_de_Equipos_Educativos
 
                 MessageBox.Show("Error", "Error: " + ex.Message);
             }
+        }
+
+        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Entities
         public string Estado { get; set; }
         public string Observacion { get; set; }
         public string Destino { get; set; }
+        public string TipoEquipo { get; set; }
+        public string Modelo { get; set; }
         public int IdTipoEquipo { get; set; }
         public int IdActa { get; set; }
     }

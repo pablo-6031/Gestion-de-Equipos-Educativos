@@ -18,14 +18,21 @@ namespace Controllers
             return usuarioDao.ListarUsuarios();
         }
 
-        public void agregarUsuario(Usuario usuario)
+        public DataTable FiltrarUsuarios(string texto)
         {
-            usuarioDao.AgregarUsuario(usuario);
+            return usuarioDao.FiltrarUsuarios(texto);
         }
 
-        public void editarUsuario(Usuario usuario)
+        
+
+        public string AgregarUsuario(Usuario usuario)
         {
-            usuarioDao.EditarUsuario(usuario);
+            return usuarioDao.AgregarUsuario(usuario);
+        }
+
+        public string EditarUsuario(Usuario usuario)
+        {
+            return usuarioDao.EditarUsuario(usuario);
         }
 
         public void eliminarUsuario(int id)

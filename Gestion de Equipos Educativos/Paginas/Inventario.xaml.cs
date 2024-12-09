@@ -35,7 +35,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         private int idTipoEquipoSeleccionado ;
        TipoEquipoController tipoEquipoController = new TipoEquipoController();
        EquipoController equipoController = new EquipoController();
-        public Inventario()
+        public Inventario(string rol)
         {
             InitializeComponent();
 
@@ -43,53 +43,28 @@ namespace Gestion_de_Equipos_Educativos.Paginas
         }
         private Dictionary<int, string> tiposEquipos = new Dictionary<int, string>();
 
-        
 
 
-        private void btnCargarImagen_Click(object sender, RoutedEventArgs e)
+        private void ListarEquipos()
         {
+            // Obtenemos la lista de alumnos desde la base de datos
+            DataTable dataTable = equipoController.ListarEquiposConTipo();
 
+            // Verificamos que el DataTable tenga datos
+            if (dataTable.Rows.Count > 0)
+            {
+                // Asigna el DataTable como fuente de datos de un control (por ejemplo, DataGrid)
+                DGEquipos.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+
+            }
         }
 
 
 
-        private void btnAgregar_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                mostrarVentana();
-                if (EquipoCache.NumSerie != "")
-                {
-                    Equipo equipo = new Equipo();
-                    equipo.NumSerie = EquipoCache.NumSerie;
-                    equipo.Matricula = EquipoCache.Matricula;
-                    equipo.Estado = EquipoCache.Estado;
-                    equipo.Observacion = EquipoCache.Observacion;
-                    equipo.Destino = EquipoCache.Destino;
-                    equipo.IdTipoEquipo = EquipoCache.IdTipoEquipo;
-                    equipo.IdActa = 1;
-
-                    equipoController.agregarEquipo(equipo);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message, "Error");
-            }
-
-            // Actualiza la lista de equipos y limpia los campos
-            ListarEquipos();
-  
-
-
-        }
-        
-
-
-
-
-
-        
+        /*
         private void ListarEquipos()
         {
 
@@ -102,23 +77,6 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
 
 
-
-
-            /*
-            // Obtenemos la lista de equipos desde la base de datos
-            DataTable dataTable = equipoController.listaEquipos();
-
-            // Verificamos que el DataTable tenga datos
-            if (dataTable.Rows.Count > 0)
-            {
-                // Asigna el DataTable como fuente de datos de un control (por ejemplo, DataGrid o ListBox)
-                DGEquipos.ItemsSource = dataTable.DefaultView; // Suponiendo que tienes un DataGrid llamado 'dataGridEquipos'
-            }
-            else
-            {
-
-            }
-            */
         }
 
 
@@ -145,7 +103,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
             return listaEquipos;
         }
-
+        */
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
@@ -154,7 +112,27 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
+            /*
+            if (!DGEquipos.Items.IsEmpty)
+            {
+                DataRowView rowView = (DataRowView)DGEquipos.SelectedItem;
 
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                EquipoCache.IdUsuario = (int)rowView["id_usuario"];
+                EquipoCache.Nombre = rowView["nombres"].ToString();
+                EquipoCache.Apellido = rowView["apellidos"].ToString();
+                EquipoCache.Cuil = rowView["cuil"].ToString();
+                EquipoCache.LoginName = rowView["loginName"].ToString();
+                EquipoCache.Password = rowView["password"].ToString();
+                EquipoCache.Correo = rowView["correo"].ToString();
+                EquipoCache.Rol = rowView["rol"].ToString();
+                EquipoCache.Foto = rowView["foto"] != DBNull.Value ? (byte[])rowView["foto"] : null;
+
+                mostrarVentana("editar");
+            }
+            ListarUsuarios();
+
+            */
         }
         private void mostrarVentana()
         {
@@ -171,7 +149,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
 
             // Crea una instancia del modal
-            NuevosEquipos nuevosEquipos = new NuevosEquipos
+            NuevosEquipos nuevosEquipos = new NuevosEquipos("ver")
             {
                 Owner = mainWindow // Establece el propietario
             };
@@ -201,7 +179,7 @@ namespace Gestion_de_Equipos_Educativos.Paginas
             }
 
             // Crea una instancia del modal
-            NuevosEquipos nuevosEquipos = new NuevosEquipos
+            NuevosEquipos nuevosEquipos = new NuevosEquipos("ver")
             {
                 Owner = mainWindow // Establece el propietario
             };
@@ -236,21 +214,17 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnVerEquipo_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (sender is Button button && button.DataContext is Entities.Equipo equipoSeleccionado)
+            if (!DGEquipos.Items.IsEmpty)
             {
-                // Cargar los datos del acta seleccionada en los controles
-                EquipoCache.IdEquipo = equipoSeleccionado.IdEquipo;
-                EquipoCache.NumSerie = equipoSeleccionado.NumSerie;
-                EquipoCache.Matricula = equipoSeleccionado.Matricula;
-                EquipoCache.Estado = equipoSeleccionado.Estado;
-                EquipoCache.Observacion = equipoSeleccionado.Observacion;
-                EquipoCache.Destino = equipoSeleccionado.Destino;
-                EquipoCache.IdTipoEquipo = equipoSeleccionado.IdTipoEquipo;
+                DataRowView rowView = (DataRowView)DGEquipos.SelectedItem;
 
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                EquipoCache.IdEquipo = (int)rowView["id_equipo"];
+
+                mostrarDetalleEquipo();
             }
-            
-            mostrarDetalleEquipo();
+            ListarEquipos();
+
         }
 
 
@@ -287,12 +261,27 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
         private void btnEditarEquipo_Click(object sender, RoutedEventArgs e)
         {
-            if (!this.DGEquipos.Items.IsEmpty)
-            {
-                Equipo equipo = (Equipo)this.DGEquipos.CurrentItem;
-                mostrarVentanaCargada(equipo);
 
+            if (!DGEquipos.Items.IsEmpty)
+            {
+                DataRowView rowView = (DataRowView)DGEquipos.SelectedItem;
+
+                // Asigna los valores seleccionados en el DataGrid a los campos de la interfaz
+                EquipoCache.IdEquipo = (int)rowView["id_equipo"];
+                EquipoCache.NumSerie = rowView["num_serie"].ToString();
+                EquipoCache.Matricula = rowView["matricula"].ToString();
+                EquipoCache.Estado = rowView["estado"].ToString();
+                EquipoCache.Observacion = rowView["observacion"].ToString();
+                EquipoCache.Destino = rowView["destino"].ToString();
+                EquipoCache.IdTipoEquipo = (int)rowView["id_tipo_equipo"];
+
+
+                mostrarVentana();
             }
+            ListarEquipos();
+
+
+
         }
 
         private void btnEliminarEquipo_Click(object sender, RoutedEventArgs e)
@@ -312,8 +301,8 @@ namespace Gestion_de_Equipos_Educativos.Paginas
                     // equipoController.eliminarEquipo(equipo.IdEquipo);
                     if (equipo.IdActa != 0)
                     {
-                        string mensajes = equipoController.eliminarEquipo(equipo.IdEquipo);
-                        System.Windows.MessageBox.Show(mensajes, "Eliminar");
+                        //string mensajes = equipoController.eliminarEquipo(equipo.IdEquipo);
+                        //System.Windows.MessageBox.Show(mensajes, "Eliminar");
 
                     }
                     else
@@ -337,6 +326,85 @@ namespace Gestion_de_Equipos_Educativos.Paginas
 
             }
 
+        }
+        private void mostrarVentana(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensaje ventanaMensaje = new VentanaMensaje(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void mostrarVentanaError(string mensaje, string titulo)
+        {
+            // Referencia a la ventana principal
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+
+            // Aplica el desenfoque al contenido principal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = new BlurEffect
+                {
+                    Radius = 10
+                };
+            }
+
+            // Crea una instancia del modal
+            VentanaMensajeError ventanaMensaje = new VentanaMensajeError(mensaje, titulo)
+            {
+                Owner = mainWindow // Establece el propietario
+            };
+
+            ventanaMensaje.ShowDialog(); // Abre la ventana
+
+
+            // Quita el desenfoque al cerrar el modal
+            if (mainWindow != null)
+            {
+                mainWindow.Principal.Effect = null;
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string textoBusqueda = txtBuscar.Text.Trim();
+            if (string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                // Si no hay texto, mostrar todos los docentes
+                ListarEquipos();
+            }
+            else
+            {
+
+                // Llamar al controlador para obtener los datos filtrados
+
+                DataTable dataTable = equipoController.ListarEquiposporNumSerieCompleto(textoBusqueda);
+
+                // Actualizar el DataGrid
+                DGEquipos.ItemsSource = dataTable.DefaultView;
+            }
         }
     }
 }

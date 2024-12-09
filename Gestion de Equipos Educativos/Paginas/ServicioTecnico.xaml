@@ -3,33 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas"
+      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
-      Title="Servicio Técnico" Width="1300" Height="700">
+      Title="Servicio Técnico" Width="1349" Height="828">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="85*"/>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="553*"/>
+            <RowDefinition Height="3*"/>
+
+            <RowDefinition Height="32*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="3" 
-                   RadiusY="18" 
-                   RadiusX="18" StrokeThickness="5" Margin="-22,4,0,10" HorizontalAlignment="Left" Width="1322">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#CC2C1414" Offset="0"/>
-                    <GradientStop Color="#CCF12C2C" Offset="1"/>
-                    <GradientStop Color="#CCCB4343" Offset="0.458"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-            <Rectangle.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF8A1212" Offset="0"/>
-                    <GradientStop Color="#FF111010" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Stroke>
-        </Rectangle>
+        <Rectangle StrokeThickness="5"  HorizontalAlignment="Center"  Width="1349" Fill="{StaticResource colorFondo}" Grid.RowSpan="2"/>
 
         <Label Content="SERVICIO TÉCNICO"
                HorizontalAlignment="Center"
@@ -42,21 +26,41 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
+        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="342" Height="34" TextChanged="txtBuscar_TextChanged"   />
 
-        <Button Name="btnNuevo" Content="Nuevo"
-        HorizontalAlignment="Left" Grid.Row="1"
-        Width="80" Margin="10,0" Height="25" VerticalAlignment="Bottom" Click="btnNuevo_Click" />
-
-
-        <Border Grid.Row="2" HorizontalAlignment="Center" Background="White" Width="1260" Margin="0,3,0,25" CornerRadius="0,0,15,15" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,5">
+        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1298" Margin="0,3,0,12" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
+            <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="8,5,12,1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="100" Header="Equipo" Binding="{Binding Tipo}"/>
-                    <DataGridTextColumn Width="100" Header="Numero de Serie" Binding="{Binding Num_serie}"/>
-                    
-                    <DataGridTextColumn Width="150" Header="Falla" Binding="{Binding Falla}"/>
-                    <DataGridTextColumn Width="150" Header="Fecha Envío" Binding="{Binding Fecha_Envio, StringFormat={}{0:yyyy-MM-dd}}"/>
-                    
+                    <DataGridTextColumn Width="100*" Header="ID" Binding="{Binding Id_Servicio_Tecnico}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="100*" Header="EQUIPO" Binding="{Binding Tipo}"/>
+                    <DataGridTextColumn Width="100*" Header="NUMERO DE SERIE" Binding="{Binding Num_serie}"/>
+                    <DataGridTextColumn Width="100*" Header="FOTO" Binding="{Binding Foto}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="150*" Header="FALLA" Binding="{Binding Falla}"/>
+                    <DataGridTextColumn Width="150*" Header="RESPONSABLE" Binding="{Binding Responsable}"/>
+                    <DataGridTextColumn Width="150*" Header="FECHA DE ENVIO" Binding="{Binding Fecha_Envio, StringFormat={}{0:dd-MM-yyyy}}"/>
+                    <DataGridTemplateColumn Width="100*" Header="ACCION" >
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Name="btnVerrFila"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaVer}"   Margin="3,0" Click="btnVerrFila_Click"  >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Eye" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button Name="btnEditar"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit}"  Margin="3,0" Click="btnEditar_Click"   >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

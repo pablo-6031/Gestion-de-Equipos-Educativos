@@ -13,6 +13,8 @@ namespace Models
         public ConnectionToSql()
         {
             connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename= C:\\Users\\pablo\\source\\repos\\Gestion de Equipos Educativos\\DataBase\\DB_GestionEquipos.mdf;Integrated Security=True;Connect Timeout=30";
+            //connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\pablo\\source\\repos\\Gestion de Equipos Educativos\\DataBase\\DB_GestionEquipos.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;";
+
         }
         protected SqlConnection GetConnection()
         {

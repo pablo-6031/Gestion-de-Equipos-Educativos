@@ -62,7 +62,7 @@
 
 
             </Grid.ColumnDefinitions>
-            <Rectangle Name="eFoto" HorizontalAlignment="Center" Height="323" StrokeThickness="5" VerticalAlignment="Top" Width="246" Grid.RowSpan="7" Margin="0,8,0,0">
+            <Rectangle Name="eFoto" HorizontalAlignment="Center" Height="260" StrokeThickness="5" VerticalAlignment="Top" Width="214" Grid.RowSpan="6" Margin="0,8,0,0">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="../Imagenes/user.jpg"/>
                 </Rectangle.Fill>
@@ -86,6 +86,7 @@
             <TextBlock Text="OBSERVACION:" Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="15" Width="86"  />
 
             <ComboBox x:Name="cmbTipo"   SelectionChanged="cmbTipo_SelectionChanged" Grid.Column="1"  Grid.Row="1" Margin="5,5,5,5" Style="{StaticResource colorCombobox}">
+                <!-- 
                 <ComboBoxItem Content="Netbook"/>
                 <ComboBoxItem Content="Notebook"/>
                 <ComboBoxItem Content="GABINETE MOVIL"/>
@@ -94,6 +95,7 @@
                 <ComboBoxItem Content="AP DUAL CONFIG 50U"/>
                 <ComboBoxItem Content="Impresora"/>
                 <ComboBoxItem Content="PC Escritorio"/>
+                -->
             </ComboBox>
             <ComboBox x:Name="cmbModelo" Grid.Column="2"   Foreground="Black" SelectionChanged="cmbModelo_SelectionChanged" Margin="5,5,5,5" Grid.Row="1" Style="{StaticResource colorCombobox}" Background="#FF1C5B84" />
             <TextBox x:Name="txtNumSerie" Grid.Row="3"
@@ -105,35 +107,47 @@
 
 
             <ComboBox x:Name="cmbEstado" Grid.Column="3" Grid.Row="1" Margin="5,5,5,5"   Style="{StaticResource colorCombobox}"  >
-                <ComboBoxItem Content="Entregado"/>
-                <ComboBoxItem Content="En Deposito"/>
-                <ComboBoxItem Content="Cedida en Mgracion"/>
-                <ComboBoxItem Content="Recibida en Migracion"/>
-                <ComboBoxItem Content="Entregada den cesion Final"/>
-                <ComboBoxItem Content="En Prestamo"/>
-                <ComboBoxItem Content="En soporte Técnico"/>
-                <ComboBoxItem Content="Con Pedido de Soporte Tecnico"/>
-                <ComboBoxItem Content="Extraviada"/>
-                <ComboBoxItem Content="Desaparecida por abandono"/>
-                <ComboBoxItem Content="Rechazada x Soporte Tecnico"/>
+                <ComboBoxItem Content="ENTREGADO"/>
+                <ComboBoxItem Content="EN DEPOSITO"/>
+                <ComboBoxItem Content="CEDIDA EN MIGRACION"/>
+                <ComboBoxItem Content="RECIBIDA EN MIGRACION"/>
+                <ComboBoxItem Content="ENTREGADA EN CESION FINAL"/>
+                <ComboBoxItem Content="EN PRESTAMO"/>
+                <ComboBoxItem Content="EN SOPORTE TECNICO"/>
+                <ComboBoxItem Content="CON PEDIDO DE SERVICIO TECNICO"/>
+                <ComboBoxItem Content="EXTRAVIADA"/>
+                <ComboBoxItem Content="DESAPARECIDA POR ABANDONO"/>
+                <ComboBoxItem Content="RECHAZADA POR SOPORTE TECNICO"/>
             </ComboBox>
 
 
             <ComboBox x:Name="cmbDestino" Grid.Column="3" Grid.Row="3" Margin="5,5,5,5" Style="{StaticResource colorCombobox}" >
-                <ComboBoxItem Content="Sin Asignar"/>
-                <ComboBoxItem Content="Administrador"/>
-                <ComboBoxItem Content="Docente"/>
-                <ComboBoxItem Content="Preceptor"/>
-                <ComboBoxItem Content="Directivo"/>
-                <ComboBoxItem Content="Alumno"/>
+                <ComboBoxItem Content="SIN ASIGNAR"/>
+                <ComboBoxItem Content="ADMINISTRADOR"/>
+                <ComboBoxItem Content="DOCENTE"/>
+                <ComboBoxItem Content="PRECEPTOR"/>
+                <ComboBoxItem Content="DIRECTIVO"/>
+                <ComboBoxItem Content="ALUMNO"/>
             </ComboBox>
             <TextBox x:Name="txtMatricula" Grid.Row="5"  Grid.Column="1"  Grid.ColumnSpan="2"  Style="{StaticResource colorTexbox}"  TextChanged="txtMatricula_TextChanged" Margin="5,0,5,0" Height="33"  />
+            <StackPanel Grid.Row="5"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Top"
+      Orientation="Vertical"  Grid.Column="0" Height="123" Width="175" Grid.RowSpan="3" Margin="0,40,0,0">
+                <Button x:Name="btnAlumno" Content="ASIGNAR A ALUMNO"   Style="{StaticResource Botones}"
+      Width="109"  Height="50" Margin="8" FontSize="10" Click="btnAlumno_Click"
+      
+      />
+                <Button x:Name="btnTecnico" Content="SERVICIO TECNICO" Style="{StaticResource Botones}"
+      Width="99"  Height="50"  FontSize="10" Click="btnTecnico_Click"/>
+
+            </StackPanel>
             <StackPanel Grid.Row="7"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   Orientation="Horizontal"  Grid.Column="1" Grid.ColumnSpan="3" Height="74" Width="324" Grid.RowSpan="2">
-                <Button x:Name="btnAgregar" Content="AGREGAR"   Style="{StaticResource Botones}"
-                  Width="150"  Height="50" Margin="12"
+                <Button x:Name="btnAgregar" Content="GUARDAR"   Style="{StaticResource Botones}"
+                  Width="150"  Height="50" Margin="12" 
                   
                   Click="btnAgregar_Click"/>
                 <Button x:Name="btnCancelar" Content="CANCELAR" Style="{StaticResource Botones}"

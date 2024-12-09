@@ -3,15 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas"
+      xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
-      Title="Actas" Width="1425" Height="848">
+      Title="Actas" Width="1349" Height="828">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="791*"/>
-            <ColumnDefinition Width="483*" x:Name="ColumnaActa"/>
-            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="865*"/>
+            <ColumnDefinition Width="457*" x:Name="ColumnaActa"/>
+            <ColumnDefinition Width="27*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="53*"/>
@@ -19,27 +19,31 @@
             <RowDefinition Height="316*"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.RowSpan="3" 
-                    StrokeThickness="5" HorizontalAlignment="Left" Width="1425" Height="848" Grid.ColumnSpan="3" Fill="{StaticResource colorFondo}" >
-
-
-        </Rectangle>
-
+                    StrokeThickness="5" HorizontalAlignment="Left" Width="1349" Grid.ColumnSpan="3" Fill="{StaticResource colorFondo}" />
+        <StackPanel 
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    Orientation="Horizontal" Height="49" Width="414" >
+            <DatePicker x:Name="dpFechaDesde" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <DatePicker x:Name="dpFechaHasta" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+            <Button Content="BuscarPorFecha" Click="btnBuscar_Click" Width="100" Margin="10,0,0,0" />
+        </StackPanel>
 
         <Grid Grid.Column="1" Grid.RowSpan="3" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="172*"/>
-                <RowDefinition Height="43*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37*"/>
+                <RowDefinition Height="37.104"/>
+                <RowDefinition Height="336*"/>
+                <RowDefinition Height="84*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="76*"/>
@@ -50,6 +54,10 @@
 
 
             </Grid.ColumnDefinitions>
+
+
+
+
 
             <!-- Foto -->
             <Button Name="btnCargarImagen" Content="Cargar Imagen" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="116" Click="btnCargarImagen_Click"/>
@@ -71,7 +79,7 @@
             <TextBlock Text="PROVEEDOR:" Grid.Row="6" Grid.Column="1"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="12" Height="16" Width="69"  />
-            <TextBlock Text="INSTITUCIÓN:" Grid.Row="9" Grid.Column="1"
+            <TextBlock Text="INSTITUCIÓN:" Grid.Row="8" Grid.Column="1"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Left" Foreground="#FFF8E7E7" FontSize="10" Height="13" Width="61" />
 
@@ -91,15 +99,29 @@ Grid.Column="1"  Style="{StaticResource colorTexbox}" Height="34"  />
 
             <DataGrid Name="DGEquipos" Grid.Column="0" Grid.Row="11" AutoGenerateColumns="False" Grid.ColumnSpan="2" IsReadOnly="True" BorderBrush="{x:Null}" Margin="10,0,0,10" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}"  GridLinesVisibility="Vertical"  >
 
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IdActa}" Value="0">
+                                <!-- Cambia "123" por el Id deseado -->
+                                <Setter Property="Background" Value="IndianRed" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Width="30*"  Header="ID"  Binding="{Binding IdEquipo}" Visibility="Hidden"/>
-                    <DataGridTextColumn Width="70*"  Header="Tipo"  Binding="{Binding IdTipoEquipo}" />
-                    <DataGridTextColumn Width="100*"  Header="Numero de serie"  Binding="{Binding NumSerie}"/>
-                    <DataGridTextColumn Width="100*"  Header="Matricula"  Binding="{Binding Matricula}"/>
-                    <DataGridTextColumn Width="100*"  Header="Estado"  Visibility="Hidden" Binding="{Binding Estado}"/>
-                    <DataGridTextColumn Width="100*"  Header="Observacion"  Binding="{Binding Observacion}" Visibility="Hidden"/>
-                    <DataGridTextColumn Width="70*"  Header="Destino"  Visibility="Hidden" Binding="{Binding Destino}" />
+                    <DataGridTextColumn Width="70*"  Header="TIPO"  Binding="{Binding TipoEquipo}" />
+                    <DataGridTextColumn Width="70*"  Header="TIPO"  Binding="{Binding IdTipoEquipo}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="100*"  Header="NUMERO DE SERIE"  Binding="{Binding NumSerie}"/>
+                    <DataGridTextColumn Width="100*"  Header="MATRICULA"  Binding="{Binding Matricula}"/>
+                    <DataGridTextColumn Width="100*"  Header="ESTADO"  Visibility="Hidden" Binding="{Binding Estado}"/>
+                    <DataGridTextColumn Width="100*"  Header="OBSERVACION"  Binding="{Binding Observacion}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70*"  Header="DESTINO"  Visibility="Hidden" Binding="{Binding Destino}" />
 
                     <DataGridTextColumn Width="70*"  Header="IdActa"  Binding="{Binding IdActa}" Visibility="Hidden"/>
 
@@ -108,10 +130,18 @@ Grid.Column="1"  Style="{StaticResource colorTexbox}" Height="34"  />
 
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button Name="btnEliminarFilaEquipo" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarFilaEquipo_Click"   ></Button>
-                                    <Button Name="btnEditarFilaEquipo" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarFilaEquipo_Click"   ></Button>
-                                </StackPanel>
 
+                                    <Button Name="btnEditarFilaEquipo"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit }" Click="btnEditarFilaEquipo_Click"   >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnEliminarFilaEquipo" VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaDelete}" Click="btnEliminarFilaEquipo_Click"   >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Trash" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
 
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -121,27 +151,27 @@ Grid.Column="1"  Style="{StaticResource colorTexbox}" Height="34"  />
             </DataGrid>
             <Button Name="btnAgregarEquipo" Content="AGREGAR EQUIPO" Grid.Row="10"
     HorizontalAlignment="Center" 
-    Width="142"  Height="24" VerticalAlignment="Center" Click="btnAgregarEquipo_Click" Style="{StaticResource Botones}" />
+    Width="142"  Height="24" VerticalAlignment="Bottom" Click="btnAgregarEquipo_Click" Style="{StaticResource Botones}" Margin="0,0,0,7" />
 
             <!-- Botones -->
             <StackPanel Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal" Height="66" Width="348" >
-                <Button Name="btnAgregar" Content="Finalizar Acta" 
+                <Button Name="btnAgregar" Content="GUARDAR" 
                         Width="117" Margin="10,0" Height="41" VerticalAlignment="Top" Click="btnAgregar_Click" Style="{StaticResource Botones}"/>
-                <Button Name="btnBorrador" Content="Guardar como Borrador" 
-        Width="175" Margin="10,0" Height="40" VerticalAlignment="Top" Click="btnBorrador_Click" Style="{StaticResource Botones}"/>
+                <Button Name="btnCancelar" Content="CANCELAR" 
+        Width="175" Margin="10,0" Height="40" VerticalAlignment="Top"  Style="{StaticResource Botones}" Click="btnCancelar_Click"/>
             </StackPanel>
 
         </Grid>
 
-        <Button Name="btnAgregarActa" Content="AGREGAR" Margin="10,21,0,0"
+        <Button Name="btnAgregarActa" Content="AGREGAR" Margin="10,21,0,9"
 HorizontalAlignment="Left" 
-Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}" Click="btnAgregarActa_Click" />
-        <TextBox x:Name="txtBuscarActa"  Grid.Column="0"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Left"  Margin="520,0,0,0" Width="342" Height="33"   />
+Width="127" Style="{StaticResource Botones}" Click="btnAgregarActa_Click" />
+        <TextBox x:Name="txtBuscarActa"  Grid.Column="0"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"   Width="226" Height="33" SelectionChanged="txtBuscarActa_SelectionChanged"  />
 
-        <Border  Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Grid.RowSpan="3" Margin="10,64,0,10" >
+        <Border  Background="White"   BorderBrush="{StaticResource ColorTitulos}" BorderThickness="5" Grid.RowSpan="2" Margin="10,1,0,10" Grid.Row="1" >
             <DataGrid Name="DGActas"  IsReadOnly="True" 
                        Style="{StaticResource DarkDataGridStyle}"
                       
@@ -157,29 +187,47 @@ Width="127"  Height="33" VerticalAlignment="Top" Style="{StaticResource Botones}
                             <DataTemplate>
                                 <Border CornerRadius="30" Width="50" Height="50">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Foto}"/>
+                                        <ImageBrush ImageSource="{Binding foto}"/>
                                     </Border.Background>
                                 </Border>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="30"   Header="ID"  Binding="{Binding IdActa}" Visibility="Hidden"/>
-                    <DataGridTextColumn Width="100*"  Header="NUMERO DE ACTA"   Binding="{Binding NumeroActa}"/>
-                    <DataGridTextColumn Width="100*"  Header="FECHA DE ENTREGA"  Binding="{Binding FechaEntrega , StringFormat={}{0:yyyy-MM-dd}}"/>
-                    <DataGridTextColumn Width="100*"  Header="RESPONSABLE"  Binding="{Binding Responsable}"/>
-                    <DataGridTextColumn Width="100*"  Header="PROVEEDOR"  Binding="{Binding IdProveedor}" Visibility="Hidden"/>
-                    <DataGridTextColumn Width="70*"  Header="ESTADO"  Binding="{Binding Estado}" />
-                    <DataGridTextColumn Width="70*"  Header="IdInstitucion"  Binding="{Binding IdInstitucion}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="30"   Header="ID"  Binding="{Binding id_acta}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="100*"  Header="NUMERO DE ACTA"   Binding="{Binding num_acta}"/>
+                    <DataGridTextColumn Width="100*"  Header="FECHA DE ENTREGA"  Binding="{Binding fecha_entrega , StringFormat={}{0:dd-MM-yyyy}}"/>
+                    <DataGridTextColumn Width="100*"  Header="RESPONSABLE"  Binding="{Binding responsable}"/>
+                    <DataGridTextColumn Width="100*"  Header="PROVEEDOR"  Binding="{Binding id_proveedor}" Visibility="Hidden"/>
+                    <DataGridTextColumn Width="70*"  Header="ESTADO"  Binding="{Binding estado}" />
+                    <DataGridTextColumn Width="70*"  Header="IdInstitucion"  Binding="{Binding id_institucion}" Visibility="Hidden"/>
 
                     <DataGridTemplateColumn Width="80*" Header="ACCION" >
                         <DataGridTemplateColumn.CellTemplate>
 
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button Name="btnEliminarFila" Content="Eliminar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEliminarFila_Click" ></Button>
-                                    <Button Name="btnEditarFila" Content="Editar" VerticalAlignment="Center" Width="70" Height="25"  Template="{DynamicResource ButtonEnter}" Click="btnEditarFila_Click"  ></Button>
-                                </StackPanel>
+                                    <Button Name="btnImprimirActa"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaVer}"   Margin="3,0" Click="btnImprimirActa_Click"  >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Print" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Name="btnVerrFila"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaVer}"   Margin="3,0" Click="btnVerrFila_Click"  >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Eye" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="btnEditarFila"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit}" Click="btnEditarFila_Click"  Margin="3,0">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="btnEliminarFila"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaDelete}" Click="btnEliminarFila_Click" >
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Trash" Foreground="White" FontSize="15" />
+                                        </Button.Content>
+                                    </Button>
 
+                                </StackPanel>
 
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

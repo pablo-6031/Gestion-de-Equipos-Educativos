@@ -3,11 +3,68 @@
 
 
 
+    <!--Background Colors-->
+    <Color x:Key="primaryBackColor1">#0A003A</Color>
+    <Color x:Key="primaryBackColor2">#1C0E49</Color>
+    <Color x:Key="secondaryBackColor1">#24105F</Color>
+    <Color x:Key="secondaryBackColor2">#210F55</Color>
+    <!--Window Border Colors-->
+    <Color x:Key="winBorderColor1">#6D2FFF</Color>
+    <Color x:Key="winBorderColor2">#FB539B</Color>
+    <Color x:Key="winBorderColor3">#836EFB</Color>
+    <!--Color Palette-->
+    <SolidColorBrush x:Key="color1" Color="#E285DE"/>
+    <SolidColorBrush x:Key="color2" Color="#784DFD"/>
+    <SolidColorBrush x:Key="color3" Color="#4ADAEC"/>
+    <SolidColorBrush x:Key="color4" Color="#FB539B"/>
+    <SolidColorBrush x:Key="color5" Color="#7E82FC"/>
+    <SolidColorBrush x:Key="color6" Color="#FFC047"/>
+    <SolidColorBrush x:Key="color7" Color="#EF6C96"/>
+    <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
+    <SolidColorBrush x:Key="color9" Color="#07F3C0"/>
+    <SolidColorBrush x:Key="color10" Color="#FBA1AA"/>
+    <!--Font Colors-->
+    <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1"/>
+    <SolidColorBrush x:Key="titleColor2" Color="#D5CFF5"/>
+    <SolidColorBrush x:Key="titleColor3" Color="#BCBEE0"/>
+    <SolidColorBrush x:Key="plainTextColor1" Color="#9497CD"/>
+    <SolidColorBrush x:Key="plainTextColor2" Color="#7C80C2"/>
+    <SolidColorBrush x:Key="plainTextColor3" Color="#7376BD"/>
+    <!--Panel Colors-->
+    <SolidColorBrush x:Key="panelColor" Color="#200F53"/>
+    <SolidColorBrush x:Key="panelOverColor" Color="#281269"/>
+    <SolidColorBrush x:Key="panelActiveColor" Color="#2B1372"/>
+    <!--Button Colors-->
+    <!--TextBox Colors-->
+    <!--Etc-->
+
+
+
+
+
+
+
+
+    <!--Menu button text-->
+    <Style x:Key="menuButtonText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+
+
+
+
+
+
 
 
     <!-- Estilo para DataGrid -->
     <Style TargetType="DataGrid" x:Key="DarkDataGridStyle">
-        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Background" Value="#333333"/>
         <!-- Fondo oscuro general -->
         <Setter Property="GridLinesVisibility" Value="All"/>
         <!-- Líneas divisoras visibles -->
@@ -57,6 +114,13 @@
         <GradientStop Color="#FF123D5F" Offset="0.5" />
         <GradientStop Color="#FF04716E" Offset="1" />
     </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="colorError"  EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF371004" Offset="0" />
+        <GradientStop Color="#FF5F1212" Offset="0.5" />
+        <GradientStop Color="#FF714504" Offset="1" />
+    </LinearGradientBrush>
+
 
     <!-- Labels -->
 
@@ -223,6 +287,76 @@
 
     <!--#EndRegion COLORES-->
 
+
+    <ControlTemplate x:Key="ButtonFilaVer" TargetType="{x:Type Button}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="BgRectangulo" Grid.RowSpan="3" Grid.ColumnSpan="3" Fill="Orange" RadiusY="5" RadiusX="5"/>
+            <Rectangle x:Name="BrilloRectangulo"  Grid.Column="1" Grid.Row="1" Fill="{StaticResource ButtonBrillo}" RadiusY="7" RadiusX="3"/>
+            <ContentPresenter Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="auto" Grid.RowSpan="3" VerticalAlignment="Center" Width="auto" RecognizesAccessKey="True"/>
+        </Grid>
+       
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ButtonFilaEdit" TargetType="{x:Type Button}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="BgRectangulo" Grid.RowSpan="3" Grid.ColumnSpan="3" Fill="Green" RadiusY="5" RadiusX="5"/>
+            <Rectangle x:Name="BrilloRectangulo"  Grid.Column="1" Grid.Row="1" Fill="{StaticResource ButtonBrillo}" RadiusY="7" RadiusX="3"/>
+            <ContentPresenter Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="auto" Grid.RowSpan="3" VerticalAlignment="Center" Width="auto" RecognizesAccessKey="True"/>
+        </Grid>
+
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ButtonFilaDelete" TargetType="{x:Type Button}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="BgRectangulo" Grid.RowSpan="3" Grid.ColumnSpan="3" Fill="Red" RadiusY="5" RadiusX="5"/>
+            <Rectangle x:Name="BrilloRectangulo"  Grid.Column="1" Grid.Row="1" Fill="{StaticResource ButtonBrillo}" RadiusY="7" RadiusX="3"/>
+            <ContentPresenter Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="auto" Grid.RowSpan="3" VerticalAlignment="Center" Width="auto" RecognizesAccessKey="True"/>
+        </Grid>
+
+    </ControlTemplate>
+
+
+
+
+
+
+
+
+
+
     <ControlTemplate x:Key="ButtonEnter" TargetType="{x:Type Button}">
         <Grid>
             <Grid.RowDefinitions>
@@ -338,4 +472,9 @@
 
     <!--#EndRegion ESTILOS-->
 
+    
+    
+    
+    
+    
 </ResourceDictionary>

@@ -13,14 +13,22 @@ namespace Controllers
             return proveedorDao.ListarProveedores();
         }
 
-        public void AgregarProveedor(Proveedor proveedor)
+        public DataTable FiltrarProveedores(string texto)
         {
-            proveedorDao.AgregarProveedor(proveedor);
+            return proveedorDao.FiltrarProveedores(texto);
         }
 
-        public void EditarProveedor(Proveedor proveedor)
+
+        
+
+        public string AgregarProveedor(Proveedor proveedor)
         {
-            proveedorDao.EditarProveedor(proveedor);
+            return proveedorDao.AgregarProveedor(proveedor);
+        }
+
+        public string EditarProveedor(Proveedor proveedor)
+        {
+            return proveedorDao.EditarProveedor(proveedor);
         }
 
         public void EliminarProveedor(int idProveedor)

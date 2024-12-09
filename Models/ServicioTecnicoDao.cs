@@ -26,6 +26,25 @@ namespace Models
             return listaServicios;
         }
 
+        public DataTable FiltrarServiciosTecnicos(string texto)
+        {
+            DataTable listaServicios = new DataTable();
+            using (var connection = GetConnection())
+            {
+                SqlDataReader reader;
+                connection.Open();
+                using (var command = new SqlCommand("sp_FiltrarServiciosTecnicos", connection))
+                {
+                    command.Parameters.AddWithValue("@texto", texto);
+                    command.CommandType = CommandType.StoredProcedure;
+                    reader = command.ExecuteReader();
+                    listaServicios.Load(reader);
+                    reader.Close();
+                }
+            }
+            return listaServicios;
+        }
+
         public DataTable ListarServiciosTecnicosConEquipos()
         {
             DataTable listaServicios = new DataTable();
@@ -108,28 +127,6 @@ namespace Models
                     }
                 }
             }
-
-
-
-
-
-
-
-            using (var connection = GetConnection())
-            {
-                connection.Open();
-                using (var command = new SqlCommand("sp_AgregarServicioTecnico", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@falla", servicio.Falla);
-                    command.Parameters.AddWithValue("@responsable", servicio.Responsable);
-                    command.Parameters.AddWithValue("@fecha_envio", servicio.FechaEnvio);
-                    command.Parameters.AddWithValue("@foto", servicio.Foto);
-                    command.Parameters.AddWithValue("@id_equipo", servicio.IdEquipo);
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
-                }
-            }
         }
 
         // Método para editar un servicio técnico existente
@@ -143,9 +140,7 @@ namespace Models
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@id_servicio_tecnico", servicio.IdServicioTecnico);
                     command.Parameters.AddWithValue("@falla", servicio.Falla);
-                    command.Parameters.AddWithValue("@fecha_envio", servicio.FechaEnvio);
                     command.Parameters.AddWithValue("@foto", servicio.Foto);
-                    command.Parameters.AddWithValue("@id_equipo", servicio.IdEquipo);
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                 }

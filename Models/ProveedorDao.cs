@@ -26,43 +26,128 @@ namespace Models
             return listaProveedores;
         }
 
-        // Método para agregar un nuevo proveedor
-        public void AgregarProveedor(Proveedor proveedor)
+        public DataTable FiltrarProveedores(string texto)
         {
+            DataTable listaProveedores = new DataTable();
             using (var connection = GetConnection())
             {
+                SqlDataReader reader;
                 connection.Open();
-                using (var command = new SqlCommand("sp_AgregarProveedor", connection))
+                using (var command = new SqlCommand("sp_FiltrarProveedores", connection))
                 {
+                    command.Parameters.AddWithValue("@texto", texto);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@nombre", proveedor.Nombre);
-                    command.Parameters.AddWithValue("@telefono", proveedor.Telefono);
-                    command.Parameters.AddWithValue("@correo", proveedor.Correo);
-                    command.Parameters.AddWithValue("@direccion", proveedor.Direccion);
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
+                    reader = command.ExecuteReader();
+                    listaProveedores.Load(reader);
+                    reader.Close();
                 }
             }
+            return listaProveedores;
+        }
+
+
+
+
+        // Método para agregar un nuevo proveedor
+        public string AgregarProveedor(Proveedor proveedor)
+        {
+
+            string resultado = string.Empty;
+
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("sp_AgregarProveedor", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Agrega los parámetros
+                        command.Parameters.AddWithValue("@nombre", proveedor.Nombre);
+                        command.Parameters.AddWithValue("@Telefono", proveedor.Telefono);
+                        command.Parameters.AddWithValue("@jurisdiccion", proveedor.Jurisdiccion);
+                        command.Parameters.AddWithValue("@Correo", proveedor.Correo);
+                        command.Parameters.AddWithValue("@Direccion", proveedor.Direccion);
+
+                        // Captura mensajes del procedimiento almacenado
+                        connection.InfoMessage += (sender, e) =>
+                        {
+                            foreach (SqlError error in e.Errors)
+                            {
+                                resultado = error.Message; // Captura el mensaje del servidor
+                            }
+                        };
+
+                        // Ejecuta el procedimiento
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    resultado = "Error SQL: " + ex.Message; // Retorna el mensaje de error
+                }
+                catch (Exception ex)
+                {
+                    resultado = "Error general: " + ex.Message; // Retorna otro tipo de error
+                }
+            }
+
+            return resultado; // Retorna el mensaje capturado
+
         }
 
         // Método para editar un proveedor existente
-        public void EditarProveedor(Proveedor proveedor)
+        public string EditarProveedor(Proveedor proveedor)
         {
+
+
+            string resultado = string.Empty;
+
             using (var connection = GetConnection())
             {
-                connection.Open();
-                using (var command = new SqlCommand("sp_EditarProveedor", connection))
+                try
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@id_proveedor", proveedor.IdProveedor);
-                    command.Parameters.AddWithValue("@nombre", proveedor.Nombre);
-                    command.Parameters.AddWithValue("@telefono", proveedor.Telefono);
-                    command.Parameters.AddWithValue("@correo", proveedor.Correo);
-                    command.Parameters.AddWithValue("@direccion", proveedor.Direccion);
-                    command.ExecuteNonQuery();
-                    command.Parameters.Clear();
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("sp_EditarProveedor", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Agrega los parámetros
+                        command.Parameters.AddWithValue("@id_proveedor", proveedor.IdProveedor);
+                        command.Parameters.AddWithValue("@nombre", proveedor.Nombre);
+                        command.Parameters.AddWithValue("@Telefono", proveedor.Telefono);
+                        command.Parameters.AddWithValue("@jurisdiccion", proveedor.Jurisdiccion);
+                        command.Parameters.AddWithValue("@Correo", proveedor.Correo);
+                        command.Parameters.AddWithValue("@Direccion", proveedor.Direccion);
+
+                        // Captura mensajes del procedimiento almacenado
+                        connection.InfoMessage += (sender, e) =>
+                        {
+                            foreach (SqlError error in e.Errors)
+                            {
+                                resultado = error.Message; // Captura el mensaje del servidor
+                            }
+                        };
+
+                        // Ejecuta el procedimiento
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    resultado = "Error SQL: " + ex.Message; // Retorna el mensaje de error
+                }
+                catch (Exception ex)
+                {
+                    resultado = "Error general: " + ex.Message; // Retorna otro tipo de error
                 }
             }
+
+            return resultado; // Retorna el mensaje capturado
+
         }
 
         // Método para eliminar un proveedor

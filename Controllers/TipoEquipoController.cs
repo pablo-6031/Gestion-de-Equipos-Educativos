@@ -18,20 +18,31 @@ namespace Controllers
             return tipoEquipoDao.ListarTipoEquipos();
         }
 
+        public DataTable FiltrarTipoEquipos(string texto)
+        {
+            return tipoEquipoDao.FiltrarTipoEquipos(texto);
+        }
+
+        public List<string> ObtenerTiposEquiposUnicos()
+        {
+            return tipoEquipoDao.ObtenerTiposEquiposUnicos();
+        }
+
+
         public TipoEquipo TraerTipoEquipos(int id)
         {
             return tipoEquipoDao.TraerTipoEquipos(id);
         }
 
 
-        public void AgregarTipoEquipo(TipoEquipo tipoEquipo)
+        public string AgregarTipoEquipo(TipoEquipo tipoEquipo)
         {
-            tipoEquipoDao.AgregarTipoEquipo(tipoEquipo);
+            return tipoEquipoDao.AgregarTipoEquipo(tipoEquipo);
         }
 
-        public void EditarTipoEquipo(TipoEquipo tipoEquipo)
+        public string EditarTipoEquipo(TipoEquipo tipoEquipo)
         {
-            tipoEquipoDao.EditarTipoEquipo(tipoEquipo);
+            return tipoEquipoDao.EditarTipoEquipo(tipoEquipo);
         }
 
         public void EliminarTipoEquipo(int id)

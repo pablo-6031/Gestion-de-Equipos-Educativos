@@ -3,107 +3,170 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos" 
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1500" WindowStyle="None">
     <Grid MouseLeftButtonDown="mover" x:Name="Principal" >
         <Grid.RowDefinitions>
+
             <RowDefinition Height="13*"/>
-            <RowDefinition Height="212*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="141*"/>
-            <ColumnDefinition Width="1243*"/>
-            <ColumnDefinition Width="116*"/>
+            <ColumnDefinition Width="79*"/>
+
+            <ColumnDefinition Width="296*"/>
         </Grid.ColumnDefinitions>
 
 
-        <Rectangle  RadiusY="4.671" RadiusX="4.671" Grid.ColumnSpan="3" Grid.RowSpan="2" Fill="{StaticResource colorFondo}">
 
-        </Rectangle>
 
-        <!-- Barra Superior -->
-        <DockPanel   Grid.Row="0" Grid.Column="0"  MouseLeftButtonDown="DockPanel_MouseLeftButtonDown" Grid.ColumnSpan="3" Background="{StaticResource colorBarraSuperior}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right">
-                <Button Name="btnMinimizar" Content="_" Width="30" Height="30" Click="btnMinimizar_Click" Background="#2D9596" Foreground="White" Margin="2" />
-                <Button Name="btnMaximizar" Content="☐" Width="30" Height="30" Click="btnMaximizar_Click" Background="#2D9596" Foreground="White" Margin="2"  />
-                <Button Name="btnCerrar" Content="X" Width="30" Height="30" Click="btnCerrar_Click" Background="Red" Foreground="White" Margin="2" />
+
+
+        <!--Navigation Menu-->
+        <Border CornerRadius="10,0,0,10"
+                    Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
+                    <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel>
+
+                <!--Logo-->
+                <StackPanel Orientation="Horizontal"
+                                Height="113"
+                                Margin="15,25,0,40">
+
+                    <Ellipse  Grid.Row="0" x:Name="FotoUsuario"   StrokeThickness="5"  VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="70" Width="70" Margin="25,15,0,0" >
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Imagenes/user.jpg"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <TextBlock Name="txtUsuario" Text="RJ CODE"
+                                   Foreground="{StaticResource titleColor2}"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <!--Menu Buttons-->
+                <RadioButton x:Name="btnInstitucion" Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="True"
+                                 Command="{Binding ShowHomeViewCommand}" Click="btnInstitucion_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Institucion" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnAlumnos" Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color2}"
+                                 Command="{Binding ShowCustomerViewCommand}" Click="btnAlumnos_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Alumnos" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnActa" Style="{StaticResource menuButton}"
+                 Tag="{StaticResource color2}"
+                 Command="{Binding ShowCustomerViewCommand}" Click="btnActa_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnUsuarios" Style="{StaticResource menuButton}"
+                 Tag="{StaticResource color2}"
+                 Command="{Binding ShowCustomerViewCommand}" Click="btnUsuarios_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Usuarios" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnInventario" Style="{StaticResource menuButton}"
+                 Tag="{StaticResource color2}"
+                 Command="{Binding ShowCustomerViewCommand}" Click="btnInventario_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Equipos" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnTipoEquipo" Style="{StaticResource menuButton}"
+                 Tag="{StaticResource color2}"
+                 Command="{Binding ShowCustomerViewCommand}" Click="btnTipoEquipo_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Tipos de Equipos" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnProveedor"  Style="{StaticResource menuButton}"
+ Tag="{StaticResource color2}"
+ Command="{Binding ShowCustomerViewCommand}" Click="btnProveedor_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Proveedores" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnServicioTecnico" Style="{StaticResource menuButton}"
+ Tag="{StaticResource color2}"
+ Command="{Binding ShowCustomerViewCommand}" Click="btnServicioTecnico_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Servicio Técnico" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="btnPrestamo" Style="{StaticResource menuButton}"
+ Tag="{StaticResource color2}"
+ Command="{Binding ShowCustomerViewCommand}" Click="btnPrestamo_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Prestamo" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+
             </StackPanel>
+        </Border>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
 
-        </DockPanel>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="211*"/>
 
 
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28*"/>
 
-
-        <!-- Barra de navegación lateral -->
-        <StackPanel  Grid.Row="1"  Background="{StaticResource colorFondo}" >
-            <Button x:Name="btnInstitucion"   Height="60"  Click="btnInstitucion_Click" Background="{StaticResource colorFondo}">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="GraduationCap" FontSize="23" />
-                    <TextBlock Text="Institucion" VerticalAlignment="Center" />
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0"  MouseLeftButtonDown="DockPanel_MouseLeftButtonDown" Grid.ColumnSpan="4" Grid.RowSpan="1" Background="{StaticResource colorBarraSuperior}" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Grid.Row="0">
+                    <Button Name="btnMinimizar" Content="_" Width="30" Height="30" Click="btnMinimizar_Click" Background="#2D9596" Foreground="White" Margin="2" />
+                    <Button Name="btnMaximizar" Content="☐" Width="30" Height="30" Click="btnMaximizar_Click" Background="#2D9596" Foreground="White" Margin="2"  />
+                    <Button Name="btnCerrar" Content="X" Width="30" Height="30" Click="btnCerrar_Click" Background="Red" Foreground="White" Margin="2" />
                 </StackPanel>
-            </Button>
-            <Button x:Name="btnAlumnos"  Height="60" Click="btnAlumnos_Click" Background="#FFAB3A3A">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="User" FontSize="23" />
-                    <TextBlock Text="Alumnos" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnUsuarios"  Height="60" Click="btnUsuarios_Click" Background="#FFAB3A3A">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="UserSecret" FontSize="23" />
-                    <TextBlock Text="Usuarios" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnInventario"   Height="60"  Click="btnInventario_Click" Background="#FFB32020">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Laptop" FontSize="23" />
-                    <TextBlock Text="Equipos" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnTipoEquipo"  Height="60"  Click="btnTipoEquipo_Click" Background="#FFB32020">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Laptop" FontSize="23" />
-                    <TextBlock Text="Tipo Equipo" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnProveedor"  Height="60"  Click="btnProveedor_Click" Background="#FFB32020">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Laptop" FontSize="23" />
-                    <TextBlock Text="Proveedores" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnActa" Height="60"  Click="btnActa_Click" Background="#FFB32020">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Laptop" FontSize="23" />
-                    <TextBlock Text="Actas" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
-            <Button x:Name="btnServicioTecnico"  Height="60"  Click="btnServicioTecnico_Click" Background="#FFB32020">
-                <StackPanel Orientation="Horizontal">
-                    <fa:FontAwesome Icon="Laptop" FontSize="23" />
-                    <TextBlock Text="Servicio Tecnico" VerticalAlignment="Center" />
-                </StackPanel>
-            </Button>
 
+            </DockPanel>
 
-        </StackPanel>
+            <Frame x:Name="FramePrincipal" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top" NavigationUIVisibility="Hidden" Source="Paginas/Usuarios.xaml"/>
+        </Grid>
 
+        
 
-        <Ellipse Grid.Row="0" x:Name="FotoUsuario"   StrokeThickness="5" Margin="35,5,35,5" >
-            <Ellipse.Fill>
-                <ImageBrush ImageSource="Imagenes/user.jpg"/>
-            </Ellipse.Fill>
-        </Ellipse>
-
-        <StackPanel  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="60" Width="93" >
-            <Label Name="txtUsuario" Content="Usuario" Foreground="White" FontSize="18"/>
-            <Label Name="txtRol" Content="Rol" Foreground="White" />
-        </StackPanel>
-
-        <!-- Contenido Principal -->
-        <Frame x:Name="FramePrincipal"  HorizontalAlignment="Left"  VerticalAlignment="Center" NavigationUIVisibility="Hidden" Source="Paginas/Usuarios.xaml" Width="1368" Height="848"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
 
 
     </Grid>

@@ -5,30 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos"
         mc:Ignorable="d"
-        Title="Login" Height="472" Width="700" Foreground="#FF140B0B" >
-    <Grid>
+        Title="Login" Height="442" Width="876" Foreground="#FF140B0B" WindowStyle="None" Background="{x:Null}" WindowStartupLocation="CenterOwner" >
+    <Grid MouseLeftButtonDown="mover" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="71*"/>
-            <ColumnDefinition Width="104*"/>
+            <ColumnDefinition Width="87*"/>
+            <ColumnDefinition Width="59*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="229*"/>
-            <RowDefinition Height="134*"/>
-            <RowDefinition Height="93*"/>
+            <RowDefinition Height="61*"/>
+            <RowDefinition Height="129*"/>
+            <RowDefinition Height="111*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="3" RadiusX="18" RadiusY="18" Stroke="{StaticResource colorFondo}" StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="2"/>
-        <Ellipse x:Name="Foto" Margin="78,85,59,34" Stroke="{StaticResource colorFondo}" StrokeThickness="5" >
-            <Ellipse.Fill>
-                <ImageBrush ImageSource="Imagenes/user.jpg"/>
-            </Ellipse.Fill>
-        </Ellipse>
-        <StackPanel Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
+        <Rectangle Grid.Column="1" Grid.RowSpan="3" Fill="#FF003269"/>
+        <Rectangle Grid.RowSpan="3"  StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="1" Margin="0,0,0,-1" MouseLeftButtonDown="mover"/>
+        <StackPanel Margin="0,32,0,0" Grid.Row="1" Grid.Column="0">
             <TextBox Name="txtLoginName" Text="Usuario" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxTextos}" GotKeyboardFocus="txtLoginName_GotKeyboardFocus" LostKeyboardFocus="txtLoginName_LostKeyboardFocus"/>
 
             <PasswordBox x:Name="txtPassword" Password="Contraseña" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource PasswordBoxTextos}" LostKeyboardFocus="txtPassword_LostKeyboardFocus" GotKeyboardFocus="txtPassword_GotKeyboardFocus" ></PasswordBox>
         </StackPanel>
-        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Click="btnIngresar_Click" Background="#FFDA5F1F" Margin="27,27,27,27"/>
-        <Button x:Name="btnCerrar" Content="X" Grid.Row="0" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0"  Click="btnCerrar_Click" Grid.Column="1"/>
+        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Click="btnIngresar_Click" Background="#FFDA5F1F" Margin="50,66,46,40"/>
+        <Button x:Name="btnCerrar" Content="X" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="376,0,0,0"  Click="btnCerrar_Click" Grid.Column="1"/>
 
     </Grid>
 </Window>
