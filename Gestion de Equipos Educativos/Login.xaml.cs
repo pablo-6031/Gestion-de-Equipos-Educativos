@@ -82,7 +82,7 @@ namespace Gestion_de_Equipos_Educativos
                             MainWindow ventanaPrincipal = new MainWindow(UsuarioCache.Rol);
                             txtLoginName.Clear();
                             txtPassword.Clear();
-                            
+                            this.Hide();
                             ventanaPrincipal.ShowDialog();
                             ventanaPrincipal.Closed += Logout;
                             this.Close();

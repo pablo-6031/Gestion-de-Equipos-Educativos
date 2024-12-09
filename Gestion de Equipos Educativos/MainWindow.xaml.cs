@@ -60,7 +60,8 @@ namespace Gestion_de_Equipos_Educativos
         private void cargarDatos()
         {
 
-            this.txtUsuario.Text= UsuarioCache.Nombre + " " + UsuarioCache.Apellido;
+            this.txtApellido.Text=  UsuarioCache.Apellido;
+            this.txtNombre.Text = UsuarioCache.Nombre;
             this.FotoUsuario.Fill = ConvertirBytesAImageBrush(UsuarioCache.Foto);
         }
 

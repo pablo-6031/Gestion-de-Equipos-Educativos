@@ -17,14 +17,105 @@
             <RowDefinition Height="111*"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.Column="1" Grid.RowSpan="3" Fill="#FF003269"/>
-        <Rectangle Grid.RowSpan="3"  StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="1" Margin="0,0,0,-1" MouseLeftButtonDown="mover"/>
-        <StackPanel Margin="0,32,0,0" Grid.Row="1" Grid.Column="0">
-            <TextBox Name="txtLoginName" Text="Usuario" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource TextBoxTextos}" GotKeyboardFocus="txtLoginName_GotKeyboardFocus" LostKeyboardFocus="txtLoginName_LostKeyboardFocus"/>
+        <Rectangle Grid.RowSpan="3"  StrokeThickness=" 5" Fill="Black" Grid.ColumnSpan="1" Margin="0,0,0,-1" MouseLeftButtonDown="mover" />
+        <StackPanel Margin="80,85,80,0" Grid.Column="0" Grid.RowSpan="2">
 
-            <PasswordBox x:Name="txtPassword" Password="Contraseña" Margin="0,10" VerticalAlignment="Center" Width="200" Height="30" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource PasswordBoxTextos}" LostKeyboardFocus="txtPassword_LostKeyboardFocus" GotKeyboardFocus="txtPassword_GotKeyboardFocus" ></PasswordBox>
+            <TextBlock Text="Nombre de Usuario"
+Foreground="DarkGray"
+FontSize="12"
+FontWeight="Medium"
+FontFamily="Montserrat"                             
+Margin="0,35,0,0" HorizontalAlignment="Left"/>
+            <TextBox Name="txtLoginName" FontSize="13" FontWeight="Medium" FontFamily="Montserrat"                            Foreground="White"
+CaretBrush="LightGray"
+BorderBrush="DarkGray"
+BorderThickness="0,0,0,2"
+Height="32"
+VerticalContentAlignment="Center"
+Margin="0,5,0,0"
+Padding="20,0,0,0">
+                <TextBox.Background>
+                    <ImageBrush 
+           Stretch="None"
+           AlignmentX="center"/>
+                </TextBox.Background>
+            </TextBox>
+
+
+
+
+
+            <TextBlock Text="Contraseña"
+Foreground="DarkGray"
+FontSize="12"
+FontWeight="Medium"
+FontFamily="Montserrat"                             
+Margin="0,15,0,0" HorizontalAlignment="Left"/>
+
+            <Grid>
+                <PasswordBox x:Name="txtPassword"
+      FontSize="13"
+      FontWeight="Medium"
+      FontFamily="Montserrat"                            
+      Foreground="White"
+      CaretBrush="LightGray"
+      BorderBrush="DarkGray"
+      BorderThickness="0,0,0,2"
+      Height="28"
+      VerticalContentAlignment="Center"
+      Margin="0,5,0,0"
+      Padding="20,0,0,0">
+                    <PasswordBox.Background>
+                        <ImageBrush 
+             Stretch="None"
+             AlignmentX="Center"/>
+                    </PasswordBox.Background>
+                </PasswordBox>
+
+                <TextBox 
+  FontSize="13"
+  FontWeight="Medium"
+  FontFamily="Montserrat"                            
+  Foreground="White"
+  CaretBrush="LightGray"
+  BorderBrush="DarkGray"
+  BorderThickness="0,0,0,2"
+  Height="28"
+  VerticalContentAlignment="Center"
+  Margin="0,5,0,0"
+  Padding="20,0,0,0"
+  Visibility="Collapsed">
+                    <TextBox.Background>
+                        <ImageBrush 
+             Stretch="None"
+             AlignmentX="Left"/>
+                    </TextBox.Background>
+                </TextBox>
+
+                <Button 
+
+ FontSize="16"
+ Background="Transparent"
+ BorderThickness="0"
+ Foreground="DarkGray"
+ Cursor="Hand"
+ HorizontalAlignment="Right"
+ VerticalAlignment="Center"
+ Margin="0,5,5,0"
+/>
+            </Grid>
+
+
+
+
+
+
+
+
+
         </StackPanel>
-        <Button x:Name="btnIngresar" Content="Ingresar" Grid.Row="2" Click="btnIngresar_Click" Background="#FFDA5F1F" Margin="50,66,46,40"/>
-        <Button x:Name="btnCerrar" Content="X" Width="30" Height="30" Template="{StaticResource ButtonCerrar}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="376,0,0,0"  Click="btnCerrar_Click" Grid.Column="1"/>
+        <Button x:Name="btnIngresar" BorderThickness="0" Content="INGRESAR"   Grid.Row="2" Click="btnIngresar_Click" Style="{StaticResource Botones}" Background="#FF063568" Margin="77,66,80,40" FontSize="18" Foreground="White" VerticalContentAlignment="Center"/>
+        <Button x:Name="btnCerrar" Content="X" Width="30" Height="30"  VerticalAlignment="Top" HorizontalAlignment="Right"   Click="btnCerrar_Click" Grid.Column="1" Background="{x:Null}" Foreground="White" FontWeight="Bold" BorderBrush="{x:Null}"/>
 
     </Grid>
 </Window>

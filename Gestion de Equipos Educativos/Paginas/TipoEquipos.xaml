@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
-      Title="TipoEquipos" Width="1349" Height="828">
+      Title="TipoEquipos" Width="1250" Height="831">
 
     <Grid >
         <Grid.RowDefinitions>
@@ -18,9 +18,13 @@
         <Button Name="btnAgregarTipoEquipo" Content="AGREGAR" Margin="10,0,0,0"
 HorizontalAlignment="Left" 
 Width="127"  Height="34" VerticalAlignment="Center" Style="{StaticResource Botones}" Click="btnAgregarTipoEquipo_Click"   />
-        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right" Width="342" Height="34" TextChanged="txtBuscar_TextChanged"   />
-        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1328" Margin="0,3,0,10"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGTipoEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="5,5,5,-5" >
+        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right" Width="322" Height="34" TextChanged="txtBuscar_TextChanged" Margin="0,0,20,0"   />
+        <Border Grid.Row="1" HorizontalAlignment="Center"  Width="1228" Margin="0,3,0,10"   BorderThickness="5" Background="{DynamicResource colorFondDg}">
+            <DataGrid Name="DGTipoEquipos" AutoGenerateColumns="False" IsReadOnly="True"  GridLinesVisibility="Vertical"  Margin="17,21,19,15" Style="{StaticResource DarkDataGridStyle}" >
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="60*" >
                         <DataGridTemplateColumn.CellTemplate>
@@ -45,7 +49,7 @@ Width="127"  Height="34" VerticalAlignment="Center" Style="{StaticResource Boton
 
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    
+
                                     <Button Name="btnEditar"  VerticalAlignment="Center" Width="30" Height="25"  Template="{DynamicResource ButtonFilaEdit}" Click="btnEditar_Click" Margin="3,0"  >
                                         <Button.Content>
                                             <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />

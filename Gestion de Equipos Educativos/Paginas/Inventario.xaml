@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
-      Width="1349" Height="828"
+      Width="1250" Height="831"
       Title="Equipos">
 
     <Grid >
@@ -38,8 +38,12 @@
         </Label>
         <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="342" Height="34" TextChanged="txtBuscar_TextChanged"   />
 
-        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1329" Margin="0,3,0,10"  BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}"  ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="-5,5,5,-5" MouseDoubleClick="DGEquipos_MouseDoubleClick">
+        <Border Grid.Row="1" HorizontalAlignment="Center"  Width="1222" Margin="0,3,0,10"   Background="{DynamicResource colorFondDg}" BorderThickness="5">
+            <DataGrid Name="DGEquipos" AutoGenerateColumns="False" IsReadOnly="True"  GridLinesVisibility="Vertical" Margin="17,19,17,12" MouseDoubleClick="DGEquipos_MouseDoubleClick" Style="{StaticResource DarkDataGridStyle}">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
 
                 <DataGrid.Columns>
 

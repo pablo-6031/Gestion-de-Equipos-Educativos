@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gestion_de_Equipos_Educativos.Paginas" xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
-      Title="Servicio Técnico" Width="1349" Height="828">
+      Title="Servicio Técnico" Width="1234" Height="831">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,10 +26,14 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <TextBox x:Name="txtBuscar"    Style="{StaticResource colorTexbox}"  HorizontalAlignment="Right"  Width="342" Height="34" TextChanged="txtBuscar_TextChanged"   />
+        <TextBox x:Name="txtBuscar"  Style="{StaticResource colorTexbox}"     HorizontalAlignment="Right"  Width="324" Height="34" TextChanged="txtBuscar_TextChanged" Margin="0,0,20,0"   />
 
-        <Border Grid.Row="1" HorizontalAlignment="Center" Background="White" Width="1298" Margin="0,3,0,12" BorderBrush="{StaticResource ButtonColor}" BorderThickness="5">
-            <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True" BorderBrush="{x:Null}" ItemContainerStyle="{StaticResource ListViewItemNormalDataGrid}" Background="{x:Null}" GridLinesVisibility="Vertical" Margin="8,5,12,1">
+        <Border Grid.Row="1" HorizontalAlignment="Center" Width="1210" Margin="0,3,0,12" Background="{DynamicResource colorFondDg}" BorderThickness="5">
+            <DataGrid Name="DGServiciosTecnicos" AutoGenerateColumns="False" IsReadOnly="True"  GridLinesVisibility="Vertical" Margin="18,19,17,19"  Style="{StaticResource DarkDataGridStyle}">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DarkDataGridHeaderStyle}"/>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource DarkDataGridCellStyle}"/>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="100*" Header="ID" Binding="{Binding Id_Servicio_Tecnico}" Visibility="Hidden"/>
                     <DataGridTextColumn Width="100*" Header="EQUIPO" Binding="{Binding Tipo}"/>
@@ -54,7 +58,7 @@
                                             <fa:FontAwesome Icon="Edit" Foreground="White" FontSize="15" />
                                         </Button.Content>
                                     </Button>
-                                    
+
                                 </StackPanel>
 
                             </DataTemplate>
