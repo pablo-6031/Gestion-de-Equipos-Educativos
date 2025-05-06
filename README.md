@@ -14,12 +14,11 @@ Se desarrolló como parte de una solución completa de **gestión educativa**, c
 
 ## ⚙️ Tecnologías utilizadas
 
+- **C#**
 - **ASP.NET Core MVC**  
 - **Entity Framework Core**  
 - **SQL Server**  
-- **Bootstrap 5**  
-- **JavaScript + AJAX**  
-- **Vistas parciales y modales para UX moderna**
+
 
 ---
 
